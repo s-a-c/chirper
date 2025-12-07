@@ -328,7 +328,7 @@
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Workflows 2>/dev/null') ?: shell_exec('figlet Test\\ Workflows 2>/dev/null') ?: 'Test Workflows' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed\\033[0m\\n\"; printf \"\\033[0;33mInstall it with: brew install act\\033[0m\\n\"; echo \"Or download from: https://github.com/nektos/act/releases\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; printf \"\\033[0;36mOn macOS, you can start Docker Desktop from Applications or run: open -a Docker\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'printf \"\\033[0;32m✓ Docker is running\\033[0m\\n\"; printf \"\\033[0;32m✓ Listing available workflows...\\033[0m\\n\"; act --list 2>&1 | head -30 || true'"
+            "bash -c 'printf \"\\033[0;32m✓ Docker is running\\033[0m\\n\"; printf \"\\033[0;32m✓ Listing available workflows...\\033[0m\\n\"; act --list --container-architecture linux/amd64 2>&1 | head -30 || true'"
         ],
         "workflow:test:browser": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Browser\\ Workflow 2>/dev/null') ?: shell_exec('figlet Test\\ Browser\\ Workflow 2>/dev/null') ?: 'Test Browser Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
