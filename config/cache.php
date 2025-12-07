@@ -1,6 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Str;
+
+// Fallback for when config is loaded outside Laravel context (e.g., IDE helpers)
+if (! function_exists('env')) {
+    function env(string $key, mixed $defaultValue = null): mixed
+    {
+        return $defaultValue;
+    }
+}
 
 return [
 

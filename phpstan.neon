@@ -1,0 +1,23 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+
+    paths:
+        - app
+        - bootstrap
+        - config
+        - database
+        - database/migrations
+        - public
+        - routes
+        - tests
+
+    excludePaths:
+        - bootstrap/cache
+
+    level: max
+
+    tmpDir: tmp/phpstan
+
+    ignoreErrors:

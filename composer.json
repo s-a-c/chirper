@@ -1,13 +1,66 @@
 {
-    "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
-    "type": "project",
     "description": "The skeleton application for the Laravel framework.",
+    "license": "MIT",
+    "type": "project",
     "keywords": [
         "laravel",
         "framework"
     ],
-    "license": "MIT",
+    "require": {
+        "php": "^8.5",
+        "filament/filament": "^5.0",
+        "laravel/framework": "^12.41.1",
+        "laravel/tinker": "^2.10.2",
+        "livewire/flux": "^2.9.2",
+        "livewire/flux-pro": "^2.9.2",
+        "livewire/livewire": "^4.0@beta"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.16.1",
+        "barryvdh/laravel-ide-helper": "^3.6",
+        "driftingly/rector-laravel": "^2.1.6",
+        "ergebnis/composer-normalize": "^2.48.2",
+        "fakerphp/faker": "^1.24.1",
+        "infection/infection": "^0.31.9",
+        "jasonmccreary/laravel-test-assertions": "^2.8",
+        "larastan/larastan": "^3.8",
+        "laravel-labs/starter-kit-browser-tests": "dev-main",
+        "laravel-shift/blueprint": "^2.13",
+        "laravel/boost": "^1.8.4",
+        "laravel/pail": "^1.2.4",
+        "laravel/pint": "^1.26",
+        "laravel/sail": "^1.50",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.8.3",
+        "pestphp/pest": "^4.1.6",
+        "pestphp/pest-plugin-arch": "^4.0",
+        "pestphp/pest-plugin-browser": "^4.1.1",
+        "pestphp/pest-plugin-faker": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "pestphp/pest-plugin-profanity": "^4.2",
+        "pestphp/pest-plugin-type-coverage": "^4.0.3",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^2.1.33",
+        "phpstan/phpstan-deprecation-rules": "^2.0.3",
+        "phpstan/phpstan-phpunit": "^2.0.10",
+        "phpstan/phpstan-strict-rules": "^2.0.7",
+        "phpunit/phpunit": "^12.4.4",
+        "psalm/plugin-laravel": "dev-master",
+        "psalm/plugin-mockery": "dev-master",
+        "psalm/plugin-phpunit": "dev-master",
+        "rector/rector": "^2.2.11",
+        "rector/type-perfect": "^2.1.1",
+        "roave/security-advisories": "dev-latest",
+        "soloterm/solo": "^0.5",
+        "spatie/laravel-login-link": "^1.6.3",
+        "spatie/laravel-missing-page-redirector": "^2.11.1",
+        "spatie/laravel-queueable-action": "^2.16.2",
+        "spatie/laravel-ray": "^1.43.1",
+        "spatie/laravel-web-tinker": "^1.10.1",
+        "spatie/pest-plugin-snapshots": "^2.2.1",
+        "vimeo/psalm": "^7.0@dev"
+    },
     "repositories": {
         "fluxui-pro": {
             "type": "composer",
@@ -20,58 +73,14 @@
         "laravel-labs-starter-kit-browser-tests": {
             "type": "vcs",
             "url": "https://github.com/laravel-labs/starter-kit-browser-tests"
+        },
+        "psalm-plugin-laravel": {
+            "type": "vcs",
+            "url": "https://github.com/s-a-c/psalm-plugin-laravel"
         }
     },
-    "require": {
-        "php": "^8.5",
-        "filament/filament": "^5.0",
-        "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1",
-        "livewire/flux": "^2.9.1",
-        "livewire/flux-pro": "^2.9.1",
-        "livewire/livewire": "^4.0@beta"
-    },
-    "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.16.1",
-        "barryvdh/laravel-ide-helper": "^3.6",
-        "driftingly/rector-laravel": "^2.1.5",
-        "ergebnis/composer-normalize": "^2.48.2",
-        "fakerphp/faker": "^1.24.1",
-        "infection/infection": "^0.31.9",
-        "jasonmccreary/laravel-test-assertions": "^2.8",
-        "larastan/larastan": "^3.8",
-        "laravel-labs/starter-kit-browser-tests": "dev-main",
-        "laravel-shift/blueprint": "^2.13",
-        "laravel/boost": "^1.8.3",
-        "laravel/pail": "^1.2.4",
-        "laravel/pint": "^1.26",
-        "laravel/sail": "^1.48.1",
-        "mockery/mockery": "^1.6.12",
-        "nunomaduro/collision": "^8.8.3",
-        "pestphp/pest": "^4.1.6",
-        "pestphp/pest-plugin-arch": "^4.0",
-        "pestphp/pest-plugin-browser": "^4.1.1",
-        "pestphp/pest-plugin-faker": "^4.0",
-        "pestphp/pest-plugin-laravel": "^4.0",
-        "pestphp/pest-plugin-profanity": "^4.2",
-        "pestphp/pest-plugin-type-coverage": "^4.0.3",
-        "phpstan/extension-installer": "^1.4.3",
-        "phpstan/phpstan": "^2.1.32",
-        "phpstan/phpstan-deprecation-rules": "^2.0.3",
-        "phpstan/phpstan-phpunit": "^2.0.8",
-        "phpstan/phpstan-strict-rules": "^2.0.7",
-        "phpunit/phpunit": "^12.4.4",
-        "rector/rector": "^2.2.11",
-        "rector/type-perfect": "^2.1.1",
-        "roave/security-advisories": "dev-latest",
-        "soloterm/solo": "^0.5",
-        "spatie/laravel-login-link": "^1.6.3",
-        "spatie/laravel-missing-page-redirector": "^2.11.1",
-        "spatie/laravel-queueable-action": "^2.16.2",
-        "spatie/laravel-ray": "^1.43.1",
-        "spatie/laravel-web-tinker": "^1.10.1",
-        "spatie/pest-plugin-snapshots": "^2.2.1"
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "App\\": "app/",
@@ -82,35 +91,6 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
-        ],
-        "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "bunx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"bun run dev\" --names=server,queue,logs,vite"
-        ]
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "12.x-dev"
-        },
-        "laravel": {
-            "dont-discover": []
         }
     },
     "config": {
@@ -128,6 +108,222 @@
         "process-timeout": 600,
         "sort-packages": true
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "extra": {
+        "branch-alias": {
+            "dev-master": "12.x-dev"
+        },
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "blueprint:build": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Blueprint\\ Build 2>/dev/null') ?: shell_exec('figlet Blueprint\\ Build 2>/dev/null') ?: 'Blueprint Build' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php artisan blueprint:build"
+        ],
+        "blueprint:trace": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Blueprint\\ Trace 2>/dev/null') ?: shell_exec('figlet Blueprint\\ Trace 2>/dev/null') ?: 'Blueprint Trace' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php artisan blueprint:trace"
+        ],
+        "ci:local": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard CI\\ Local 2>/dev/null') ?: shell_exec('figlet CI\\ Local 2>/dev/null') ?: 'CI Local' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bash scripts/run-ci-checks.sh"
+        ],
+        "dev": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Dev\\ Server 2>/dev/null') ?: shell_exec('figlet Dev\\ Server 2>/dev/null') ?: 'Dev Server' . PHP_EOL; echo chr(27) . '[1;36;47m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "Composer\\Config::disableProcessTimeout",
+            "bunx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"bun run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "ide-helper:generate": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard IDE\\ Helper 2>/dev/null') ?: shell_exec('figlet IDE\\ Helper 2>/dev/null') ?: 'IDE Helper' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php artisan ide-helper:generate"
+        ],
+        "lint": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Lint 2>/dev/null') ?: shell_exec('figlet Lint 2>/dev/null') ?: 'Lint' . PHP_EOL; echo chr(27) . '[7;1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@lint:composer",
+            "@lint:rector",
+            "@lint:types",
+            "@lint:pint",
+            "@lint:js"
+        ],
+        "lint:composer": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Composer\\ Normalize 2>/dev/null') ?: shell_exec('figlet Composer\\ Normalize 2>/dev/null') ?: 'Composer Normalize' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "composer normalize --dry-run --no-update-lock || true"
+        ],
+        "lint:composer:fix": [
+            "composer normalize"
+        ],
+        "lint:fix": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Fix\\ Lint 2>/dev/null') ?: shell_exec('figlet Fix\\ Lint 2>/dev/null') ?: 'Fix Lint' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@lint:composer:fix",
+            "@lint:rector:fix",
+            "@lint:types:fix",
+            "@lint:pint:fix",
+            "@lint:js:fix"
+        ],
+        "lint:js": [
+            "bun run lint"
+        ],
+        "lint:js:fix": [
+            "bun run lint:fix"
+        ],
+        "lint:pint": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Pint 2>/dev/null') ?: shell_exec('figlet Pint 2>/dev/null') ?: 'Pint' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d memory_limit=1G vendor/bin/pint --parallel --test"
+        ],
+        "lint:pint:fix": [
+            "php -d memory_limit=1G vendor/bin/pint --parallel"
+        ],
+        "lint:rector": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Rector 2>/dev/null') ?: shell_exec('figlet Rector 2>/dev/null') ?: 'Rector' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d memory_limit=1G vendor/bin/rector --dry-run"
+        ],
+        "lint:rector:fix": [
+            "php -d memory_limit=1G vendor/bin/rector"
+        ],
+        "lint:types": [
+            "@lint:types:phpstan",
+            "@lint:types:psalm"
+        ],
+        "lint:types:fix": [
+            "@lint:types:fix:phpstan",
+            "@lint:types:fix:psalm"
+        ],
+        "lint:types:fix:phpstan": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHPStan\\ Fix 2>/dev/null') ?: shell_exec('figlet PHPStan\\ Fix 2>/dev/null') ?: 'PHPStan Fix' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d memory_limit=1G vendor/bin/phpstan analyse --memory-limit=1G --fix || true"
+        ],
+        "lint:types:fix:psalm": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Psalm\\ Alter 2>/dev/null') ?: shell_exec('figlet Psalm\\ Alter 2>/dev/null') ?: 'Psalm Alter' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/psalm --no-cache --alter --issues=all || true"
+        ],
+        "lint:types:phpstan": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHPStan 2>/dev/null') ?: shell_exec('figlet PHPStan 2>/dev/null') ?: 'PHPStan' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d memory_limit=1G vendor/bin/phpstan analyse --memory-limit=1G"
+        ],
+        "lint:types:psalm": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Psalm 2>/dev/null') ?: shell_exec('figlet Psalm 2>/dev/null') ?: 'Psalm' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/psalm --no-cache"
+        ],
+        "lint:types:psalm:stats": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Psalm\\ Stats 2>/dev/null') ?: shell_exec('figlet Psalm\\ Stats 2>/dev/null') ?: 'Psalm Stats' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/psalm --no-cache --show-info=true --stats"
+        ],
+        "rector:type-perfect": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Type\\ Perfect 2>/dev/null') ?: shell_exec('figlet Type\\ Perfect 2>/dev/null') ?: 'Type Perfect' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d memory_limit=1G vendor/bin/rector process --config=vendor/rector/type-perfect/config/rector.php --dry-run"
+        ],
+        "security:audit": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Security\\ Audit 2>/dev/null') ?: shell_exec('figlet Security\\ Audit 2>/dev/null') ?: 'Security Audit' . PHP_EOL; echo chr(27) . '[7;1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "composer audit --locked || true"
+        ],
+        "setup": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Setup 2>/dev/null') ?: shell_exec('figlet Setup 2>/dev/null') ?: 'Setup' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "bun install",
+            "bun run build"
+        ],
+        "test": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Suite 2>/dev/null') ?: shell_exec('figlet Test\\ Suite 2>/dev/null') ?: 'Test Suite' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@php artisan config:clear --ansi",
+            "@lint",
+            "@test:type-coverage",
+            "@test:coverage",
+            "@test:unit",
+            "@security:audit"
+        ],
+        "test:arch": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Architecture\\ Tests 2>/dev/null') ?: shell_exec('figlet Architecture\\ Tests 2>/dev/null') ?: 'Architecture Tests' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --testsuite=Arch"
+        ],
+        "test:browser": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Browser\\ Tests 2>/dev/null') ?: shell_exec('figlet Browser\\ Tests 2>/dev/null') ?: 'Browser Tests' . PHP_EOL; echo chr(27) . '[1;36;47m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G pest --testsuite=Browser --parallel --processes=4"
+        ],
+        "test:coverage": [
+            "@test:coverage:pcov",
+            "@test:coverage:js"
+        ],
+        "test:coverage:js": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard JS\\ Coverage 2>/dev/null') ?: shell_exec('figlet JS\\ Coverage 2>/dev/null') ?: 'JS Coverage' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bun run test:coverage:js 2>&1 || true"
+        ],
+        "test:coverage:pcov": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHP\\ Coverage\\ \\(PCOV\\) 2>/dev/null') ?: shell_exec('figlet PHP\\ Coverage\\ \\(PCOV\\) 2>/dev/null') ?: 'PHP Coverage (PCOV)' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G -d xdebug.mode=off -d pcov.enabled=1 vendor/bin/pest --coverage --min=99.4 2>&1 || true"
+        ],
+        "test:coverage:xdebug": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHP\\ Coverage\\ \\(XDEBUG\\) 2>/dev/null') ?: shell_exec('figlet PHP\\ Coverage\\ \\(XDEBUG\\) 2>/dev/null') ?: 'PHP Coverage (XDEBUG)' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G -d xdebug.mode=coverage -d pcov.enabled=0 -r \"if (!extension_loaded('xdebug') || ini_get('xdebug.mode') !== 'coverage') { echo 'xdebug driver not available' . PHP_EOL; exit(0); } if (extension_loaded('pcov')) { echo 'Warning: pcov is loaded, Pest will prefer pcov over xdebug. Consider disabling pcov extension for xdebug coverage.' . PHP_EOL; }\" && vendor/bin/pest --coverage --min=99.4 2>&1 || php -r \"echo 'xdebug driver not available' . PHP_EOL;\" || true"
+        ],
+        "test:mutation": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mutation\\ Testing 2>/dev/null') ?: shell_exec('figlet Mutation\\ Testing 2>/dev/null') ?: 'Mutation Testing' . PHP_EOL; echo chr(27) . '[1;33;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/infection --min-msi=90 --threads=4 --formatter=progress --show-mutations --force-progress"
+        ],
+        "test:profanity": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Profanity\\ Check 2>/dev/null') ?: shell_exec('figlet Profanity\\ Check 2>/dev/null') ?: 'Profanity Check' . PHP_EOL; echo chr(27) . '[1;31m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --filter=profanity"
+        ],
+        "test:type-coverage": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Type\\ Coverage 2>/dev/null') ?: shell_exec('figlet Type\\ Coverage 2>/dev/null') ?: 'Type Coverage' . PHP_EOL; echo chr(27) . '[7;1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --type-coverage --min=100"
+        ],
+        "test:unit": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Unit\\ Tests 2>/dev/null') ?: shell_exec('figlet Unit\\ Tests 2>/dev/null') ?: 'Unit Tests' . PHP_EOL; echo chr(27) . '[1;34;47m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G -d xdebug.mode=off -d pcov.enabled=1 vendor/bin/pest --testsuite=Unit,Feature --coverage --min=99"
+        ],
+        "test:unit:js": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard JS\\ Unit\\ Tests 2>/dev/null') ?: shell_exec('figlet JS\\ Unit\\ Tests 2>/dev/null') ?: 'JS Unit Tests' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bun run test 2>&1"
+        ],
+        "update:requirements": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Update\\ Requirements 2>/dev/null') ?: shell_exec('figlet Update\\ Requirements 2>/dev/null') ?: 'Update Requirements' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "composer bump",
+            "bunx npm-check-updates -u"
+        ],
+        "workflow:core": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Core\\ Workflow 2>/dev/null') ?: shell_exec('figlet Core\\ Workflow 2>/dev/null') ?: 'Core Workflow' . PHP_EOL; echo chr(27) . '[7;1;37m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@lint:fix",
+            "@test:unit",
+            "@security:audit"
+        ],
+        "workflow:full": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Full\\ Workflow 2>/dev/null') ?: shell_exec('figlet Full\\ Workflow 2>/dev/null') ?: 'Full Workflow' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@workflow:core",
+            "@test:arch",
+            "@test:profanity",
+            "@workflow:heavy"
+        ],
+        "workflow:heavy": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Heavy\\ Workflow 2>/dev/null') ?: shell_exec('figlet Heavy\\ Workflow 2>/dev/null') ?: 'Heavy Workflow' . PHP_EOL; echo chr(27) . '[1;35;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@test:mutation",
+            "@test:browser"
+        ],
+        "workflow:policy": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Policy\\ Monitor 2>/dev/null') ?: shell_exec('figlet Policy\\ Monitor 2>/dev/null') ?: 'Policy Monitor' . PHP_EOL; echo chr(27) . '[1;33;40m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "php artisan policy:checksum-monitor"
+        ]
+    },
+    "$schema": "https://getcomposer.org/schema.json"
 }
