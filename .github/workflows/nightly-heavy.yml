@@ -57,7 +57,7 @@ jobs:
           php artisan db:seed --class=BasePlatformSeeder
 
       - name: Run Heavy Tier Workflow
-        run: composer workflow:heavy
+        run: composer testsuite:heavy
 
       - name: Run Policy Checksum Monitor
         run: php artisan policy:checksum-monitor

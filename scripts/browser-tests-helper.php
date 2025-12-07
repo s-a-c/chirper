@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableWebpage|Webpage $page): PendingAwaitablePage|AwaitableWebpage|Webpage
 {
     try {

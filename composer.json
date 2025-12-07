@@ -302,26 +302,29 @@
             "composer bump",
             "bunx npm-check-updates -u"
         ],
-        "workflow:core": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Core\\ Workflow 2>/dev/null') ?: shell_exec('figlet Core\\ Workflow 2>/dev/null') ?: 'Core Workflow' . PHP_EOL; echo chr(27) . '[7;1;37m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+        "test:core": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Core\\ Test 2>/dev/null') ?: shell_exec('figlet Core\\ Test 2>/dev/null') ?: 'Core Test' . PHP_EOL; echo chr(27) . '[7;1;37m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "@lint:fix",
             "@test:unit",
             "@security:audit"
         ],
-        "workflow:full": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Full\\ Workflow 2>/dev/null') ?: shell_exec('figlet Full\\ Workflow 2>/dev/null') ?: 'Full Workflow' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "@workflow:core",
+        "testsuite:core": [
+            "@test:core"
+        ],
+        "testsuite:full": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Full\\ Test\\ Suite 2>/dev/null') ?: shell_exec('figlet Full\\ Test\\ Suite 2>/dev/null') ?: 'Full Test Suite' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "@test:core",
             "@test:arch",
             "@test:profanity",
-            "@workflow:heavy"
+            "@testsuite:heavy"
         ],
-        "workflow:heavy": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Heavy\\ Workflow 2>/dev/null') ?: shell_exec('figlet Heavy\\ Workflow 2>/dev/null') ?: 'Heavy Workflow' . PHP_EOL; echo chr(27) . '[1;35;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+        "testsuite:heavy": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Heavy\\ Test\\ Suite 2>/dev/null') ?: shell_exec('figlet Heavy\\ Test\\ Suite 2>/dev/null') ?: 'Heavy Test Suite' . PHP_EOL; echo chr(27) . '[1;35;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "@test:mutation",
             "@test:browser"
         ],
-        "workflow:policy": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Policy\\ Monitor 2>/dev/null') ?: shell_exec('figlet Policy\\ Monitor 2>/dev/null') ?: 'Policy Monitor' . PHP_EOL; echo chr(27) . '[1;33;40m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+        "policy:checksum-monitor": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Policy\\ Checksum\\ Monitor 2>/dev/null') ?: shell_exec('figlet Policy\\ Checksum\\ Monitor 2>/dev/null') ?: 'Policy Checksum Monitor' . PHP_EOL; echo chr(27) . '[1;33;40m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "php artisan policy:checksum-monitor"
         ],
         "workflow:test": [
@@ -331,14 +334,17 @@
             "bash -c 'echo \"\\033[0;32m✓ Docker is running\\033[0m\"; echo \"\\033[0;32m✓ Listing available workflows...\\033[0m\"; act --list 2>&1 | head -30 || true'"
         ],
         "workflow:test:lint": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Lint\\ Workflow 2>/dev/null') ?: shell_exec('figlet Test\\ Lint\\ Workflow 2>/dev/null') ?: 'Test Lint Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
             "bash -c 'act -W .github/workflows/lint.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ],
         "workflow:test:pre-commit": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Pre-Commit\\ Workflow 2>/dev/null') ?: shell_exec('figlet Test\\ Pre-Commit\\ Workflow 2>/dev/null') ?: 'Test Pre-Commit Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
             "bash -c 'act -W .github/workflows/pre-commit.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ],
         "workflow:test:browser": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Browser\\ Workflow 2>/dev/null') ?: shell_exec('figlet Test\\ Browser\\ Workflow 2>/dev/null') ?: 'Test Browser Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
             "bash -c 'act -W .github/workflows/browser-tests.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ]
