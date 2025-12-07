@@ -74,35 +74,41 @@ jobs:
           rm -f phpunit.xml.starter-kit-browser.bak
 
           # Add our CSP helper function to the copied Pest.php
-          # First, add required imports if not present (using a more portable approach)
-          IMPORTS_FILE=$(mktemp)
-          cat > "$IMPORTS_FILE" << 'IMPORTS_EOF'
-use Pest\Browser\Api\AwaitableWebpage;
-use Pest\Browser\Api\PendingAwaitablePage;
-use Pest\Browser\Api\Webpage;
-use PHPUnit\Framework\AssertionFailedError;
-IMPORTS_EOF
+          # First, add required imports if not present (using a portable method)
+          PEST_FILE="tests.starter-kit-browser/Pest.php"
+          IMPORTS_NEEDED=false
 
-          # Insert imports after the opening PHP tag if they don't exist
-          if ! grep -q "use Pest\\Browser\\Api\\AwaitableWebpage" tests.starter-kit-browser/Pest.php; then
-            sed -i.bak '1a\
-'"$(cat "$IMPORTS_FILE")"'
-' tests.starter-kit-browser/Pest.php
-            rm -f tests.starter-kit-browser/Pest.php.bak
+          if ! grep -q "use Pest\\Browser\\Api\\AwaitableWebpage" "$PEST_FILE"; then
+            IMPORTS_NEEDED=true
           fi
-          if ! grep -q "use Pest\\Browser\\Api\\PendingAwaitablePage" tests.starter-kit-browser/Pest.php; then
-            # Already added above, skip
-            :
+          if ! grep -q "use Pest\\Browser\\Api\\PendingAwaitablePage" "$PEST_FILE"; then
+            IMPORTS_NEEDED=true
           fi
-          if ! grep -q "use Pest\\Browser\\Api\\Webpage" tests.starter-kit-browser/Pest.php; then
-            # Already added above, skip
-            :
+          if ! grep -q "use Pest\\Browser\\Api\\Webpage" "$PEST_FILE"; then
+            IMPORTS_NEEDED=true
           fi
-          if ! grep -q "use PHPUnit\\Framework\\AssertionFailedError" tests.starter-kit-browser/Pest.php; then
-            # Already added above, skip
-            :
+          if ! grep -q "use PHPUnit\\Framework\\AssertionFailedError" "$PEST_FILE"; then
+            IMPORTS_NEEDED=true
           fi
-          rm -f "$IMPORTS_FILE"
+
+          if [ "$IMPORTS_NEEDED" = "true" ]; then
+            # Create imports block
+            IMPORTS_BLOCK="use Pest\\Browser\\Api\\AwaitableWebpage;
+use Pest\\Browser\\Api\\PendingAwaitablePage;
+use Pest\\Browser\\Api\\Webpage;
+use PHPUnit\\Framework\\AssertionFailedError;
+"
+
+            # Insert after the opening PHP tag using awk (more portable than sed)
+            awk -v imports="$IMPORTS_BLOCK" '
+              /^<\?php/ {
+                print
+                print imports
+                next
+              }
+              { print }
+            ' "$PEST_FILE" > "$PEST_FILE.tmp" && mv "$PEST_FILE.tmp" "$PEST_FILE"
+          fi
 
           # Add the CSP helper function at the end of Pest.php
           cat >> tests.starter-kit-browser/Pest.php << 'HELPER_EOF'
