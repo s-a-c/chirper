@@ -64,7 +64,7 @@ jobs:
       - name: Setup Test Environment
         run: |
           cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist .
-          rm phpunit.xml
+          rm -f phpunit.xml
           rm -Rf tests/
           cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests/
           # Add our CSP helper function to the copied Pest.php
