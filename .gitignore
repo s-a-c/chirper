@@ -10,6 +10,7 @@
 .env
 .env.backup
 .env.production
+.envrc
 .phpactor.json
 .phpunit.result.cache
 Homestead.json
@@ -31,4 +32,5 @@ yarn-error.log
 .kiro/steering/byterover-rules.md
 .qoder/rules/byterover-rules.md
 .augment/rules/byterover-rules.md
-/0
+# Ignore files/folders with digit-only names (no extension) at any directory level
+**/[0-9]*
