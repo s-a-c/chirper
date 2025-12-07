@@ -332,15 +332,15 @@
         ],
         "workflow:test:lint": [
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
-            "bash -c 'act -W .github/workflows/lint.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 || echo \"\\033[0;33mNote: Some steps may fail locally due to missing secrets or environment differences\\033[0m\"'"
+            "bash -c 'act -W .github/workflows/lint.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ],
         "workflow:test:pre-commit": [
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
-            "bash -c 'act -W .github/workflows/pre-commit.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 || echo \"\\033[0;33mNote: Some steps may fail locally due to missing secrets or environment differences\\033[0m\"'"
+            "bash -c 'act -W .github/workflows/pre-commit.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ],
         "workflow:test:browser": [
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
-            "bash -c 'act -W .github/workflows/browser-tests.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 || echo \"\\033[0;33mNote: Some steps may fail locally due to missing secrets or environment differences\\033[0m\"'"
+            "bash -c 'act -W .github/workflows/browser-tests.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ]
     },
     "$schema": "https://getcomposer.org/schema.json"
