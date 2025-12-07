@@ -65,33 +65,45 @@ jobs:
         run: |
           # Create separate directory for browser tests to avoid overwriting project files
           cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests.starter-kit-browser/
-          
+
           # Create separate phpunit.xml configuration for browser tests
           cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist phpunit.xml.starter-kit-browser
-          
+
           # Update phpunit.xml.starter-kit-browser to use the separate tests directory
           sed -i.bak 's|<directory>tests/</directory>|<directory>tests.starter-kit-browser/</directory>|g' phpunit.xml.starter-kit-browser
           rm -f phpunit.xml.starter-kit-browser.bak
-          
+
           # Add our CSP helper function to the copied Pest.php
-          # First, add required imports if not present
-          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\AwaitableWebpage" tests.starter-kit-browser/Pest.php; then
-            sed -i.bak '/^<?php/a use Pest\\Browser\\Api\\AwaitableWebpage;' tests.starter-kit-browser/Pest.php
+          # First, add required imports if not present (using a more portable approach)
+          IMPORTS_FILE=$(mktemp)
+          cat > "$IMPORTS_FILE" << 'IMPORTS_EOF'
+use Pest\Browser\Api\AwaitableWebpage;
+use Pest\Browser\Api\PendingAwaitablePage;
+use Pest\Browser\Api\Webpage;
+use PHPUnit\Framework\AssertionFailedError;
+IMPORTS_EOF
+
+          # Insert imports after the opening PHP tag if they don't exist
+          if ! grep -q "use Pest\\Browser\\Api\\AwaitableWebpage" tests.starter-kit-browser/Pest.php; then
+            sed -i.bak '1a\
+'"$(cat "$IMPORTS_FILE")"'
+' tests.starter-kit-browser/Pest.php
             rm -f tests.starter-kit-browser/Pest.php.bak
           fi
-          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\PendingAwaitablePage" tests.starter-kit-browser/Pest.php; then
-            sed -i.bak '/^<?php/a use Pest\\Browser\\Api\\PendingAwaitablePage;' tests.starter-kit-browser/Pest.php
-            rm -f tests.starter-kit-browser/Pest.php.bak
+          if ! grep -q "use Pest\\Browser\\Api\\PendingAwaitablePage" tests.starter-kit-browser/Pest.php; then
+            # Already added above, skip
+            :
           fi
-          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\Webpage" tests.starter-kit-browser/Pest.php; then
-            sed -i.bak '/^<?php/a use Pest\\Browser\\Api\\Webpage;' tests.starter-kit-browser/Pest.php
-            rm -f tests.starter-kit-browser/Pest.php.bak
+          if ! grep -q "use Pest\\Browser\\Api\\Webpage" tests.starter-kit-browser/Pest.php; then
+            # Already added above, skip
+            :
           fi
-          if ! grep -q "use PHPUnit\\\\Framework\\\\AssertionFailedError" tests.starter-kit-browser/Pest.php; then
-            sed -i.bak '/^<?php/a use PHPUnit\\Framework\\AssertionFailedError;' tests.starter-kit-browser/Pest.php
-            rm -f tests.starter-kit-browser/Pest.php.bak
+          if ! grep -q "use PHPUnit\\Framework\\AssertionFailedError" tests.starter-kit-browser/Pest.php; then
+            # Already added above, skip
+            :
           fi
-          
+          rm -f "$IMPORTS_FILE"
+
           # Add the CSP helper function at the end of Pest.php
           cat >> tests.starter-kit-browser/Pest.php << 'HELPER_EOF'
 
@@ -172,7 +184,7 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
     return $page;
 }
 HELPER_EOF
-          
+
           # Replace assertNoJavaScriptErrors() with assertNoJavaScriptErrorsExceptCspParser() in all test files
           find tests.starter-kit-browser/ -name "*.php" -type f -exec sed -i.bak 's/->assertNoJavaScriptErrors()/->assertNoJavaScriptErrorsExceptCspParser()/g' {} \;
           find tests.starter-kit-browser/ -name "*.bak" -type f -delete
