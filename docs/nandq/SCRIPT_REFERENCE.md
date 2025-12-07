@@ -13,7 +13,8 @@ Complete documentation of all scripts in `composer.json` and `package.json` with
   - [Development Tools](#development-tools)
   - [Code Refactoring](#code-refactoring)
   - [Security](#security)
-  - [Workflows](#workflows)
+  - [Test Suites](#test-suites)
+  - [Policy](#policy)
   - [Development](#development)
   - [CI/CD](#cicd)
   - [Utilities](#utilities)
@@ -70,7 +71,7 @@ This project uses a consistent naming pattern across both Composer (PHP) and Pac
 **Title:** Run All Linters
 **Description:** Executes all linting tools in check mode (dry-run)
 **Explanation:** Aggregator script that runs composer normalization check, Rector dry-run, Pint style check, and JavaScript linting. Does not modify files.
-**Workflow Association:** Used in `test`, `workflow:core`, `test:lint`
+**Workflow Association:** Used in `test`, `testsuite:core`, `test:lint`
 **Cross-Reference:** Calls `lint:js` which calls `bun run lint` (package.json)
 
 ```bash
@@ -194,7 +195,7 @@ composer lint:js:fix
 **Title:** Run All Type Checkers
 **Description:** Executes both PHPStan and Psalm static analysis
 **Explanation:** Aggregator script that runs comprehensive type checking from both PHPStan (Larastan) and Psalm to ensure maximum type safety coverage.
-**Workflow Association:** Used in `test`, `workflow:core`
+**Workflow Association:** Used in `test`, `testsuite:core`
 **Cross-Reference:** N/A (PHP-specific)
 
 ```bash
@@ -390,7 +391,7 @@ composer test:unit:js
 **Title:** Browser Tests
 **Description:** Runs Pest browser tests with Playwright
 **Explanation:** Executes Pest browser tests using Playwright for end-to-end testing. Runs in parallel with 4 processes.
-**Workflow Association:** Part of `workflow:heavy` script
+**Workflow Association:** Part of `testsuite:heavy` script
 **Cross-Reference:** N/A (PHP-specific, uses Playwright via Pest)
 
 ```bash
@@ -402,7 +403,7 @@ composer test:browser
 **Title:** Mutation Testing
 **Description:** Runs Infection mutation testing framework
 **Explanation:** Executes Infection to perform mutation testing, ensuring test quality by introducing small changes (mutations) and verifying tests catch them. Requires 90% minimum mutation score indicator (MSI).
-**Workflow Association:** Part of `workflow:heavy` script
+**Workflow Association:** Part of `testsuite:heavy` script
 **Cross-Reference:** N/A (PHP-specific)
 
 ```bash
@@ -414,7 +415,7 @@ composer test:mutation
 **Title:** Architecture Tests
 **Description:** Runs Pest architecture tests using pest-plugin-arch
 **Explanation:** Executes architecture tests to validate code structure, dependency rules, and architectural constraints defined in test files.
-**Workflow Association:** Part of `workflow:full` script
+**Workflow Association:** Part of `testsuite:full` script
 **Cross-Reference:** N/A (PHP-specific)
 
 ```bash
@@ -426,7 +427,7 @@ composer test:arch
 **Title:** Profanity Check
 **Description:** Runs profanity checks using pest-plugin-profanity
 **Explanation:** Scans codebase for profanity and inappropriate language in code, comments, and strings.
-**Workflow Association:** Part of `workflow:full` script
+**Workflow Association:** Part of `testsuite:full` script
 **Cross-Reference:** N/A (PHP-specific)
 
 ```bash
@@ -507,54 +508,56 @@ composer security:audit
 
 ---
 
-### Workflows
+### Test Suites
 
-#### `workflow:core`
+#### `testsuite:core`
 
-**Title:** Core Workflow
+**Title:** Core Test Suite
 **Description:** Essential checks for code quality and correctness
-**Explanation:** Runs linting, unit tests, type checking, and security audit. This is a fast workflow suitable for pre-commit hooks and frequent validation during development.
-**Workflow Association:** Core workflow
+**Explanation:** Runs linting, unit tests, type checking, and security audit. This is a fast test suite suitable for pre-commit hooks and frequent validation during development.
+**Workflow Association:** Core test suite
 **Cross-Reference:** Calls `test:lint` → `lint:js` → `bun run lint` (package.json)
 
 ```bash
-composer workflow:core
+composer testsuite:core
 ```
 
-#### `workflow:heavy`
+#### `testsuite:heavy`
 
-**Title:** Heavy Workflow
+**Title:** Heavy Test Suite
 **Description:** Comprehensive testing including mutation and browser tests
 **Explanation:** Runs mutation testing and browser tests. These are time-consuming checks typically run in CI/CD pipelines or before major releases.
-**Workflow Association:** Heavy workflow
+**Workflow Association:** Heavy test suite
 **Cross-Reference:** N/A (PHP-specific)
 
 ```bash
-composer workflow:heavy
+composer testsuite:heavy
 ```
 
-#### `workflow:full`
+#### `testsuite:full`
 
-**Title:** Full Workflow
-**Description:** Complete workflow with all checks
-**Explanation:** Runs core workflow plus architecture tests and profanity checks, then heavy workflow. This is the most comprehensive validation, suitable for release candidates.
-**Workflow Association:** Full workflow
-**Cross-Reference:** Includes `workflow:core` which calls JS scripts
+**Title:** Full Test Suite
+**Description:** Complete test suite with all checks
+**Explanation:** Runs core test suite plus architecture tests and profanity checks, then heavy test suite. This is the most comprehensive validation, suitable for release candidates.
+**Workflow Association:** Full test suite
+**Cross-Reference:** Includes `testsuite:core` which calls JS scripts
 
 ```bash
-composer workflow:full
+composer testsuite:full
 ```
 
-#### `workflow:policy`
+### Policy
 
-**Title:** Policy Monitor
+#### `policy:checksum-monitor`
+
+**Title:** Policy Checksum Monitor
 **Description:** Monitors Laravel authorization policy checksums
 **Explanation:** Runs Laravel policy checksum monitoring to detect changes in authorization policies that might affect security.
-**Workflow Association:** Policy workflow
+**Workflow Association:** Policy monitoring
 **Cross-Reference:** N/A (PHP-specific)
 
 ```bash
-composer workflow:policy
+composer policy:checksum-monitor
 ```
 
 ---
@@ -940,21 +943,21 @@ bun run playwright:install
    - `test:types`
    - `security:audit`
 
-2. **`workflow:core`** - Essential checks
+2. **`testsuite:core`** - Essential checks
    - `test:lint`
    - `test:unit`
    - `test:types`
    - `security:audit`
 
-3. **`workflow:heavy`** - Comprehensive testing
+3. **`testsuite:heavy`** - Comprehensive testing
    - `test:mutation`
    - `test:browser`
 
-4. **`workflow:full`** - Complete validation
-   - `workflow:core`
+4. **`testsuite:full`** - Complete validation
+   - `testsuite:core`
    - `test:arch`
    - `test:profanity`
-   - `workflow:heavy`
+   - `testsuite:heavy`
 
 ### Development Workflows
 
@@ -985,8 +988,8 @@ composer lint:fix
 # Run type checking
 composer test:types
 
-# Run core workflow (fast)
-composer workflow:core
+# Run core test suite (fast)
+composer testsuite:core
 ```
 
 ### Full Test Suite
@@ -998,8 +1001,8 @@ composer test
 # With type fixes
 composer test:types:fix
 
-# Full workflow (release candidate)
-composer workflow:full
+# Full test suite (release candidate)
+composer testsuite:full
 ```
 
 ### Development

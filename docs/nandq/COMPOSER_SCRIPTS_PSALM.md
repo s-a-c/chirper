@@ -11,7 +11,7 @@
     - [2.3. `test:types:psalm:stats`](#23-testtypespsalmstats)
   - [3. Updated Scripts](#3-updated-scripts)
     - [3.1. `test`](#31-test)
-    - [3.2. `workflow:core`](#32-workflowcore)
+    - [3.2. `testsuite:core`](#32-testsuitecore)
   - [4. Script Hierarchy](#4-script-hierarchy)
   - [5. Usage Examples](#5-usage-examples)
     - [5.1. Run Only Psalm](#51-run-only-psalm)
@@ -104,12 +104,12 @@ composer test
 - Updated to use `@test:types:all` instead of `@test:types`
 - Now runs both PHPStan and Psalm automatically
 
-### 3.2. `workflow:core`
+### 3.2. `testsuite:core`
 
-The core workflow now includes both type checkers:
+The core test suite now includes both type checkers:
 
 ```bash
-composer workflow:core
+composer testsuite:core
 
 ```
 
@@ -133,7 +133,7 @@ test
 │   └── test:types:psalm    (Psalm) ← NEW
 └── security:audit
 
-workflow:core
+testsuite:core
 ├── test:lint
 ├── test:unit
 ├── test:types:all          ← NEW: Runs both
@@ -182,10 +182,10 @@ composer test
 
 ```
 
-### 5.6. Core Workflow (Includes Both)
+### 5.6. Core Test Suite (Includes Both)
 
 ```bash
-composer workflow:core
+composer testsuite:core
 
 ```
 

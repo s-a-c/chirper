@@ -286,17 +286,17 @@ test
 ├── test:types:all
 └── security:audit
 
-workflow:core
+testsuite:core
 ├── test:lint
 ├── test:unit
 ├── test:types:all
 └── security:audit
 
-workflow:full
-├── workflow:core
+testsuite:full
+├── testsuite:core
 ├── test:arch
 ├── test:profanity
-└── workflow:heavy
+└── testsuite:heavy
 ```
 
 ## Usage Examples
@@ -321,9 +321,9 @@ composer test:types:all
 composer test
 ```
 
-### Complete Workflow
+### Complete Test Suite
 ```bash
-composer workflow:full
+composer testsuite:full
 ```
 
 ### Generate IDE Helper
@@ -343,5 +343,5 @@ composer ide-helper:generate
 
 - Use `composer lint` before committing
 - Run `composer test:types:all` for type checking
-- Execute `composer workflow:core` for quick validation
-- Use `composer workflow:full` for comprehensive checks
+- Execute `composer testsuite:core` for quick validation
+- Use `composer testsuite:full` for comprehensive checks
