@@ -102,7 +102,7 @@ use PHPUnit\Framework\AssertionFailedError;
 IMPORTS_EOF
 
             # Insert imports after the opening PHP tag using awk
-            awk '
+            awk -v imports_file="$IMPORTS_TMP" '
               /^<\?php/ {
                 print
                 while ((getline line < imports_file) > 0) {
@@ -112,7 +112,7 @@ IMPORTS_EOF
                 next
               }
               { print }
-            ' imports_file="$IMPORTS_TMP" "$PEST_FILE" > "$PEST_FILE.tmp" && mv "$PEST_FILE.tmp" "$PEST_FILE"
+            ' "$PEST_FILE" > "$PEST_FILE.tmp" && mv "$PEST_FILE.tmp" "$PEST_FILE"
             rm -f "$IMPORTS_TMP"
           fi
 
