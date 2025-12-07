@@ -63,26 +63,37 @@ jobs:
 
       - name: Setup Test Environment
         run: |
-          cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist .
-          rm -f phpunit.xml
-          rm -Rf tests/
-          cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests/
+          # Create separate directory for browser tests to avoid overwriting project files
+          cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests.starter-kit-browser/
+          
+          # Create separate phpunit.xml configuration for browser tests
+          cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist phpunit.xml.starter-kit-browser
+          
+          # Update phpunit.xml.starter-kit-browser to use the separate tests directory
+          sed -i.bak 's|<directory>tests/</directory>|<directory>tests.starter-kit-browser/</directory>|g' phpunit.xml.starter-kit-browser
+          rm -f phpunit.xml.starter-kit-browser.bak
+          
           # Add our CSP helper function to the copied Pest.php
           # First, add required imports if not present
-          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\AwaitableWebpage" tests/Pest.php; then
-            sed -i '/^<?php/a use Pest\\Browser\\Api\\AwaitableWebpage;' tests/Pest.php
+          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\AwaitableWebpage" tests.starter-kit-browser/Pest.php; then
+            sed -i.bak '/^<?php/a use Pest\\Browser\\Api\\AwaitableWebpage;' tests.starter-kit-browser/Pest.php
+            rm -f tests.starter-kit-browser/Pest.php.bak
           fi
-          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\PendingAwaitablePage" tests/Pest.php; then
-            sed -i '/^<?php/a use Pest\\Browser\\Api\\PendingAwaitablePage;' tests/Pest.php
+          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\PendingAwaitablePage" tests.starter-kit-browser/Pest.php; then
+            sed -i.bak '/^<?php/a use Pest\\Browser\\Api\\PendingAwaitablePage;' tests.starter-kit-browser/Pest.php
+            rm -f tests.starter-kit-browser/Pest.php.bak
           fi
-          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\Webpage" tests/Pest.php; then
-            sed -i '/^<?php/a use Pest\\Browser\\Api\\Webpage;' tests/Pest.php
+          if ! grep -q "use Pest\\\\Browser\\\\Api\\\\Webpage" tests.starter-kit-browser/Pest.php; then
+            sed -i.bak '/^<?php/a use Pest\\Browser\\Api\\Webpage;' tests.starter-kit-browser/Pest.php
+            rm -f tests.starter-kit-browser/Pest.php.bak
           fi
-          if ! grep -q "use PHPUnit\\\\Framework\\\\AssertionFailedError" tests/Pest.php; then
-            sed -i '/^<?php/a use PHPUnit\\Framework\\AssertionFailedError;' tests/Pest.php
+          if ! grep -q "use PHPUnit\\\\Framework\\\\AssertionFailedError" tests.starter-kit-browser/Pest.php; then
+            sed -i.bak '/^<?php/a use PHPUnit\\Framework\\AssertionFailedError;' tests.starter-kit-browser/Pest.php
+            rm -f tests.starter-kit-browser/Pest.php.bak
           fi
+          
           # Add the CSP helper function at the end of Pest.php
-          cat >> tests/Pest.php << 'HELPER_EOF'
+          cat >> tests.starter-kit-browser/Pest.php << 'HELPER_EOF'
 
 function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableWebpage|Webpage $page): PendingAwaitablePage|AwaitableWebpage|Webpage
 {
@@ -161,12 +172,13 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
     return $page;
 }
 HELPER_EOF
+          
           # Replace assertNoJavaScriptErrors() with assertNoJavaScriptErrorsExceptCspParser() in all test files
-          find tests/ -name "*.php" -type f -exec sed -i.bak 's/->assertNoJavaScriptErrors()/->assertNoJavaScriptErrorsExceptCspParser()/g' {} \;
-          find tests/ -name "*.bak" -type f -delete
+          find tests.starter-kit-browser/ -name "*.php" -type f -exec sed -i.bak 's/->assertNoJavaScriptErrors()/->assertNoJavaScriptErrorsExceptCspParser()/g' {} \;
+          find tests.starter-kit-browser/ -name "*.bak" -type f -delete
 
       - name: Build Assets
         run: bun run build
 
       - name: Tests
-        run: php vendor/bin/pest
+        run: php vendor/bin/pest --configuration=phpunit.xml.starter-kit-browser
