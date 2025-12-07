@@ -92,22 +92,28 @@ jobs:
           fi
 
           if [ "$IMPORTS_NEEDED" = "true" ]; then
-            # Create imports block
-            IMPORTS_BLOCK="use Pest\\Browser\\Api\\AwaitableWebpage;
-use Pest\\Browser\\Api\\PendingAwaitablePage;
-use Pest\\Browser\\Api\\Webpage;
-use PHPUnit\\Framework\\AssertionFailedError;
-"
+            # Create temporary file with imports
+            IMPORTS_TMP=$(mktemp)
+            cat > "$IMPORTS_TMP" << 'IMPORTS_EOF'
+use Pest\Browser\Api\AwaitableWebpage;
+use Pest\Browser\Api\PendingAwaitablePage;
+use Pest\Browser\Api\Webpage;
+use PHPUnit\Framework\AssertionFailedError;
+IMPORTS_EOF
 
-            # Insert after the opening PHP tag using awk (more portable than sed)
-            awk -v imports="$IMPORTS_BLOCK" '
+            # Insert imports after the opening PHP tag using awk
+            awk '
               /^<\?php/ {
                 print
-                print imports
+                while ((getline line < imports_file) > 0) {
+                  print line
+                }
+                close(imports_file)
                 next
               }
               { print }
-            ' "$PEST_FILE" > "$PEST_FILE.tmp" && mv "$PEST_FILE.tmp" "$PEST_FILE"
+            ' imports_file="$IMPORTS_TMP" "$PEST_FILE" > "$PEST_FILE.tmp" && mv "$PEST_FILE.tmp" "$PEST_FILE"
+            rm -f "$IMPORTS_TMP"
           fi
 
           # Add the CSP helper function at the end of Pest.php
