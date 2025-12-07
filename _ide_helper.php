@@ -15837,7 +15837,7 @@ namespace Illuminate\Support\Facades {
          * 
          * Suppose this request is instantiated from /mysite on localhost:
          * 
-         *  * http://localhost/mysite              returns an empty string
+         *  * http://localhost/mysite              returns '/'
          *  * http://localhost/mysite/about        returns '/about'
          *  * http://localhost/mysite/enco%20ded   returns '/enco%20ded'
          *  * http://localhost/mysite/about?var=1  returns '/about'
@@ -24221,6 +24221,15 @@ namespace Livewire {
         {
             /** @var \Livewire\LivewireManager $instance */
             return $instance->setUpdateRoute($callback);
+        }
+
+        /**
+         * @static
+         */
+        public static function getUriPrefix()
+        {
+            /** @var \Livewire\LivewireManager $instance */
+            return $instance->getUriPrefix();
         }
 
         /**

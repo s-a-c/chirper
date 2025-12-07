@@ -343,7 +343,7 @@
         "workflow:test:pre-commit": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Pre-Commit\\ Workflow 2>/dev/null') ?: shell_exec('figlet Test\\ Pre-Commit\\ Workflow 2>/dev/null') ?: 'Test Pre-Commit Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
-            "bash -c 'act -W .github/workflows/pre-commit.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
+            "bash -c 'act pull_request -W .github/workflows/pre-commit.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 -P ubuntu-latest=catthehacker/ubuntu:act-latest --dryrun 2>&1 | head -30 || echo \"\\033[0;33mNote: Use --dryrun to preview, remove it to actually run the workflow\\033[0m\"'"
         ]
     },
     "$schema": "https://getcomposer.org/schema.json"
