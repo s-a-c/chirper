@@ -323,6 +323,24 @@
         "workflow:policy": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Policy\\ Monitor 2>/dev/null') ?: shell_exec('figlet Policy\\ Monitor 2>/dev/null') ?: 'Policy Monitor' . PHP_EOL; echo chr(27) . '[1;33;40m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "php artisan policy:checksum-monitor"
+        ],
+        "workflow:test": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Workflows 2>/dev/null') ?: shell_exec('figlet Test\\ Workflows 2>/dev/null') ?: 'Test Workflows' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed\\033[0m\"; echo \"\\033[0;33mInstall it with: brew install act\\033[0m\"; echo \"Or download from: https://github.com/nektos/act/releases\"; exit 1; fi'",
+            "bash -c 'if ! docker info &> /dev/null 2>&1; then echo \"\\033[0;31m✗ Docker is not running\\033[0m\"; echo \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\"; echo \"\\033[0;36mOn macOS, you can start Docker Desktop from Applications or run: open -a Docker\\033[0m\"; exit 1; fi'",
+            "bash -c 'echo \"\\033[0;32m✓ Docker is running\\033[0m\"; echo \"\\033[0;32m✓ Listing available workflows...\\033[0m\"; act --list 2>&1 | head -30 || true'"
+        ],
+        "workflow:test:lint": [
+            "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
+            "bash -c 'act -W .github/workflows/lint.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 || echo \"\\033[0;33mNote: Some steps may fail locally due to missing secrets or environment differences\\033[0m\"'"
+        ],
+        "workflow:test:pre-commit": [
+            "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
+            "bash -c 'act -W .github/workflows/pre-commit.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 || echo \"\\033[0;33mNote: Some steps may fail locally due to missing secrets or environment differences\\033[0m\"'"
+        ],
+        "workflow:test:browser": [
+            "bash -c 'if ! command -v act &> /dev/null; then echo \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\"; exit 1; fi'",
+            "bash -c 'act -W .github/workflows/browser-tests.yml --secret FLUXUI_PRO_USERNAME=\"${FLUXUI_PRO_USERNAME:-}\" --secret FLUXUI_PRO_KEY=\"${FLUXUI_PRO_KEY:-}\" --container-architecture linux/amd64 || echo \"\\033[0;33mNote: Some steps may fail locally due to missing secrets or environment differences\\033[0m\"'"
         ]
     },
     "$schema": "https://getcomposer.org/schema.json"
