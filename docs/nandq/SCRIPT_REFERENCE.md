@@ -1,34 +1,117 @@
 # Script Reference - Composer & Package.json
 
+-----
+
+<details>
+<summary>Click to expand for Table of Contents</summary>
+
+- [Script Reference - Composer \& Package.json](#script-reference---composer--packagejson)
+  - [1. Overview](#1-overview)
+  - [2. Script Categories](#2-script-categories)
+    - [2.1. Composer Scripts (PHP)](#21-composer-scripts-php)
+    - [2.2. Package.json Scripts (JavaScript/TypeScript)](#22-packagejson-scripts-javascripttypescript)
+  - [3. Composer Scripts](#3-composer-scripts)
+    - [3.1. Linting \& Code Quality](#31-linting--code-quality)
+      - [3.1.1. `lint`](#311-lint)
+      - [3.1.2. `lint:fix`](#312-lintfix)
+      - [3.1.3. `lint:composer`](#313-lintcomposer)
+      - [3.1.4. `lint:composer:fix`](#314-lintcomposerfix)
+      - [3.1.5. `lint:rector`](#315-lintrector)
+      - [3.1.6. `lint:rector:fix`](#316-lintrectorfix)
+      - [3.1.7. `lint:pint`](#317-lintpint)
+      - [3.1.8. `lint:pint:fix`](#318-lintpintfix)
+      - [3.1.9. `lint:js`](#319-lintjs)
+      - [3.1.10. `lint:js:fix`](#3110-lintjsfix)
+    - [3.2. Type Checking](#32-type-checking)
+      - [3.2.1. `test:types`](#321-testtypes)
+      - [3.2.2. `test:types:phpstan`](#322-testtypesphpstan)
+      - [3.2.3. `test:types:psalm`](#323-testtypespsalm)
+      - [3.2.4. `test:types:psalm:stats`](#324-testtypespsalmstats)
+      - [3.2.5. `test:types:fix`](#325-testtypesfix)
+      - [3.2.6. `test:types:fix:phpstan`](#326-testtypesfixphpstan)
+      - [3.2.7. `test:types:fix:psalm`](#327-testtypesfixpsalm)
+    - [3.3. Testing](#33-testing)
+      - [3.3.1. `test`](#331-test)
+      - [3.3.2. `test:lint`](#332-testlint)
+      - [3.3.3. `test:type-coverage`](#333-testtype-coverage)
+      - [3.3.4. `test:coverage`](#334-testcoverage)
+      - [3.3.5. `test:coverage:pcov`](#335-testcoveragepcov)
+      - [3.3.6. `test:coverage:xdebug`](#336-testcoveragexdebug)
+      - [3.3.7. `test:coverage:js`](#337-testcoveragejs)
+      - [3.3.8. `test:unit`](#338-testunit)
+      - [3.3.9. `test:unit:js`](#339-testunitjs)
+      - [3.3.10. `test:browser`](#3310-testbrowser)
+      - [3.3.11. `test:mutation`](#3311-testmutation)
+      - [3.3.12. `test:arch`](#3312-testarch)
+      - [3.3.13. `test:profanity`](#3313-testprofanity)
+    - [3.4. Development Tools](#34-development-tools)
+      - [3.4.1. `ide-helper:generate`](#341-ide-helpergenerate)
+      - [3.4.2. `blueprint:build`](#342-blueprintbuild)
+      - [3.4.3. `blueprint:trace`](#343-blueprinttrace)
+    - [3.5. Code Refactoring](#35-code-refactoring)
+      - [3.5.1. `rector:type-perfect`](#351-rectortype-perfect)
+    - [3.6. Security](#36-security)
+      - [3.6.1. `security:audit`](#361-securityaudit)
+    - [3.7. Test Suites](#37-test-suites)
+      - [3.7.1. `testsuite:core`](#371-testsuitecore)
+      - [3.7.2. `testsuite:heavy`](#372-testsuiteheavy)
+      - [3.7.3. `testsuite:full`](#373-testsuitefull)
+    - [3.8. Policy](#38-policy)
+      - [3.8.1. `policy:checksum-monitor`](#381-policychecksum-monitor)
+    - [3.9. Development](#39-development)
+      - [3.9.1. `dev`](#391-dev)
+      - [3.9.2. `setup`](#392-setup)
+    - [3.10. CI/CD](#310-cicd)
+      - [3.10.1. `ci:local`](#3101-cilocal)
+    - [3.11. Utilities](#311-utilities)
+      - [3.11.1. `update:requirements`](#3111-updaterequirements)
+  - [4. Package.json Scripts](#4-packagejson-scripts)
+    - [4.1. Build \& Development](#41-build--development)
+      - [4.1.1. `build`](#411-build)
+      - [4.1.2. `dev`](#412-dev)
+      - [4.1.3. `preview`](#413-preview)
+    - [4.2. Linting](#42-linting)
+      - [4.2.1. `lint`](#421-lint)
+      - [4.2.2. `lint:fix`](#422-lintfix)
+      - [4.2.3. `lint:js`](#423-lintjs)
+      - [4.2.4. `lint:js:fix`](#424-lintjsfix)
+    - [4.3. Testing](#43-testing)
+      - [4.3.1. `test`](#431-test)
+      - [4.3.2. `test:browser`](#432-testbrowser)
+      - [4.3.3. `test:coverage`](#433-testcoverage)
+      - [4.3.4. `test:coverage:js`](#434-testcoveragejs)
+      - [4.3.5. `test:coverage:js:clover`](#435-testcoveragejsclover)
+      - [4.3.6. `test:coverage:js:html`](#436-testcoveragejshtml)
+      - [4.3.7. `test:coverage:js:json`](#437-testcoveragejsjson)
+      - [4.3.8. `test:coverage:js:lcov`](#438-testcoveragejslcov)
+      - [4.3.9. `test:coverage:js:text`](#439-testcoveragejstext)
+      - [4.3.10. `test:lint`](#4310-testlint)
+      - [4.3.11. `test:run`](#4311-testrun)
+      - [4.3.12. `test:unit`](#4312-testunit)
+      - [4.3.13. `test:unit:js`](#4313-testunitjs)
+      - [4.3.14. `test:watch`](#4314-testwatch)
+      - [4.3.15. `playwright:install`](#4315-playwrightinstall)
+  - [5. Cross-References](#5-cross-references)
+    - [5.1. PHP → JavaScript](#51-php--javascript)
+    - [5.2. JavaScript → PHP](#52-javascript--php)
+    - [5.3. Bidirectional](#53-bidirectional)
+  - [6. Workflow Associations](#6-workflow-associations)
+    - [6.1. Primary Workflows](#61-primary-workflows)
+    - [6.2. Development Workflows](#62-development-workflows)
+  - [7. Usage Examples](#7-usage-examples)
+    - [7.1. Quick Development Checks](#71-quick-development-checks)
+    - [7.2. Full Test Suite](#72-full-test-suite)
+    - [7.3. Development](#73-development)
+    - [7.4. Maintenance](#74-maintenance)
+  - [8. Notes](#8-notes)
+
+</details>
+
+-----
+
 Complete documentation of all scripts in `composer.json` and `package.json` with descriptions, workflows, and cross-references.
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Script Categories](#script-categories)
-- [Composer Scripts](#composer-scripts)
-  - [Linting & Code Quality](#linting--code-quality)
-  - [Type Checking](#type-checking)
-  - [Testing](#testing)
-  - [Development Tools](#development-tools)
-  - [Code Refactoring](#code-refactoring)
-  - [Security](#security)
-  - [Test Suites](#test-suites)
-  - [Policy](#policy)
-  - [Development](#development)
-  - [CI/CD](#cicd)
-  - [Utilities](#utilities)
-- [Package.json Scripts](#packagejson-scripts)
-  - [Build & Development](#build--development)
-  - [Linting](#linting)
-  - [Testing](#testing-1)
-- [Cross-References](#cross-references)
-- [Workflow Associations](#workflow-associations)
-- [Usage Examples](#usage-examples)
-
----
-
-## Overview
+## 1. Overview
 
 This project uses a consistent naming pattern across both Composer (PHP) and Package.json (JavaScript/TypeScript) scripts:
 
@@ -37,11 +120,11 @@ This project uses a consistent naming pattern across both Composer (PHP) and Pac
 - **Fix scripts** use `:fix:toolname` pattern (e.g., `lint:js:fix`, `test:types:fix:phpstan`)
 - **Language-specific** scripts use `:js` suffix for JavaScript/TypeScript tools
 
----
+-----
 
-## Script Categories
+## 2. Script Categories
 
-### Composer Scripts (PHP)
+### 2.1. Composer Scripts (PHP)
 
 1. **Linting & Code Quality** - Code style and quality checks
 2. **Type Checking** - Static analysis and type safety
@@ -54,19 +137,19 @@ This project uses a consistent naming pattern across both Composer (PHP) and Pac
 9. **CI/CD** - Continuous integration scripts
 10. **Utilities** - Setup and maintenance
 
-### Package.json Scripts (JavaScript/TypeScript)
+### 2.2. Package.json Scripts (JavaScript/TypeScript)
 
 1. **Build & Development** - Vite bundler and dev server
 2. **Linting** - Prettier code formatting
 3. **Testing** - Vitest unit tests and Playwright browser tests
 
----
+-----
 
-## Composer Scripts
+## 3. Composer Scripts
 
-### Linting & Code Quality
+### 3.1. Linting & Code Quality
 
-#### `lint`
+#### 3.1.1. `lint`
 
 **Title:** Run All Linters
 **Description:** Executes all linting tools in check mode (dry-run)
@@ -76,9 +159,10 @@ This project uses a consistent naming pattern across both Composer (PHP) and Pac
 
 ```bash
 composer lint
+
 ```
 
-#### `lint:fix`
+#### 3.1.2. `lint:fix`
 
 **Title:** Fix All Linting Issues
 **Description:** Automatically fixes issues found by all linting tools
@@ -88,9 +172,10 @@ composer lint
 
 ```bash
 composer lint:fix
+
 ```
 
-#### `lint:composer`
+#### 3.1.3. `lint:composer`
 
 **Title:** Check Composer Normalization
 **Description:** Validates `composer.json` is normalized according to Composer schema
@@ -100,9 +185,10 @@ composer lint:fix
 
 ```bash
 composer lint:composer
+
 ```
 
-#### `lint:composer:fix`
+#### 3.1.4. `lint:composer:fix`
 
 **Title:** Normalize Composer File
 **Description:** Automatically normalizes `composer.json` to match Composer schema
@@ -112,9 +198,10 @@ composer lint:composer
 
 ```bash
 composer lint:composer:fix
+
 ```
 
-#### `lint:rector`
+#### 3.1.5. `lint:rector`
 
 **Title:** Check Code with Rector
 **Description:** Analyzes code for potential refactoring opportunities (dry-run)
@@ -124,9 +211,10 @@ composer lint:composer:fix
 
 ```bash
 composer lint:rector
+
 ```
 
-#### `lint:rector:fix`
+#### 3.1.6. `lint:rector:fix`
 
 **Title:** Apply Rector Fixes
 **Description:** Automatically applies Rector transformations to code
@@ -136,9 +224,10 @@ composer lint:rector
 
 ```bash
 composer lint:rector:fix
+
 ```
 
-#### `lint:pint`
+#### 3.1.7. `lint:pint`
 
 **Title:** Check Code Style with Pint
 **Description:** Validates PHP code follows Laravel coding standards (dry-run)
@@ -148,9 +237,10 @@ composer lint:rector:fix
 
 ```bash
 composer lint:pint
+
 ```
 
-#### `lint:pint:fix`
+#### 3.1.8. `lint:pint:fix`
 
 **Title:** Fix Code Style with Pint
 **Description:** Automatically formats PHP code to match Laravel standards
@@ -160,9 +250,10 @@ composer lint:pint
 
 ```bash
 composer lint:pint:fix
+
 ```
 
-#### `lint:js`
+#### 3.1.9. `lint:js`
 
 **Title:** Check JavaScript Code Style
 **Description:** Validates JavaScript/TypeScript code follows Prettier formatting rules
@@ -172,9 +263,10 @@ composer lint:pint:fix
 
 ```bash
 composer lint:js
+
 ```
 
-#### `lint:js:fix`
+#### 3.1.10. `lint:js:fix`
 
 **Title:** Fix JavaScript Code Style
 **Description:** Automatically formats JavaScript/TypeScript code with Prettier
@@ -184,13 +276,14 @@ composer lint:js
 
 ```bash
 composer lint:js:fix
+
 ```
 
----
+-----
 
-### Type Checking
+### 3.2. Type Checking
 
-#### `test:types`
+#### 3.2.1. `test:types`
 
 **Title:** Run All Type Checkers
 **Description:** Executes both PHPStan and Psalm static analysis
@@ -200,9 +293,10 @@ composer lint:js:fix
 
 ```bash
 composer test:types
+
 ```
 
-#### `test:types:phpstan`
+#### 3.2.2. `test:types:phpstan`
 
 **Title:** PHPStan Static Analysis
 **Description:** Runs PHPStan (via Larastan) for Laravel-aware static analysis
@@ -212,9 +306,10 @@ composer test:types
 
 ```bash
 composer test:types:phpstan
+
 ```
 
-#### `test:types:psalm`
+#### 3.2.3. `test:types:psalm`
 
 **Title:** Psalm Static Analysis
 **Description:** Runs Psalm static analysis for comprehensive type checking
@@ -224,9 +319,10 @@ composer test:types:phpstan
 
 ```bash
 composer test:types:psalm
+
 ```
 
-#### `test:types:psalm:stats`
+#### 3.2.4. `test:types:psalm:stats`
 
 **Title:** Psalm Statistics
 **Description:** Shows detailed type coverage statistics from Psalm
@@ -236,9 +332,10 @@ composer test:types:psalm
 
 ```bash
 composer test:types:psalm:stats
+
 ```
 
-#### `test:types:fix`
+#### 3.2.5. `test:types:fix`
 
 **Title:** Fix All Type Issues
 **Description:** Automatically fixes issues found by both PHPStan and Psalm
@@ -248,9 +345,10 @@ composer test:types:psalm:stats
 
 ```bash
 composer test:types:fix
+
 ```
 
-#### `test:types:fix:phpstan`
+#### 3.2.6. `test:types:fix:phpstan`
 
 **Title:** PHPStan Auto-Fix
 **Description:** Automatically fixes issues found by PHPStan (experimental)
@@ -260,9 +358,10 @@ composer test:types:fix
 
 ```bash
 composer test:types:fix:phpstan
+
 ```
 
-#### `test:types:fix:psalm`
+#### 3.2.7. `test:types:fix:psalm`
 
 **Title:** Psalm Auto-Fix (Psalter)
 **Description:** Automatically fixes issues found by Psalm using Psalter
@@ -272,13 +371,14 @@ composer test:types:fix:phpstan
 
 ```bash
 composer test:types:fix:psalm
+
 ```
 
----
+-----
 
-### Testing
+### 3.3. Testing
 
-#### `test`
+#### 3.3.1. `test`
 
 **Title:** Full Test Suite
 **Description:** Runs complete test suite with all checks
@@ -288,9 +388,10 @@ composer test:types:fix:psalm
 
 ```bash
 composer test
+
 ```
 
-#### `test:lint`
+#### 3.3.2. `test:lint`
 
 **Title:** Test Linting Checks
 **Description:** Validates code style and structure before tests
@@ -300,9 +401,10 @@ composer test
 
 ```bash
 composer test:lint
+
 ```
 
-#### `test:type-coverage`
+#### 3.3.3. `test:type-coverage`
 
 **Title:** Type Coverage Check
 **Description:** Validates type coverage using Pest plugin
@@ -312,9 +414,10 @@ composer test:lint
 
 ```bash
 composer test:type-coverage
+
 ```
 
-#### `test:coverage`
+#### 3.3.4. `test:coverage`
 
 **Title:** Run All Coverage Reports
 **Description:** Generates code coverage reports for PHP and JavaScript
@@ -324,9 +427,10 @@ composer test:type-coverage
 
 ```bash
 composer test:coverage
+
 ```
 
-#### `test:coverage:pcov`
+#### 3.3.5. `test:coverage:pcov`
 
 **Title:** PHP Coverage (PCOV)
 **Description:** Generates PHP code coverage report using PCOV extension
@@ -336,9 +440,10 @@ composer test:coverage
 
 ```bash
 composer test:coverage:pcov
+
 ```
 
-#### `test:coverage:xdebug`
+#### 3.3.6. `test:coverage:xdebug`
 
 **Title:** PHP Coverage (Xdebug)
 **Description:** Generates PHP code coverage report using Xdebug extension
@@ -348,9 +453,10 @@ composer test:coverage:pcov
 
 ```bash
 composer test:coverage:xdebug
+
 ```
 
-#### `test:coverage:js`
+#### 3.3.7. `test:coverage:js`
 
 **Title:** JavaScript Coverage
 **Description:** Generates JavaScript/TypeScript code coverage report
@@ -360,9 +466,10 @@ composer test:coverage:xdebug
 
 ```bash
 composer test:coverage:js
+
 ```
 
-#### `test:unit`
+#### 3.3.8. `test:unit`
 
 **Title:** Unit & Feature Tests
 **Description:** Runs Pest unit and feature tests with coverage
@@ -372,9 +479,10 @@ composer test:coverage:js
 
 ```bash
 composer test:unit
+
 ```
 
-#### `test:unit:js`
+#### 3.3.9. `test:unit:js`
 
 **Title:** JavaScript Unit Tests
 **Description:** Runs JavaScript/TypeScript unit tests
@@ -384,9 +492,10 @@ composer test:unit
 
 ```bash
 composer test:unit:js
+
 ```
 
-#### `test:browser`
+#### 3.3.10. `test:browser`
 
 **Title:** Browser Tests
 **Description:** Runs Pest browser tests with Playwright
@@ -396,9 +505,10 @@ composer test:unit:js
 
 ```bash
 composer test:browser
+
 ```
 
-#### `test:mutation`
+#### 3.3.11. `test:mutation`
 
 **Title:** Mutation Testing
 **Description:** Runs Infection mutation testing framework
@@ -408,9 +518,10 @@ composer test:browser
 
 ```bash
 composer test:mutation
+
 ```
 
-#### `test:arch`
+#### 3.3.12. `test:arch`
 
 **Title:** Architecture Tests
 **Description:** Runs Pest architecture tests using pest-plugin-arch
@@ -420,9 +531,10 @@ composer test:mutation
 
 ```bash
 composer test:arch
+
 ```
 
-#### `test:profanity`
+#### 3.3.13. `test:profanity`
 
 **Title:** Profanity Check
 **Description:** Runs profanity checks using pest-plugin-profanity
@@ -432,13 +544,14 @@ composer test:arch
 
 ```bash
 composer test:profanity
+
 ```
 
----
+-----
 
-### Development Tools
+### 3.4. Development Tools
 
-#### `ide-helper:generate`
+#### 3.4.1. `ide-helper:generate`
 
 **Title:** Generate IDE Helper
 **Description:** Generates IDE helper files for better auto-completion
@@ -450,7 +563,7 @@ composer test:profanity
 composer ide-helper:generate
 ```
 
-#### `blueprint:build`
+#### 3.4.2. `blueprint:build`
 
 **Title:** Build Blueprint Components
 **Description:** Generates Laravel components from Blueprint draft
@@ -462,7 +575,7 @@ composer ide-helper:generate
 composer blueprint:build
 ```
 
-#### `blueprint:trace`
+#### 3.4.3. `blueprint:trace`
 
 **Title:** Trace Blueprint Models
 **Description:** Creates Blueprint definitions for existing models
@@ -472,13 +585,14 @@ composer blueprint:build
 
 ```bash
 composer blueprint:trace
+
 ```
 
----
+-----
 
-### Code Refactoring
+### 3.5. Code Refactoring
 
-#### `rector:type-perfect`
+#### 3.5.1. `rector:type-perfect`
 
 **Title:** Type Perfect Analysis
 **Description:** Runs Rector Type Perfect for advanced type checking
@@ -488,13 +602,14 @@ composer blueprint:trace
 
 ```bash
 composer rector:type-perfect
+
 ```
 
----
+-----
 
-### Security
+### 3.6. Security
 
-#### `security:audit`
+#### 3.6.1. `security:audit`
 
 **Title:** Security Audit
 **Description:** Scans dependencies for known security vulnerabilities
@@ -504,14 +619,14 @@ composer rector:type-perfect
 
 ```bash
 composer security:audit
+
 ```
 
----
+-----
 
-### Test Suites
+### 3.7. Test Suites
 
-
-#### `testsuite:core`
+#### 3.7.1. `testsuite:core`
 
 **Title:** Core Test Suite
 **Description:** Essential checks for code quality and correctness
@@ -521,9 +636,10 @@ composer security:audit
 
 ```bash
 composer testsuite:core
+
 ```
 
-#### `testsuite:heavy`
+#### 3.7.2. `testsuite:heavy`
 
 **Title:** Heavy Test Suite
 **Description:** Comprehensive testing including mutation and browser tests
@@ -533,9 +649,10 @@ composer testsuite:core
 
 ```bash
 composer testsuite:heavy
+
 ```
 
-#### `testsuite:full`
+#### 3.7.3. `testsuite:full`
 
 **Title:** Full Test Suite
 **Description:** Complete test suite with all checks
@@ -545,11 +662,14 @@ composer testsuite:heavy
 
 ```bash
 composer testsuite:full
+
 ```
 
-### Policy
+-----
 
-#### `policy:checksum-monitor`
+### 3.8. Policy
+
+#### 3.8.1. `policy:checksum-monitor`
 
 **Title:** Policy Checksum Monitor
 **Description:** Monitors Laravel authorization policy checksums
@@ -559,13 +679,14 @@ composer testsuite:full
 
 ```bash
 composer policy:checksum-monitor
+
 ```
 
----
+-----
 
-### Development
+### 3.9. Development
 
-#### `dev`
+#### 3.9.1. `dev`
 
 **Title:** Development Server
 **Description:** Starts complete local development environment
@@ -575,9 +696,10 @@ composer policy:checksum-monitor
 
 ```bash
 composer dev
+
 ```
 
-#### `setup`
+#### 3.9.2. `setup`
 
 **Title:** Project Setup
 **Description:** Initial project setup and dependency installation
@@ -587,13 +709,14 @@ composer dev
 
 ```bash
 composer setup
+
 ```
 
----
+-----
 
-### CI/CD
+### 3.10. CI/CD
 
-#### `ci:local`
+#### 3.10.1. `ci:local`
 
 **Title:** Local CI Checks
 **Description:** Runs local continuous integration checks
@@ -603,13 +726,14 @@ composer setup
 
 ```bash
 composer ci:local
+
 ```
 
----
+-----
 
-### Utilities
+### 3.11. Utilities
 
-#### `update:requirements`
+#### 3.11.1. `update:requirements`
 
 **Title:** Update Requirements
 **Description:** Updates Composer and npm dependencies to latest versions
@@ -619,15 +743,16 @@ composer ci:local
 
 ```bash
 composer update:requirements
+
 ```
 
----
+-----
 
-## Package.json Scripts
+## 4. Package.json Scripts
 
-### Build & Development
+### 4.1. Build & Development
 
-#### `build`
+#### 4.1.1. `build`
 
 **Title:** Build Production Assets
 **Description:** Compiles and bundles frontend assets for production
@@ -637,9 +762,10 @@ composer update:requirements
 
 ```bash
 bun run build
+
 ```
 
-#### `dev`
+#### 4.1.2. `dev`
 
 **Title:** Development Server
 **Description:** Starts Vite development server with hot module replacement
@@ -649,9 +775,10 @@ bun run build
 
 ```bash
 bun run dev
+
 ```
 
-#### `preview`
+#### 4.1.3. `preview`
 
 **Title:** Preview Production Build
 **Description:** Previews production build locally
@@ -661,13 +788,14 @@ bun run dev
 
 ```bash
 bun run preview
+
 ```
 
----
+-----
 
-### Linting
+### 4.2. Linting
 
-#### `lint`
+#### 4.2.1. `lint`
 
 **Title:** Run All Linters
 **Description:** Runs JavaScript/TypeScript linting
@@ -677,9 +805,10 @@ bun run preview
 
 ```bash
 bun run lint
+
 ```
 
-#### `lint:fix`
+#### 4.2.2. `lint:fix`
 
 **Title:** Fix All Linting Issues
 **Description:** Automatically fixes JavaScript/TypeScript formatting
@@ -689,9 +818,10 @@ bun run lint
 
 ```bash
 bun run lint:fix
+
 ```
 
-#### `lint:js`
+#### 4.2.3. `lint:js`
 
 **Title:** Check JavaScript Code Style
 **Description:** Validates JavaScript/TypeScript code follows Prettier rules
@@ -701,9 +831,10 @@ bun run lint:fix
 
 ```bash
 bun run lint:js
+
 ```
 
-#### `lint:js:fix`
+#### 4.2.4. `lint:js:fix`
 
 **Title:** Fix JavaScript Code Style
 **Description:** Automatically formats JavaScript/TypeScript code
@@ -713,13 +844,14 @@ bun run lint:js
 
 ```bash
 bun run lint:js:fix
+
 ```
 
----
+-----
 
-### Testing
+### 4.3. Testing
 
-#### `test`
+#### 4.3.1. `test`
 
 **Title:** Run JavaScript Unit Tests
 **Description:** Runs Vitest unit tests with verbose reporter
@@ -729,9 +861,10 @@ bun run lint:js:fix
 
 ```bash
 bun run test
+
 ```
 
-#### `test:browser`
+#### 4.3.2. `test:browser`
 
 **Title:** Browser Tests
 **Description:** Runs Playwright end-to-end tests
@@ -741,9 +874,10 @@ bun run test
 
 ```bash
 bun run test:browser
+
 ```
 
-#### `test:coverage`
+#### 4.3.3. `test:coverage`
 
 **Title:** Run All Coverage Reports
 **Description:** Generates JavaScript/TypeScript coverage report
@@ -753,9 +887,10 @@ bun run test:browser
 
 ```bash
 bun run test:coverage
+
 ```
 
-#### `test:coverage:js`
+#### 4.3.4. `test:coverage:js`
 
 **Title:** JavaScript Coverage Report
 **Description:** Generates comprehensive code coverage report
@@ -765,9 +900,10 @@ bun run test:coverage
 
 ```bash
 bun run test:coverage:js
+
 ```
 
-#### `test:coverage:js:clover`
+#### 4.3.5. `test:coverage:js:clover`
 
 **Title:** JavaScript Coverage (Clover Format)
 **Description:** Generates coverage report in Clover XML format
@@ -777,9 +913,10 @@ bun run test:coverage:js
 
 ```bash
 bun run test:coverage:js:clover
+
 ```
 
-#### `test:coverage:js:html`
+#### 4.3.6. `test:coverage:js:html`
 
 **Title:** JavaScript Coverage (HTML Format)
 **Description:** Generates interactive HTML coverage report
@@ -789,9 +926,10 @@ bun run test:coverage:js:clover
 
 ```bash
 bun run test:coverage:js:html
+
 ```
 
-#### `test:coverage:js:json`
+#### 4.3.7. `test:coverage:js:json`
 
 **Title:** JavaScript Coverage (JSON Format)
 **Description:** Generates coverage report in JSON format
@@ -801,9 +939,10 @@ bun run test:coverage:js:html
 
 ```bash
 bun run test:coverage:js:json
+
 ```
 
-#### `test:coverage:js:lcov`
+#### 4.3.8. `test:coverage:js:lcov`
 
 **Title:** JavaScript Coverage (LCOV Format)
 **Description:** Generates coverage report in LCOV format
@@ -813,9 +952,10 @@ bun run test:coverage:js:json
 
 ```bash
 bun run test:coverage:js:lcov
+
 ```
 
-#### `test:coverage:js:text`
+#### 4.3.9. `test:coverage:js:text`
 
 **Title:** JavaScript Coverage (Text Format)
 **Description:** Generates coverage report in plain text format
@@ -825,9 +965,10 @@ bun run test:coverage:js:lcov
 
 ```bash
 bun run test:coverage:js:text
+
 ```
 
-#### `test:lint`
+#### 4.3.10. `test:lint`
 
 **Title:** Test Linting Checks
 **Description:** Validates code style before running tests
@@ -837,9 +978,10 @@ bun run test:coverage:js:text
 
 ```bash
 bun run test:lint
+
 ```
 
-#### `test:run`
+#### 4.3.11. `test:run`
 
 **Title:** Run Tests (Minimal Output)
 **Description:** Runs Vitest tests with default reporter
@@ -849,9 +991,10 @@ bun run test:lint
 
 ```bash
 bun run test:run
+
 ```
 
-#### `test:unit`
+#### 4.3.12. `test:unit`
 
 **Title:** Run Unit Tests
 **Description:** Runs JavaScript unit tests
@@ -861,9 +1004,10 @@ bun run test:run
 
 ```bash
 bun run test:unit
+
 ```
 
-#### `test:unit:js`
+#### 4.3.13. `test:unit:js`
 
 **Title:** JavaScript Unit Tests
 **Description:** Runs Vitest unit tests with verbose output
@@ -873,9 +1017,10 @@ bun run test:unit
 
 ```bash
 bun run test:unit:js
+
 ```
 
-#### `test:watch`
+#### 4.3.14. `test:watch`
 
 **Title:** Watch Mode Tests
 **Description:** Runs tests in watch mode with auto-reload
@@ -885,9 +1030,10 @@ bun run test:unit:js
 
 ```bash
 bun run test:watch
+
 ```
 
-#### `playwright:install`
+#### 4.3.15. `playwright:install`
 
 **Title:** Install Playwright
 **Description:** Installs Playwright browsers and dependencies
@@ -899,11 +1045,11 @@ bun run test:watch
 bun run playwright:install
 ```
 
----
+-----
 
-## Cross-References
+## 5. Cross-References
 
-### PHP → JavaScript
+### 5.1. PHP → JavaScript
 
 | Composer Script | Package.json Script | Purpose |
 |----------------|---------------------|---------|
@@ -913,14 +1059,14 @@ bun run playwright:install
 | `test:coverage:js` | `test:coverage:js` | JS coverage report |
 | `dev` | `dev` | Development server |
 
-### JavaScript → PHP
+### 5.2. JavaScript → PHP
 
 | Package.json Script | Composer Script | Purpose |
 |---------------------|----------------|---------|
 | `build` | `setup` | Production build |
 | `dev` | `dev` | Dev server (concurrent) |
 
-### Bidirectional
+### 5.3. Bidirectional
 
 | Script Name | Composer | Package.json | Notes |
 |------------|----------|--------------|-------|
@@ -930,11 +1076,11 @@ bun run playwright:install
 | `test:unit` | PHP tests | JS tests | Different languages |
 | `test:coverage` | Aggregator | Aggregator | Different tools, same pattern |
 
----
+-----
 
-## Workflow Associations
+## 6. Workflow Associations
 
-### Primary Workflows
+### 6.1. Primary Workflows
 
 1. **`test`** - Main test suite
    - `test:lint`
@@ -960,7 +1106,7 @@ bun run playwright:install
    - `test:profanity`
    - `testsuite:heavy`
 
-### Development Workflows
+### 6.2. Development Workflows
 
 - **`dev`** - Local development
   - Laravel server
@@ -973,11 +1119,11 @@ bun run playwright:install
   - npm/bun install (package.json)
   - Build assets (package.json)
 
----
+-----
 
-## Usage Examples
+## 7. Usage Examples
 
-### Quick Development Checks
+### 7.1. Quick Development Checks
 
 ```bash
 # Check code style
@@ -991,9 +1137,10 @@ composer test:types
 
 # Run core test suite (fast)
 composer testsuite:core
+
 ```
 
-### Full Test Suite
+### 7.2. Full Test Suite
 
 ```bash
 # Complete test suite
@@ -1004,9 +1151,10 @@ composer test:types:fix
 
 # Full test suite (release candidate)
 composer testsuite:full
+
 ```
 
-### Development
+### 7.3. Development
 
 ```bash
 # Start dev environment
@@ -1017,9 +1165,10 @@ bun run build
 
 # Watch tests
 bun run test:watch
+
 ```
 
-### Maintenance
+### 7.4. Maintenance
 
 ```bash
 # Update dependencies
@@ -1030,11 +1179,12 @@ composer ide-helper:generate
 
 # Check security
 composer security:audit
+
 ```
 
----
+-----
 
-## Notes
+## 8. Notes
 
 - All scripts follow consistent naming patterns
 - Aggregator scripts (without tool suffix) run multiple tools
@@ -1043,3 +1193,5 @@ composer security:audit
 - JavaScript scripts use `:js` suffix when language-specific
 - Cross-references are bidirectional where applicable
 - Workflows can be chained for comprehensive validation
+
+-----
