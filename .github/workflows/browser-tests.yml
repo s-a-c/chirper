@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  ci:
+  browser-tests:
     runs-on: ubuntu-latest
 
     steps:

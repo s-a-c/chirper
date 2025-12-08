@@ -30,7 +30,6 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
             // 2. "Expected no JavaScript errors..., but found 1: Uncaught Error: CSP Parser Error: ..."
             preg_match_all('/- (.+)/m', $message, $matches);
             /** @var list<non-empty-string> $errors */
-            /** @phpstan-ignore-next-line */
             $errors = is_array($matches[1] ?? null) ? $matches[1] : [];
 
             // Also check the main message for CSP errors (format: "but found 1: Uncaught Error: CSP Parser Error: ...")
@@ -60,7 +59,6 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
 
             // If there are real errors, throw them
             if ($realErrors !== []) {
-                /** @phpstan-ignore-next-line */
                 throw new AssertionFailedError(
                     "Expected no JavaScript errors on the page, but found:\n".
                     implode("\n", array_map(fn (string $error): string => "- {$error}", $realErrors))

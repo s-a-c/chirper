@@ -18,3 +18,5 @@ actions:
 lint:
   enabled:
     - git-diff-check
+  ignore:
+    - .trunk/**

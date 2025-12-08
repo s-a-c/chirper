@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
+use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use RectorLaravel\Rector\StaticCall\CarbonToDateFacadeRector;
 use RectorLaravel\Set\LaravelSetList;
@@ -43,6 +44,11 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         AddOverrideAttributeToOverriddenMethodsRector::class,
+        // Skip NullToStrictStringFuncCallArgRector for test files to avoid conflicts with PHPStan
+        // PHPStan knows model casts make properties strings, but Rector adds redundant casts
+        NullToStrictStringFuncCallArgRector::class => [
+            __DIR__.'/tests',
+        ],
         // Preserve intentional usage of mutable Carbon instances in these files
         CarbonToDateFacadeRector::class => [
             __DIR__.'/app/Services/BasePlatform/DependencyCatalogue.php',

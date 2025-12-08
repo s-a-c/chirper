@@ -19,7 +19,11 @@ final class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
+     *
+     * @phpstan-var list<string>
+     *
+     * @psalm-var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -30,7 +34,11 @@ final class User extends Authenticatable
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<array-key, string>
+     *
+     * @phpstan-var list<string>
+     *
+     * @psalm-var array<array-key, string>
      */
     protected $hidden = [
         'password',
@@ -40,16 +48,31 @@ final class User extends Authenticatable
     /**
      * Get the attributes that should be cast.
      *
-     * @return string[]
+     * @return array<string, string>
      *
-     * @psalm-return array{email_verified_at: 'datetime', password: 'hashed'}
+     * @psalm-return array{
+     *     id: 'integer',
+     *     name: 'string',
+     *     email: 'string',
+     *     email_verified_at: 'datetime',
+     *     password: 'hashed',
+     *     remember_token: 'string',
+     *     created_at: 'datetime',
+     *     updated_at: 'datetime'
+     * }
      */
     #[Override]
     protected function casts(): array
     {
         return [
+            'id' => 'integer',
+            'name' => 'string',
+            'email' => 'string',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'remember_token' => 'string',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }

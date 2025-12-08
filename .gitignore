@@ -1,8 +1,8 @@
+# ============================================================================
+# Laravel Framework
+# ============================================================================
 /.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage
+.phpunit.result.cache
 /storage/*.key
 /storage/pail
 /tmp
@@ -11,18 +11,38 @@
 .env.backup
 .env.production
 .envrc
-.phpactor.json
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
+/auth.json
+
+# ============================================================================
+# Node.js / JavaScript / Frontend
+# ============================================================================
+/node_modules
+/public/build
+/public/hot
 npm-debug.log
 yarn-error.log
-/auth.json
+bun.lockb
+
+# ============================================================================
+# IDE / Editor Directories
+# ============================================================================
 /.fleet
 /.idea
 /.nova
 /.vscode
 /.zed
+.phpactor.json
+
+# ============================================================================
+# Development Tools & Configuration
+# ============================================================================
+# Trunk.io: .trunk/trunk.yaml is tracked, but .trunk/.gitignore handles
+# what's ignored within .trunk (plugins, actions, tools, etc.)
+# Note: .trunk is excluded from linters/test runners but config files are tracked
+
+# ============================================================================
+# AI Agent Rules (excluded from version control)
+# ============================================================================
 .ai
 .clinerules/byterover-rules.md
 .kilocode/rules/byterover-rules.md
@@ -32,5 +52,15 @@ yarn-error.log
 .kiro/steering/byterover-rules.md
 .qoder/rules/byterover-rules.md
 .augment/rules/byterover-rules.md
+
+# ============================================================================
+# Legacy / Homestead
+# ============================================================================
+Homestead.json
+Homestead.yaml
+
+# ============================================================================
+# Project-Specific Patterns
+# ============================================================================
 # Ignore files/folders with digit-only names (no extension) at any directory level
 **/[0-9]*
