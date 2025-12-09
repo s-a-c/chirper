@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-test('example', function (): void {
-    $response = $this->get('/');
+use function Pest\Laravel\get;
 
-    $response->assertStatus(200);
+test('example', function (): void {
+    get('/')->assertStatus(200);
 });

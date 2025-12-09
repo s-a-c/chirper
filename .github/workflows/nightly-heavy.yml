@@ -12,6 +12,7 @@ jobs:
   heavy-quality:
     runs-on: ubuntu-latest
     environment: Testing
+    timeout-minutes: 120
 
     steps:
       - name: Checkout
@@ -57,7 +58,7 @@ jobs:
           php artisan db:seed --class=BasePlatformSeeder
 
       - name: Run Heavy Tier Workflow
-        run: composer testsuite:heavy
+        run: composer workflow:heavy
 
       - name: Run Policy Checksum Monitor
         run: php artisan policy:checksum-monitor

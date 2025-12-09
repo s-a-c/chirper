@@ -1,0 +1,361 @@
+variant = "loose"
+
+[[issues]]
+file = "app/Models/User.php"
+code = "non-existent-class-like"
+message = 'Class `App\Models\User` cannot extend unknown type `Authenticatable`'
+count = 1
+
+[[issues]]
+file = "app/Models/User.php"
+code = "non-existent-class-like"
+message = 'Class `App\Models\User` cannot use unknown type `HasFactory`'
+count = 1
+
+[[issues]]
+file = "app/Models/User.php"
+code = "non-existent-class-like"
+message = 'Class `App\Models\User` cannot use unknown type `Notifiable`'
+count = 1
+
+[[issues]]
+file = "app/Providers/AppServiceProvider.php"
+code = "non-existent-class-like"
+message = 'Class `App\Providers\AppServiceProvider` cannot extend unknown type `ServiceProvider`'
+count = 1
+
+[[issues]]
+file = "bootstrap/app.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 4
+
+[[issues]]
+file = "bootstrap/app.php"
+code = "non-existent-method"
+message = 'Method `configure` does not exist on type `Illuminate\Foundation\Application`.'
+count = 1
+
+[[issues]]
+file = "bootstrap/app.php"
+code = "unused-parameter"
+message = "Parameter `$exceptions` is never used."
+count = 1
+
+[[issues]]
+file = "bootstrap/app.php"
+code = "unused-parameter"
+message = "Parameter `$middleware` is never used."
+count = 1
+
+[[issues]]
+file = "database/factories/UserFactory.php"
+code = "non-existent-class-like"
+message = 'Class `Database\Factories\UserFactory` cannot extend unknown type `Factory`'
+count = 1
+
+[[issues]]
+file = "database/migrations/0001_01_01_000000_create_users_table.php"
+code = "non-existent-class-like"
+message = "Class `class@anonymous:13150492468503325845-168:1536` cannot extend unknown type `Migration`"
+count = 1
+
+[[issues]]
+file = "database/migrations/0001_01_01_000001_create_cache_table.php"
+code = "non-existent-class-like"
+message = "Class `class@anonymous:402078549466303553-168:899` cannot extend unknown type `Migration`"
+count = 1
+
+[[issues]]
+file = "database/migrations/0001_01_01_000002_create_jobs_table.php"
+code = "non-existent-class-like"
+message = "Class `class@anonymous:15180391457813153641-168:1875` cannot extend unknown type `Migration`"
+count = 1
+
+[[issues]]
+file = "database/seeders/DatabaseSeeder.php"
+code = "non-existent-class-like"
+message = 'Class `Database\Seeders\DatabaseSeeder` cannot extend unknown type `Seeder`'
+count = 1
+
+[[issues]]
+file = "database/seeders/UserSeeder.php"
+code = "non-existent-class-like"
+message = 'Class `Database\Seeders\UserSeeder` cannot extend unknown type `Seeder`'
+count = 1
+
+[[issues]]
+file = "public/index.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`unknown-ref(Illuminate\Foundation\Application)`).'
+count = 1
+
+[[issues]]
+file = "public/index.php"
+code = "non-existent-method"
+message = 'Method `capture` does not exist on type `Illuminate\Http\Request`.'
+count = 1
+
+[[issues]]
+file = "routes/console.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "routes/console.php"
+code = "non-existent-method"
+message = 'Method `command` does not exist on type `Illuminate\Support\Facades\Artisan`.'
+count = 1
+
+[[issues]]
+file = "routes/console.php"
+code = "non-existent-method"
+message = 'Method `quote` does not exist on type `Illuminate\Foundation\Inspiring`.'
+count = 1
+
+[[issues]]
+file = "routes/console.php"
+code = "undefined-variable"
+message = "Undefined variable: `$this`."
+count = 1
+
+[[issues]]
+file = "routes/web.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "routes/web.php"
+code = "mixed-return-statement"
+message = "Could not infer a precise return type for function `809196633103349007:186`. Saw type `mixed`."
+count = 1
+
+[[issues]]
+file = "routes/web.php"
+code = "non-existent-function"
+message = "Function `view` could not be found."
+count = 1
+
+[[issues]]
+file = "routes/web.php"
+code = "non-existent-method"
+message = 'Method `get` does not exist on type `Illuminate\Support\Facades\Route`.'
+count = 2
+
+[[issues]]
+file = "tests/Feature/ExampleTest.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "tests/Feature/ExampleTest.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "tests/Feature/ExampleTest.php"
+code = "non-existent-function"
+message = "Function `test` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Feature/ExampleTest.php"
+code = "undefined-variable"
+message = "Undefined variable: `$this`."
+count = 1
+
+[[issues]]
+file = "tests/Feature/Http/Controllers/ChirpControllerTest.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "tests/Feature/Http/Controllers/ChirpControllerTest.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "tests/Feature/Http/Controllers/ChirpControllerTest.php"
+code = "non-existent-function"
+message = "Function `test` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Feature/Http/Controllers/ChirpControllerTest.php"
+code = "undefined-variable"
+message = "Undefined variable: `$this`."
+count = 1
+
+[[issues]]
+file = "tests/Pest.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 4
+
+[[issues]]
+file = "tests/Pest.php"
+code = "non-existent-function"
+message = "Function `expect` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Pest.php"
+code = "non-existent-function"
+message = "Function `pest` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Pest.php"
+code = "possibly-undefined-variable"
+message = "Variable `$this` might not have been defined on all execution paths leading to this point."
+count = 1
+
+[[issues]]
+file = "tests/TestCase.php"
+code = "non-existent-class-like"
+message = 'Class `Tests\TestCase` cannot extend unknown type `BaseTestCase`'
+count = 1
+
+[[issues]]
+file = "tests/Unit/ExampleTest.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "tests/Unit/ExampleTest.php"
+code = "non-existent-function"
+message = "Function `expect` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Unit/ExampleTest.php"
+code = "non-existent-function"
+message = "Function `test` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `json_decode`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `mb_strlen`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `method_exists`: expected `class-string|object`, but found `mixed`."
+count = 3
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 2
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-array-assignment"
+message = "Unsafe array assignment on type `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 34
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 133
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 28
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-function"
+message = "Function `expect` could not be found."
+count = 34
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-function"
+message = "Function `now` could not be found."
+count = 2
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-function"
+message = "Function `test` could not be found."
+count = 30
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-function"
+message = "Function `uses` could not be found."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-method"
+message = 'Method `check` does not exist on type `Illuminate\Support\Facades\Hash`.'
+count = 5
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-method"
+message = 'Method `factory` does not exist on type `App\Models\User`.'
+count = 27
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-method"
+message = 'Method `getkeyname` does not exist on type `App\Models\User`.'
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-method"
+message = 'Method `gettable` does not exist on type `App\Models\User`.'
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-method"
+message = 'Method `query` does not exist on type `App\Models\User`.'
+count = 4
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-property"
+message = 'Property `$id` does not exist on class `App\Models\User`.'
+count = 2
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-property"
+message = 'Property `$name` does not exist on class `App\Models\User`.'
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "non-existent-property"
+message = 'Property `$password` does not exist on class `App\Models\User`.'
+count = 2

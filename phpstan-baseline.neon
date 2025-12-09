@@ -1,187 +1,55 @@
 parameters:
-	ignoreErrors:
-		-
-			rawMessage: 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.'
-			identifier: arrayFilter.strict
-			count: 1
-			path: config/app.php
+    ignoreErrors:
+        -
+            rawMessage: 'Call to method toBe() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 15
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Parameter #1 $title of static method Illuminate\Support\Str::slug() expects string, bool|string given.'
-			identifier: argument.type
-			count: 1
-			path: config/cache.php
+        -
+            rawMessage: 'Call to method toBeArray() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 2
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.'
-			identifier: arrayFilter.strict
-			count: 2
-			path: config/database.php
+        -
+            rawMessage: 'Call to method toBeGreaterThan() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Parameter #1 $title of static method Illuminate\Support\Str::slug() expects string, bool|string given.'
-			identifier: argument.type
-			count: 1
-			path: config/database.php
+        -
+            rawMessage: 'Call to method toBeInstanceOf() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 10
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
-			identifier: ternary.shortNotAllowed
-			count: 1
-			path: config/debugbar.php
+        -
+            rawMessage: 'Call to method toBeNull() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 12
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Parameter #1 $title of static method Illuminate\Support\Str::slug() expects string, bool|string given.'
-			identifier: argument.type
-			count: 1
-			path: config/session.php
+        -
+            rawMessage: 'Call to method toBeString() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 2
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Call to an undefined method PHPUnit\Framework\TestCase::get().'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/ExampleTest.php
+        -
+            rawMessage: 'Call to method toBeTrue() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 7
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Cannot call method assertStatus() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Feature/ExampleTest.php
+        -
+            rawMessage: 'Call to method toContain() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
+            path: tests/Unit/Models/UserTest.php
 
-		-
-			rawMessage: 'Call to an undefined method PHPUnit\Framework\TestCase::get().'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/Http/Controllers/ChirpControllerTest.php
-
-		-
-			rawMessage: 'Cannot call method assertStatus() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Feature/Http/Controllers/ChirpControllerTest.php
-
-		-
-			rawMessage: 'Call to method extend() of internal class Pest\Configuration from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 1
-			path: tests/Pest.php
-
-		-
-			rawMessage: 'Call to method in() of internal class Pest\PendingCalls\UsesCall from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 1
-			path: tests/Pest.php
-
-		-
-			rawMessage: 'Cannot call method toBe() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Pest.php
-
-		-
-			rawMessage: 'Undefined variable: $this'
-			identifier: variable.undefined
-			count: 1
-			path: tests/Pest.php
-
-		-
-			rawMessage: 'Call to method toBeTrue() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 1
-			path: tests/Unit/ExampleTest.php
-
-		-
-			rawMessage: Access to an undefined property App\Models\User::$nonexistent.
-			identifier: property.notFound
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to function method_exists() with App\Models\User and ''notifications'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to function method_exists() with App\Models\User and ''notify'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to function method_exists() with App\Models\User and ''notifyNow'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBe() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 17
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeArray() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 2
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeFalse() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeGreaterThan() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeInstanceOf() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 9
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeNull() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 12
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeString() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 2
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toBeTrue() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 10
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toContain() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: 'Call to method toHaveKey() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
-			identifier: method.internalClass
-			count: 12
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: Cannot access property $email on App\Models\User|null.
-			identifier: property.nonObject
-			count: 1
-			path: tests/Unit/Models/UserTest.php
-
-		-
-			rawMessage: Use explicit methods over array access on object
-			identifier: typePerfect.noArrayAccessOnObject
-			count: 3
-			path: tests/Unit/Models/UserTest.php
+        -
+            rawMessage: 'Call to method toHaveKey() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 12
+            path: tests/Unit/Models/UserTest.php

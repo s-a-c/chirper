@@ -17,6 +17,7 @@ jobs:
   workflow-core:
     name: Run Core Workflow
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
@@ -47,6 +48,9 @@ jobs:
           fi
 
       - name: Install Composer Dependencies
+        env:
+          FLUXUI_PRO_USERNAME: ${{ secrets.FLUXUI_PRO_USERNAME }}
+          FLUXUI_PRO_KEY: ${{ secrets.FLUXUI_PRO_KEY }}
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Install Bun Dependencies
@@ -61,4 +65,4 @@ jobs:
           php artisan key:generate
 
       - name: Run Core Workflow Suite
-        run: composer testsuite:core
+        run: composer workflow:core

@@ -61,6 +61,7 @@ final class User extends Authenticatable
      *     updated_at: 'datetime'
      * }
      */
+    // @mago-ignore analysis:invalid-override-attribute
     #[Override]
     protected function casts(): array
     {

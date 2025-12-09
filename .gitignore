@@ -12,6 +12,7 @@
 .env.production
 .envrc
 /auth.json
+.secrets
 
 # ============================================================================
 # Node.js / JavaScript / Frontend

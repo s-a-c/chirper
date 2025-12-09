@@ -2,7 +2,21 @@
     "$schema": "https://raw.githubusercontent.com/infection/infection/0.29.8/resources/schema.json",
     "source": {
         "directories": [
-            "app"
+            "app",
+            "bootstrap",
+            "config",
+            "database",
+            "public",
+            "resources",
+            "routes",
+            "tests"
+        ],
+        "excludes": [
+            "vendor",
+            "storage",
+            "tmp",
+            "node_modules",
+            "bootstrap/cache"
         ]
     },
     "logs": {

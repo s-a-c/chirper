@@ -12,9 +12,7 @@ final class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    // @mago-ignore analysis:invalid-override-attribute
     #[Override]
-    public function register(): void
-    {
-        //
-    }
+    public function register(): void {}
 }

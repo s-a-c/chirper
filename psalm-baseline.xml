@@ -55,16 +55,6 @@
       <code><![CDATA[name]]></code>
     </UncaughtThrowInGlobalScope>
   </file>
-  <file src="tests/Feature/ExampleTest.php">
-    <InvalidScope>
-      <code><![CDATA[$this]]></code>
-    </InvalidScope>
-  </file>
-  <file src="tests/Feature/Http/Controllers/ChirpControllerTest.php">
-    <InvalidScope>
-      <code><![CDATA[$this]]></code>
-    </InvalidScope>
-  </file>
   <file src="tests/Pest.php">
     <InternalMethod>
       <code><![CDATA[extend]]></code>
@@ -73,14 +63,6 @@
     <InvalidScope>
       <code><![CDATA[$this]]></code>
     </InvalidScope>
-    <MissingClosureReturnType>
-      <code><![CDATA[fn () => $this->toBe(1)]]></code>
-    </MissingClosureReturnType>
-  </file>
-  <file src="tests/Unit/ExampleTest.php">
-    <InternalMethod>
-      <code><![CDATA[toBeTrue]]></code>
-    </InternalMethod>
   </file>
   <file src="tests/Unit/Models/UserTest.php">
     <InternalMethod>
@@ -136,7 +118,6 @@
       <code><![CDATA[$user->remember_token]]></code>
     </MixedArgument>
     <MixedAssignment>
-      <code><![CDATA[$decoded]]></code>
       <code><![CDATA[$oldPasswordHash]]></code>
       <code><![CDATA[$userId]]></code>
     </MixedAssignment>
@@ -172,29 +153,7 @@
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toHaveKey]]></code>
       <code><![CDATA[toHaveKey]]></code>
-      <code><![CDATA[toHaveKey]]></code>
     </MixedMethodCall>
-    <MixedPropertyFetch>
-      <code><![CDATA[expect($array)->toBeArray()
-        ->and($array)->toHaveKey('id')
-        ->and($array)->toHaveKey('name')
-        ->and($array)->toHaveKey('email')
-        ->and($array)->not->toHaveKey('password')
-        ->and($array)->not]]></code>
-      <code><![CDATA[expect($decoded)->toBeArray()
-        ->and($decoded)->toHaveKey('id')
-        ->and($decoded)->toHaveKey('name')
-        ->and($decoded)->toHaveKey('email')
-        ->and($decoded)->not->toHaveKey('password')
-        ->and($decoded)->not]]></code>
-      <code><![CDATA[expect($user->created_at)->not->toBeNull()
-        ->and($user->updated_at)->not]]></code>
-      <code><![CDATA[expect($userArray)->not->toHaveKey('password')
-        ->and($userArray)->not]]></code>
-    </MixedPropertyFetch>
-    <PossiblyNullPropertyFetch>
-      <code><![CDATA[$fresh->email]]></code>
-    </PossiblyNullPropertyFetch>
     <UndefinedMagicMethod>
       <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBe]]></code>

@@ -9,5 +9,4 @@ use Illuminate\Support\Facades\Route;
 /** @return View */
 Route::get('/', fn (): Illuminate\View\View|View => view('welcome'));
 
-Route::get('/chirper', [ChirpController::class, 'index'])
-    ->name('chirps.index');
+Route::get('/chirper', [ChirpController::class, 'index'])->name('chirps.index');

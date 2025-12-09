@@ -31,6 +31,7 @@ final class UserFactory extends Factory
      *
      * @throws OverflowException
      */
+    // @mago-ignore analysis:invalid-override-attribute
     #[Override]
     public function definition(): array
     {

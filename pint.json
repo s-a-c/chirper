@@ -1,7 +1,11 @@
 {
     "preset": "laravel",
     "notPath": [
+        "vendor",
+        "storage",
         "tmp",
+        "node_modules",
+        "bootstrap/cache",
         "tests.starter-kit-browser"
     ],
     "rules": {

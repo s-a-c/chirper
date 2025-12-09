@@ -12,7 +12,6 @@ return [
      * `Spatie\MissingPageRedirector\Redirector\Redirector`-interface
      */
     'redirector' => ConfigurationRedirector::class,
-
     /*
      * By default the package will only redirect 404s. If you want to redirect on other
      * response codes, just add them to the array. Leave the array empty to redirect
@@ -21,7 +20,6 @@ return [
     'redirect_status_codes' => [
         Response::HTTP_NOT_FOUND,
     ],
-
     /*
      * When using the `ConfigurationRedirector` you can specify the redirects in this array.
      * You can use Laravel's route parameters here.
@@ -30,5 +28,4 @@ return [
         //        '/non-existing-page' => '/existing-page',
         //        '/old-blog/{url}' => '/new-blog/{url}',
     ],
-
 ];

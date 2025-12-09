@@ -22,6 +22,7 @@
         <directory name="config" />
         <directory name="database" />
         <directory name="public" />
+        <directory name="resources" />
         <directory name="routes" />
         <directory name="tests" />
         <ignoreFiles>
