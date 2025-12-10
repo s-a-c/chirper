@@ -61,10 +61,4 @@ jobs:
         run: composer workflow:heavy
 
       - name: Run Policy Checksum Monitor
-        run: |
-          if php artisan list | grep -q "policy:checksum-monitor"; then
-            php artisan policy:checksum-monitor
-          else
-            echo "::warning::Policy checksum monitor command not found. Skipping."
-            echo "This command may not be implemented yet or may require additional setup."
-          fi
+        run: php artisan policy:checksum-monitor --strict
