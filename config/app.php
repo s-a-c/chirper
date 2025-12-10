@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Str;
+
 return [
     /*
      |--------------------------------------------------------------------------
@@ -89,7 +91,7 @@ return [
      */
 
     'cipher' => 'AES-256-CBC',
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY') ?? base64_encode(Str::random(32)),
     'previous_keys' => [
         ...array_filter(explode(',', (string) env('APP_PREVIOUS_KEYS', ''))),
     ],

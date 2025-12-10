@@ -62,7 +62,7 @@ jobs:
           php artisan key:generate
 
       - name: Run Core Tier Workflow
-        run: composer workflow:core
+        run: composer workflow:pre-commit
 
       - name: Run Policy Checksum Monitor
         run: php artisan policy:checksum-monitor

@@ -1,9 +1,30 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
+import fs from 'fs';
+import os from 'os';
 
 export default defineConfig(({ mode }) => {
     const isTest = mode === 'test' || process.env.NODE_ENV === 'test';
+
+    // HTTPS configuration for development
+    const host = process.env.VITE_DEV_HOST || process.env.APP_HOST || 'chirper.test';
+    const homeDir = os.homedir();
+    const certPath = process.env.VITE_DEV_CERT || `${homeDir}/.config/Herd/ssl/chirper.test+4.pem`;
+    const keyPath = process.env.VITE_DEV_KEY || `${homeDir}/.config/Herd/ssl/chirper.test+4-key.pem`;
+
+    const serverConfig = {
+        host,
+        https: undefined,
+    };
+
+    // Only configure HTTPS if certificate files exist
+    if (fs.existsSync(certPath) && fs.existsSync(keyPath)) {
+        serverConfig.https = {
+            cert: fs.readFileSync(certPath),
+            key: fs.readFileSync(keyPath),
+        };
+    }
 
     return {
         plugins: [
@@ -18,6 +39,7 @@ export default defineConfig(({ mode }) => {
                   ]),
             tailwindcss(),
         ],
+        server: serverConfig,
         test: {
             // Use jsdom environment for DOM-related tests
             environment: 'jsdom',

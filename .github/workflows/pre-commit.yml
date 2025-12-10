@@ -62,7 +62,11 @@ jobs:
       - name: Prepare Environment
         run: |
           cp .env.example .env
+          # Ensure APP_KEY line exists in .env before generating
+          if ! grep -q "^APP_KEY=" .env; then
+            echo "APP_KEY=" >> .env
+          fi
           php artisan key:generate
 
       - name: Run Core Workflow Suite
-        run: composer workflow:core
+        run: composer workflow:pre-commit

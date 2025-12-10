@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/infection/infection/0.29.8/resources/schema.json",
+    "$schema": "https://raw.githubusercontent.com/infection/infection/0.31.9/resources/schema.json",
     "source": {
         "directories": [
             "app",
@@ -31,6 +31,9 @@
         "configDir": ".",
         "customPath": "bin/pest-infection"
     },
+    "tmpDir": "tmp/infection",
+    "timeout": 10,
     "minMsi": 90,
-    "minCoveredMsi": 90
+    "minCoveredMsi": 90,
+    "threads": 4
 }
