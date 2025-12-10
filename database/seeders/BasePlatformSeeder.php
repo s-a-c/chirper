@@ -11,6 +11,9 @@ use Illuminate\Database\Seeder;
  *
  * Seeds the platform with base data required for the application to function.
  * This seeder is called during CI/CD and local development setup.
+ *
+ * @psalm-suppress UnusedClass
+ * This seeder is called via `php artisan db:seed --class=BasePlatformSeeder` in CI.
  */
 final class BasePlatformSeeder extends Seeder
 {

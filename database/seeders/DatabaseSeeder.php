@@ -13,6 +13,9 @@ final class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     * This method is called by BasePlatformSeeder via $this->call().
      */
     public function run(): void
     {

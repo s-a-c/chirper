@@ -53,11 +53,6 @@
       <code><![CDATA[UserFactory]]></code>
     </UnusedClass>
   </file>
-  <file src="database/seeders/DatabaseSeeder.php">
-    <UnusedClass>
-      <code><![CDATA[DatabaseSeeder]]></code>
-    </UnusedClass>
-  </file>
   <file src="routes/console.php">
     <InvalidScope>
       <code><![CDATA[$this]]></code>

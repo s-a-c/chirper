@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
  * Platform Validate Profiles Command
  *
  * Validates that the platform environment profiles are correctly configured.
+ *
+ * @psalm-suppress UnusedClass
+ * Laravel auto-discovers commands via their signature, so this class is used.
  */
 final class PlatformValidateProfiles extends Command
 {
@@ -72,7 +75,7 @@ final class PlatformValidateProfiles extends Command
             $this->warn('⚠ Seeders: Could not check users table');
         }
 
-        if ($this->option('all')) {
+        if ($this->option('all') === true) {
             $this->info('✓ All profiles validated');
         }
 
