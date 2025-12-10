@@ -7,8 +7,18 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Symfony\Component\Process\Exception\LogicException;
+use Symfony\Component\Process\Exception\ProcessSignaledException;
+use Symfony\Component\Process\Exception\ProcessStartFailedException;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
+/**
+ * @psalm-suppress UnusedClass
+ * Laravel auto-discovers commands via their signature, so this class is used.
+ */
 final class PolicyChecksumMonitor extends Command
 {
     /**
@@ -29,6 +39,13 @@ final class PolicyChecksumMonitor extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws ProcessStartFailedException
+     * @throws RuntimeException
+     * @throws ProcessTimedOutException
+     * @throws ProcessSignaledException
      */
     public function handle(): int
     {
@@ -41,12 +58,13 @@ final class PolicyChecksumMonitor extends Command
         }
 
         $args = [];
-        if ($this->option('strict')) {
+        $strictOption = $this->option('strict');
+        if ($strictOption === true || $strictOption === '1') {
             $args[] = '--strict';
         }
 
         $paths = $this->option('paths');
-        if ($paths !== null && $paths !== '') {
+        if (is_string($paths) && $paths !== '') {
             $args[] = '--paths='.$paths;
         }
 

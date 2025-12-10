@@ -198,4 +198,9 @@
       <code><![CDATA[$user->password]]></code>
     </UndefinedMagicPropertyFetch>
   </file>
+  <file src="app/Console/Commands/PolicyChecksumMonitor.php">
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[PolicyChecksumMonitor]]></code>
+    </PropertyNotSetInConstructor>
+  </file>
 </files>
