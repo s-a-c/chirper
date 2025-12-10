@@ -60,20 +60,27 @@ return [
         'Pail' => Command::from('php artisan pail --timeout=0')->lazy(),
         'Tests' => Command::from('php artisan test --colors=always')->withEnv(['APP_ENV' => 'testing'])->lazy(),
         // Workflow quality checks (lazy - start on demand)
-        'Lint' => Command::from('composer lint')->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])->lazy(),
-        'PHPMD' => Command::from('composer workflow:phpmd')->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])->lazy(),
         // Workflow commands (lazy - start on demand)
         'Workflow' => Command::from('composer workflow')->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])->lazy(),
-        'Workflow:Core' => Command::from('composer workflow:pre-commit')
-            ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
-            ->lazy(),
-        'Workflow:Full' => Command::from('composer workflow:tests')
+        'Workflow:Clean' => Command::from('composer local:ghaction:clean')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
             ->lazy(),
         'Workflow:Lint' => Command::from('composer workflow:lint')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
             ->lazy(),
-        'Workflow:Clean' => Command::from('composer local:ghaction:clean')
+        'Workflow:PHPMD' => Command::from('composer workflow:phpmd')
+            ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            ->lazy(),
+        'Workflow:Pre-commit' => Command::from('composer workflow:pre-commit')
+            ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            ->lazy(),
+        'Workflow:Tests' => Command::from('composer workflow:tests')
+            ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            ->lazy(),
+        'Workflow:Browser' => Command::from('composer workflow:browser')
+            ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            ->lazy(),
+        'Workflow:Heavy' => Command::from('composer workflow:heavy')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
             ->lazy(),
     ],
