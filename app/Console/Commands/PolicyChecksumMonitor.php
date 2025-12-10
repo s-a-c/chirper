@@ -58,8 +58,7 @@ final class PolicyChecksumMonitor extends Command
         }
 
         $args = [];
-        $strictOption = $this->option('strict');
-        if ($strictOption === true || $strictOption === '1') {
+        if ($this->option('strict') === true) {
             $args[] = '--strict';
         }
 
