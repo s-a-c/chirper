@@ -74,6 +74,16 @@ jobs:
           sed -i.bak 's|<directory>tests/|<directory>tests.starter-kit-browser/|g' phpunit.xml.starter-kit-browser
           rm -f phpunit.xml.starter-kit-browser.bak
 
+          # Remove APP_BASE_PATH requirement from TestCase (not needed for Laravel apps, only packages)
+          TESTCASE_FILE="tests.starter-kit-browser/TestCase.php"
+          if [ -f "$TESTCASE_FILE" ]; then
+            # Remove the RequiresEnvironmentVariable attribute line
+            sed -i.bak '/#\[RequiresEnvironmentVariable/d' "$TESTCASE_FILE"
+            # Remove the use statement for RequiresEnvironmentVariable if it exists
+            sed -i.bak '/use PHPUnit\\Framework\\Attributes\\RequiresEnvironmentVariable/d' "$TESTCASE_FILE"
+            rm -f "$TESTCASE_FILE.bak"
+          fi
+
           # Add our CSP helper function to the copied Pest.php
           # First, add required imports if not present (using a portable method)
           PEST_FILE="tests.starter-kit-browser/Pest.php"
