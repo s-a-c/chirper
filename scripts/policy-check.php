@@ -40,12 +40,12 @@ final class Cli
 {
     public static function e(string $msg): void
     {
-        fwrite(STDERR, $msg . PHP_EOL);
+        fwrite(STDERR, $msg.PHP_EOL);
     }
 
     public static function o(string $msg): void
     {
-        fwrite(STDOUT, $msg . PHP_EOL);
+        fwrite(STDOUT, $msg.PHP_EOL);
     }
 
     public static function fail(string $msg, int $code = 1): never
@@ -119,7 +119,7 @@ final class Fs
 
     public static function relpath(string $path, string $root): string
     {
-        $root = mb_rtrim(str_replace('\\', '/', $root), '/') . '/';
+        $root = mb_rtrim(str_replace('\\', '/', $root), '/').'/';
         $path = str_replace('\\', '/', $path);
         if (str_starts_with($path, $root)) {
             return mb_substr($path, mb_strlen($root));
@@ -152,7 +152,7 @@ final class JsonStore
         if (! is_dir($dir)) {
             @mkdir($dir, 0777, true);
         }
-        file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
+        file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES).PHP_EOL);
     }
 }
 
@@ -204,7 +204,7 @@ final class GuidelineLoaderInline
         // Compute checksum over deterministic concatenation
         $concat = '';
         foreach ($files as $f) {
-            $concat .= "<FILE>{$f}\n" . Fs::tryRead($f) . "\n";
+            $concat .= "<FILE>{$f}\n".Fs::tryRead($f)."\n";
         }
         $this->checksum = hash('sha256', $concat);
 
@@ -291,7 +291,7 @@ final class GuidelineLoaderInline
 
     private function extractKV(string $block, string $key): ?string
     {
-        if (preg_match('/\b' . preg_quote($key, '/') . '\s*:\s*([^\r\n]+)/i', $block, $m)) {
+        if (preg_match('/\b'.preg_quote($key, '/').'\s*:\s*([^\r\n]+)/i', $block, $m)) {
             return mb_trim($m[1]);
         }
 
@@ -303,7 +303,7 @@ final class GuidelineLoaderInline
         $base = mb_strtolower(preg_replace('/[^a-z0-9]+/i', '-', $title) ?? '');
         $base = mb_trim($base, '-');
 
-        return ($base !== '' ? $base : 'rule') . '-' . md5($file . ':' . $start);
+        return ($base !== '' ? $base : 'rule').'-'.md5($file.':'.$start);
     }
 }
 
@@ -342,10 +342,10 @@ final class PolicyCheck
         $lm = $this->loader->getLastModified();
 
         Cli::o('Policy: loading guidelines...');
-        Cli::o('- master: ' . $lm['master'] . ' (' . date(DATE_ATOM, (int) $lm['master']) . ')');
-        Cli::o('- modules: ' . $lm['modules'] . ' (' . date(DATE_ATOM, (int) $lm['modules']) . ')');
-        Cli::o('- checksum: ' . $checksum);
-        Cli::o('- files: ' . implode(', ', $this->loader->getPaths()));
+        Cli::o('- master: '.$lm['master'].' ('.date(DATE_ATOM, (int) $lm['master']).')');
+        Cli::o('- modules: '.$lm['modules'].' ('.date(DATE_ATOM, (int) $lm['modules']).')');
+        Cli::o('- checksum: '.$checksum);
+        Cli::o('- files: '.implode(', ', $this->loader->getPaths()));
 
         // Drift detection (record prior checksum)
         $statePath = '.ai/.policy-state.json';
@@ -354,8 +354,8 @@ final class PolicyCheck
 
         if ($this->strict && $prevChecksum !== '' && $prevChecksum !== $checksum) {
             $this->violations[] = 'Drift detected: guidelines checksum changed without re-acknowledgement. '
-                . 'Previous=' . $prevChecksum . ' Current=' . $checksum
-                . ' (rule [.ai/AI-GUIDELINES.md#44-drift-detection](../../.ai/AI-GUIDELINES.md#44-drift-detection))';
+                .'Previous='.$prevChecksum.' Current='.$checksum
+                .' (rule [.ai/AI-GUIDELINES.md#44-drift-detection](../../.ai/AI-GUIDELINES.md#44-drift-detection))';
         }
 
         // Scan candidate files
@@ -373,7 +373,7 @@ final class PolicyCheck
             $exit = 1;
             Cli::e('Violations:');
             foreach ($this->violations as $v) {
-                Cli::e('- ' . $v);
+                Cli::e('- '.$v);
             }
         }
         if ($this->warnings !== []) {
@@ -382,7 +382,7 @@ final class PolicyCheck
             }
             Cli::e('Warnings:');
             foreach ($this->warnings as $w) {
-                Cli::e('- ' . $w);
+                Cli::e('- '.$w);
             }
         }
 
@@ -401,8 +401,7 @@ final class PolicyCheck
      * Discover files to scan. Heuristic: include project PHP, MD, YAML, JSON, TS files under common dirs,
      * excluding vendor/node_modules/storage/build artifacts.
      *
-     * @param list<string> $paths
-     *
+     * @param  list<string>  $paths
      * @return list<string>
      */
     private function discoverFiles(array $paths): array
@@ -450,11 +449,11 @@ final class PolicyCheck
      * Applies to AI-authored files. Heuristic: we enforce on files under tests/Support/Helpers/, scripts/, docs/,
      * .github/workflows/, and any markdown or PHP files modified.
      *
-     * @param list<string> $files
+     * @param  list<string>  $files
      */
     private function checkHeaders(array $files, string $checksum): void
     {
-        $required = self::REQUIRED_HEADER_PREFIX . $checksum;
+        $required = self::REQUIRED_HEADER_PREFIX.$checksum;
 
         foreach ($files as $f) {
             $ext = mb_strtolower(pathinfo($f, PATHINFO_EXTENSION));
@@ -478,7 +477,7 @@ final class PolicyCheck
                     continue;
                 }
                 $this->violations[] =
-                    "Missing acknowledgement header in {$this->link($f, 1)} " .
+                    "Missing acknowledgement header in {$this->link($f, 1)} ".
                     "(expected “{$required}”) (rule [.ai/AI-GUIDELINES.md#42-policy-acknowledgement](../../.ai/AI-GUIDELINES.md#42-policy-acknowledgement))";
             }
         }
@@ -488,7 +487,7 @@ final class PolicyCheck
      * Forbidden content detectors.
      * Case-insensitive scan for keywords common to secret material.
      *
-     * @param list<string> $files
+     * @param  list<string>  $files
      */
     private function checkForbiddenContent(array $files): void
     {
@@ -512,7 +511,7 @@ final class PolicyCheck
                         // Try map to a guideline rule (security). We cite a default file/line if unknown.
                         $ruleRef = $this->findRuleRef('security') ?? ['.ai/AI-GUIDELINES/PHP-Laravel/040-security-standards.md', 41];
                         $this->violations[] =
-                            "Secret-like token found in {$this->link($f, $idx + 1)} " .
+                            "Secret-like token found in {$this->link($f, $idx + 1)} ".
                             "(rule [{$ruleRef[0]}]({$ruleRef[0]}:{$ruleRef[1]}))";
                     }
                 }
@@ -525,14 +524,14 @@ final class PolicyCheck
      * - Deny committing files under tests/Support/Fixtures/ with *.secrets.*
      * - Allow everything else by default.
      *
-     * @param list<string> $files
+     * @param  list<string>  $files
      */
     private function applyPathPolicy(array $files): void
     {
         foreach ($files as $f) {
             if (str_starts_with($f, 'tests/Support/Fixtures/') && preg_match('/\.secrets?\./i', $f)) {
                 $this->violations[] =
-                    "Path policy violation: disallowed file {$this->link($f, 1)} " .
+                    "Path policy violation: disallowed file {$this->link($f, 1)} ".
                     '(rule [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md))';
             }
         }
@@ -559,7 +558,7 @@ final class PolicyCheck
         // Tolerant check: if strict, require presence of "guidelines v<hex>" mention
         if ($this->strict && ! preg_match('/guidelines\s+v[0-9a-f]{40,64}/i', $head)) {
             $this->warnings[] = 'Commit message does not mention current guidelines checksum '
-                . '(rule [.ai/AI-GUIDELINES.md#42-policy-acknowledgement](../../.ai/AI-GUIDELINES.md#42-policy-acknowledgement))';
+                .'(rule [.ai/AI-GUIDELINES.md#42-policy-acknowledgement](../../.ai/AI-GUIDELINES.md#42-policy-acknowledgement))';
         }
     }
 
@@ -611,5 +610,5 @@ try {
     $exit = (new PolicyCheck($strict, $paths))->run();
     exit($exit);
 } catch (Throwable $e) {
-    Cli::fail('Unhandled error: ' . $e->getMessage());
+    Cli::fail('Unhandled error: '.$e->getMessage());
 }

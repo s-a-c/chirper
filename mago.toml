@@ -178,6 +178,21 @@ permit = [
     "Laravel\\",
 ]
 
+# App Console Commands
+[[guard.perimeter.rules]]
+namespace = "App\\Console\\Commands\\"
+permit = [
+    "@self",
+    "@native",
+    "App\\",
+    "Illuminate\\",
+    "Illuminate\\Console\\",
+    "Illuminate\\Support\\Facades\\",
+    "Symfony\\Component\\Process\\",
+    "Laravel\\",
+    "Exception",
+]
+
 # Database Seeders
 [[guard.perimeter.rules]]
 namespace = "Database\\Seeders\\"
