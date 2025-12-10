@@ -45,8 +45,9 @@ final class PolicyChecksumMonitor extends Command
             $args[] = '--strict';
         }
 
-        if ($this->option('paths')) {
-            $args[] = '--paths='.$this->option('paths');
+        $paths = $this->option('paths');
+        if ($paths !== null && $paths !== '') {
+            $args[] = '--paths='.$paths;
         }
 
         $process = new Process(
@@ -63,6 +64,8 @@ final class PolicyChecksumMonitor extends Command
             }
         });
 
-        return $process->getExitCode();
+        $exitCode = $process->getExitCode();
+
+        return $exitCode ?? self::FAILURE;
     }
 }
