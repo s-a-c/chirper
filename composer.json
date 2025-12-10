@@ -384,7 +384,7 @@
         ],
         "workflow": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard All\\ Workflows 2>/dev/null') ?: shell_exec('figlet All\\ Workflows 2>/dev/null') ?: 'All Workflows' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'printf \"\\033[0;32m✓ Running all workflows in logical sequence with parallelism\\033[0m\\n\\n\"'",
             "@local:ghaction:clean",
@@ -395,37 +395,37 @@
         ],
         "workflow:browser": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Browser\\ Workflow 2>/dev/null') ?: shell_exec('figlet Browser\\ Workflow 2>/dev/null') ?: 'Browser Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/browser-tests.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ],
         "workflow:heavy": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Heavy\\ Workflow 2>/dev/null') ?: shell_exec('figlet Heavy\\ Workflow 2>/dev/null') ?: 'Heavy Workflow' . PHP_EOL; echo chr(27) . '[1;35;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act workflow_dispatch -W .github/workflows/nightly-heavy.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ],
         "workflow:lint": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Lint\\ Workflow 2>/dev/null') ?: shell_exec('figlet Lint\\ Workflow 2>/dev/null') ?: 'Lint Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/lint.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest --pull'"
         ],
         "workflow:phpmd": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHPMD\\ Workflow 2>/dev/null') ?: shell_exec('figlet PHPMD\\ Workflow 2>/dev/null') ?: 'PHPMD Workflow' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'act push -W .github/workflows/phpmd.yml --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest --pull'"
         ],
         "workflow:pre-commit": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Pre-Commit\\ Workflow 2>/dev/null') ?: shell_exec('figlet Pre-Commit\\ Workflow 2>/dev/null') ?: 'Pre-Commit Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if [ -z \"$GITHUB_ACTIONS\" ] && [ -z \"$ACT\" ]; then if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi; fi'",
+            "bash -c 'if [ -z \"$GITHUB_ACTIONS\" ] && [ -z \"$ACT\" ]; then if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi; fi'",
             "bash -c 'if [ -z \"$GITHUB_ACTIONS\" ] && [ -z \"$ACT\" ]; then if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi; fi'",
             "bash -c 'if [ -n \"$GITHUB_ACTIONS\" ] || [ -n \"$ACT\" ]; then printf \"\\033[0;33m⚠ Skipping act execution (running inside CI/act environment)\\033[0m\\n\"; exit 0; fi; SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act pull_request -W .github/workflows/pre-commit.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ],
         "workflow:tests": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Tests\\ Workflow 2>/dev/null') ?: shell_exec('figlet Tests\\ Workflow 2>/dev/null') ?: 'Tests Workflow' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/tests.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ]
