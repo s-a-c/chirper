@@ -71,7 +71,7 @@ jobs:
           cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist phpunit.xml.starter-kit-browser
 
           # Update phpunit.xml.starter-kit-browser to use the separate tests directory
-          sed -i.bak 's|<directory>tests/</directory>|<directory>tests.starter-kit-browser/</directory>|g' phpunit.xml.starter-kit-browser
+          sed -i.bak 's|<directory>tests/|<directory>tests.starter-kit-browser/|g' phpunit.xml.starter-kit-browser
           rm -f phpunit.xml.starter-kit-browser.bak
 
           # Add our CSP helper function to the copied Pest.php
