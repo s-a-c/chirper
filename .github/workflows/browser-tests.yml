@@ -74,13 +74,27 @@ jobs:
           sed -i.bak 's|<directory>tests/|<directory>tests.starter-kit-browser/|g' phpunit.xml.starter-kit-browser
           rm -f phpunit.xml.starter-kit-browser.bak
 
-          # Remove APP_BASE_PATH requirement from TestCase (not needed for Laravel apps, only packages)
+          # Update TestCase for Laravel application (not package)
           TESTCASE_FILE="tests.starter-kit-browser/TestCase.php"
           if [ -f "$TESTCASE_FILE" ]; then
             # Remove the RequiresEnvironmentVariable attribute line
             sed -i.bak '/#\[RequiresEnvironmentVariable/d' "$TESTCASE_FILE"
             # Remove the use statement for RequiresEnvironmentVariable if it exists
             sed -i.bak '/use PHPUnit\\Framework\\Attributes\\RequiresEnvironmentVariable/d' "$TESTCASE_FILE"
+            # Add createApplication method if it doesn't exist (required for Laravel TestCase)
+            if ! grep -q "createApplication" "$TESTCASE_FILE"; then
+              # Use awk to insert createApplication method before the closing brace
+              awk '
+                /^}$/ && !method_added {
+                  print "    protected function createApplication()"
+                  print "    {"
+                  print "        return require __DIR__ . \"/../../bootstrap/app.php\";"
+                  print "    }"
+                  method_added = 1
+                }
+                { print }
+              ' "$TESTCASE_FILE" > "$TESTCASE_FILE.tmp" && mv "$TESTCASE_FILE.tmp" "$TESTCASE_FILE"
+            fi
             rm -f "$TESTCASE_FILE.bak"
           fi
 
