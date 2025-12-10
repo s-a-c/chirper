@@ -49,7 +49,7 @@ final class PolicyChecksumMonitor extends Command
      */
     public function handle(): int
     {
-        $scriptPath = base_path('.ai/scripts/policy-check.php');
+        $scriptPath = base_path('scripts/policy-check.php');
 
         if (! file_exists($scriptPath)) {
             $this->error("Policy check script not found at: {$scriptPath}");
