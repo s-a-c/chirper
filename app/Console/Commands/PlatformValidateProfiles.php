@@ -56,7 +56,7 @@ final class PlatformValidateProfiles extends Command
             } else {
                 $this->warn('⚠ Migrations: No migrations found (database may be empty)');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->warn('⚠ Migrations: Could not check migrations table');
         }
 
@@ -68,7 +68,7 @@ final class PlatformValidateProfiles extends Command
             } else {
                 $this->warn('⚠ Seeders: No users found (BasePlatformSeeder may not have been run)');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->warn('⚠ Seeders: Could not check users table');
         }
 
