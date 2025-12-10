@@ -83,12 +83,37 @@ jobs:
             sed -i.bak '/use PHPUnit\\Framework\\Attributes\\RequiresEnvironmentVariable/d' "$TESTCASE_FILE"
             # Add createApplication method if it doesn't exist (required for Laravel TestCase)
             if ! grep -q "createApplication" "$TESTCASE_FILE"; then
+              # Add use statements if not present (matching Laravel's TestCase)
+              # Use awk to insert use statements after the BaseTestCase use statement
+              if ! grep -q "use Illuminate\\\\Contracts\\\\Console\\\\Kernel" "$TESTCASE_FILE"; then
+                awk '
+                  /^use Illuminate\\Foundation\\Testing\\TestCase/ {
+                    print
+                    print "use Illuminate\\Contracts\\Console\\Kernel;"
+                    next
+                  }
+                  { print }
+                ' "$TESTCASE_FILE" > "$TESTCASE_FILE.tmp" && mv "$TESTCASE_FILE.tmp" "$TESTCASE_FILE"
+              fi
+              if ! grep -q "use Illuminate\\\\Foundation\\\\Application" "$TESTCASE_FILE"; then
+                awk '
+                  /^use Illuminate\\Contracts\\Console\\Kernel/ {
+                    print
+                    print "use Illuminate\\Foundation\\Application;"
+                    next
+                  }
+                  { print }
+                ' "$TESTCASE_FILE" > "$TESTCASE_FILE.tmp" && mv "$TESTCASE_FILE.tmp" "$TESTCASE_FILE"
+              fi
               # Use awk to insert createApplication method before the closing brace
+              # Match Laravel's TestCase implementation exactly (public visibility)
               awk '
                 /^}$/ && !method_added {
-                  print "    protected function createApplication()"
+                  print "    public function createApplication()"
                   print "    {"
-                  print "        return require __DIR__ . \"/../../bootstrap/app.php\";"
+                  print "        \$app = require Application::inferBasePath() . \"/bootstrap/app.php\";"
+                  print "        \$app->make(Kernel::class)->bootstrap();"
+                  print "        return \$app;"
                   print "    }"
                   method_added = 1
                 }
