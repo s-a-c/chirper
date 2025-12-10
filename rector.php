@@ -41,6 +41,7 @@ return RectorConfig::configure()
         __DIR__.'/tests',
     ])
     ->withSkip([
+        __DIR__.'/bootstrap/cache',
         AddOverrideAttributeToOverriddenMethodsRector::class,
         // Skip NullToStrictStringFuncCallArgRector for test files to avoid conflicts with PHPStan
         // PHPStan knows model casts make properties strings, but Rector adds redundant casts

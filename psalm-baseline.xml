@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="dev-master@0df8d6882bef149abbe640774a1c4097cc97ba8c">
+<files psalm-version="dev-master@11a4015b41c05bdf667f1d093e15f51c4ea3e8f9">
   <file src="config/cache.php">
     <DuplicateFunction>
       <code><![CDATA[function env(string $key, mixed $defaultValue = null): mixed]]></code>
@@ -28,6 +28,19 @@
     <MixedArgument>
       <code><![CDATA[env('APP_NAME', 'laravel')]]></code>
     </MixedArgument>
+  </file>
+  <file src="config/solo.php">
+    <MixedMethodCall>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+      <code><![CDATA[lazy]]></code>
+    </MixedMethodCall>
   </file>
   <file src="database/factories/UserFactory.php">
     <PropertyNotSetInConstructor>
@@ -138,8 +151,8 @@
       <code><![CDATA[and]]></code>
       <code><![CDATA[and]]></code>
       <code><![CDATA[and]]></code>
-      <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBeGreaterThan]]></code>
+      <code><![CDATA[toBeInstanceOf]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
@@ -151,6 +164,7 @@
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toHaveKey]]></code>
       <code><![CDATA[toHaveKey]]></code>
       <code><![CDATA[toHaveKey]]></code>
     </MixedMethodCall>
@@ -177,12 +191,6 @@
     <UndefinedMagicPropertyFetch>
       <code><![CDATA[$found->id]]></code>
       <code><![CDATA[$found->id]]></code>
-      <code><![CDATA[$fresh->email]]></code>
-      <code><![CDATA[$fresh->name]]></code>
-      <code><![CDATA[$fresh->password]]></code>
-      <code><![CDATA[$user->created_at]]></code>
-      <code><![CDATA[$user->email]]></code>
-      <code><![CDATA[$user->email_verified_at]]></code>
       <code><![CDATA[$user->email_verified_at]]></code>
       <code><![CDATA[$user->email_verified_at]]></code>
       <code><![CDATA[$user->email_verified_at]]></code>
@@ -191,15 +199,8 @@
       <code><![CDATA[$user->id]]></code>
       <code><![CDATA[$user->id]]></code>
       <code><![CDATA[$user->id]]></code>
-      <code><![CDATA[$user->name]]></code>
-      <code><![CDATA[$user->name]]></code>
-      <code><![CDATA[$user->name]]></code>
       <code><![CDATA[$user->password]]></code>
       <code><![CDATA[$user->password]]></code>
-      <code><![CDATA[$user->password]]></code>
-      <code><![CDATA[$user->password]]></code>
-      <code><![CDATA[$user->remember_token]]></code>
-      <code><![CDATA[$user->updated_at]]></code>
     </UndefinedMagicPropertyFetch>
   </file>
 </files>

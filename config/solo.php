@@ -5,12 +5,15 @@ declare(strict_types=1);
 use SoloTerm\Solo\Commands\Command;
 use SoloTerm\Solo\Commands\EnhancedTailCommand;
 use SoloTerm\Solo\Commands\MakeCommand;
-use SoloTerm\Solo\Hotkeys;
-use SoloTerm\Solo\Themes;
+use SoloTerm\Solo\Hotkeys\DefaultHotkeys;
+use SoloTerm\Solo\Hotkeys\VimHotkeys;
+use SoloTerm\Solo\Manager;
+use SoloTerm\Solo\Themes\DarkTheme;
+use SoloTerm\Solo\Themes\LightTheme;
 
 // Solo may not (should not!) exist in prod, so we have to
 // check here first to see if it's installed.
-if (! class_exists('\SoloTerm\Solo\Manager')) {
+if (! class_exists(Manager::class)) {
     return [
         //
     ];
@@ -24,8 +27,8 @@ return [
      */
     'theme' => env('SOLO_THEME', 'dark'),
     'themes' => [
-        'light' => Themes\LightTheme::class,
-        'dark' => Themes\DarkTheme::class,
+        'light' => LightTheme::class,
+        'dark' => DarkTheme::class,
     ],
     /*
      |--------------------------------------------------------------------------
@@ -34,8 +37,8 @@ return [
      */
     'keybinding' => env('SOLO_KEYBINDING', 'default'),
     'keybindings' => [
-        'default' => Hotkeys\DefaultHotkeys::class,
-        'vim' => Hotkeys\VimHotkeys::class,
+        'default' => DefaultHotkeys::class,
+        'vim' => VimHotkeys::class,
     ],
     /*
      |--------------------------------------------------------------------------
@@ -58,30 +61,43 @@ return [
         'Reverb' => Command::from('php artisan reverb:start --debug')->lazy(),
         'Pint' => Command::from('./vendor/bin/pint --ansi')->lazy(),
         'Pail' => Command::from('php artisan pail --timeout=0')->lazy(),
-        'Tests' => Command::from('php artisan test --colors=always')->withEnv(['APP_ENV' => 'testing'])->lazy(),
+        'Tests' => Command::from('php artisan test --colors=always')
+            ->withEnv(['APP_ENV' => 'testing'])
+            /** @psalm-suppress MixedMethodCall */
+            ->lazy(),
         // Workflow quality checks (lazy - start on demand)
         // Workflow commands (lazy - start on demand)
-        'Workflow' => Command::from('composer workflow')->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])->lazy(),
+        'Workflow' => Command::from('composer workflow')
+            ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
+            ->lazy(),
         'Workflow:Clean' => Command::from('composer local:ghaction:clean')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
         'Workflow:Lint' => Command::from('composer workflow:lint')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
         'Workflow:PHPMD' => Command::from('composer workflow:phpmd')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
         'Workflow:Pre-commit' => Command::from('composer workflow:pre-commit')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
         'Workflow:Tests' => Command::from('composer workflow:tests')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
         'Workflow:Browser' => Command::from('composer workflow:browser')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
         'Workflow:Heavy' => Command::from('composer workflow:heavy')
             ->withEnv(['COMPOSER_PROCESS_TIMEOUT' => '0'])
+            /** @psalm-suppress MixedMethodCall */
             ->lazy(),
     ],
     /**

@@ -12,6 +12,7 @@ use Tests\TestCase;
 uses(TestCase::class, RefreshDatabase::class);
 
 test('user has fillable attributes', function (): void {
+    /** @var User $user */
     $user = User::factory()->make();
 
     expect($user->getFillable())->toBe([
@@ -22,16 +23,20 @@ test('user has fillable attributes', function (): void {
 });
 
 test('user can be created with fillable attributes', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'name' => 'John Doe',
         'email' => 'john@example.com',
         'password' => 'password123',
     ]);
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->name)
         ->toBe('John Doe')
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
         ->and($user->email)
         ->toBe('john@example.com')
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
         ->and($user->password)
         ->not->toBe('password123')->and(Hash::check('password123', $user->password))->toBeTrue(); // Should be hashed
 });
@@ -127,6 +132,7 @@ test('user extends authenticatable', function (): void {
 });
 
 test('user can update name', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'name' => 'Original Name',
     ]);
@@ -136,10 +142,12 @@ test('user can update name', function (): void {
     $fresh = $user->fresh();
     expect($fresh)->not->toBeNull()->and($fresh)->toBeInstanceOf(User::class);
     assert($fresh instanceof User, description: 'Fresh user should be an instance of User');
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($fresh->name)->toBe('Updated Name');
 });
 
 test('user can update email', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'email' => 'original@example.com',
     ]);
@@ -149,14 +157,17 @@ test('user can update email', function (): void {
     $fresh = $user->fresh();
     expect($fresh)->not->toBeNull()->and($fresh)->toBeInstanceOf(User::class);
     assert($fresh instanceof User, description: 'Fresh user should be an instance of User');
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($fresh->email)->toBe('updated@example.com');
 });
 
 test('user can update password', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'password' => 'old-password',
     ]);
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     $oldPasswordHash = $user->password;
 
     $user->update(['password' => 'new-password']);
@@ -164,28 +175,36 @@ test('user can update password', function (): void {
     $fresh = $user->fresh();
     expect($fresh)->not->toBeNull()->and($fresh)->toBeInstanceOf(User::class);
     assert($fresh instanceof User, description: 'Fresh user should be an instance of User');
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($fresh->password)
         ->not
         ->toBe($oldPasswordHash)
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
         ->and(Hash::check('new-password', $fresh->password))
         ->toBeTrue();
 });
 
 test('user remember token is generated', function (): void {
+    /** @var User $user */
     $user = User::factory()->create();
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->remember_token)
         ->not
         ->toBeNull()
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
         ->and($user->remember_token)
         ->toBeString()
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
         ->and(mb_strlen($user->remember_token))
         ->toBeGreaterThan(0);
 });
 
 test('user can be deleted', function (): void {
+    /** @var User $user */
     $user = User::factory()->create();
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     $userId = $user->id;
     $user->delete();
 
@@ -193,30 +212,44 @@ test('user can be deleted', function (): void {
 });
 
 test('user casts are applied correctly', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'email_verified_at' => now(),
         'password' => 'test-password',
     ]);
 
     // Test that casts are applied by checking the types
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->email_verified_at)
         ->toBeInstanceOf(Carbon::class)
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
         ->and(Hash::check('test-password', $user->password))
         ->toBeTrue();
 });
 
 test('user can be created without email verified at', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->email_verified_at)->toBeNull();
 });
 
 test('user can be created with email verified at', function (): void {
+    /** @var User $user */
     $user = User::factory()->create();
 
-    expect($user->email_verified_at)->not->toBeNull()->and($user->email_verified_at)->toBeInstanceOf(Carbon::class);
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->email_verified_at)
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
+        ->not
+        ->toBeNull()
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
+        ->and($user->email_verified_at)
+        /** @psalm-suppress MixedMethodCall */
+        ->toBeInstanceOf(Carbon::class);
 });
 
 test('user has correct table name', function (): void {
@@ -232,10 +265,17 @@ test('user has correct primary key', function (): void {
 });
 
 test('user timestamps are enabled by default', function (): void {
+    /** @var User $user */
     $user = User::factory()->create();
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     /** @psalm-suppress MixedPropertyFetch */
-    expect($user->created_at)->not->toBeNull()->and($user->updated_at)->not->toBeNull();
+    expect($user->created_at)
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
+        ->not->toBeNull()
+        /** @psalm-suppress UndefinedMagicPropertyFetch */
+        ->and($user->updated_at)
+        ->not->toBeNull();
 });
 
 test('user can be serialized to array', function (): void {
@@ -284,19 +324,24 @@ test('user can be serialized to json', function (): void {
         ->and($decoded)
         ->toHaveKey('email')
         ->and($decoded)
+        /** @psalm-suppress MixedMethodCall */
         ->not->toHaveKey('password')->and($decoded)
+        /** @psalm-suppress MixedMethodCall */
         ->not->toHaveKey('remember_token');
 });
 
 test('user can be refreshed from database', function (): void {
+    /** @var User $user */
     $user = User::factory()->create([
         'name' => 'Original Name',
     ]);
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     User::query()->where('id', $user->id)->update(['name' => 'Updated Name']);
 
     $user->refresh();
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->name)->toBe('Updated Name');
 });
 
@@ -318,6 +363,8 @@ test('user can be set as array', function (): void {
     /** @phpstan-ignore-next-line typePerfect.noArrayAccessOnObject */
     $user['name'] = 'Array Set Name';
 
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    /** @psalm-suppress InternalMethod */
     expect($user->name)->toBe('Array Set Name');
 });
 
