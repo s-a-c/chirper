@@ -40,6 +40,9 @@ final class PolicyChecksumMonitor extends Command
     /**
      * Execute the console command.
      *
+     * @psalm-suppress UnusedMethod
+     * Laravel calls this method via the command dispatcher.
+     *
      * @throws InvalidArgumentException
      * @throws LogicException
      * @throws ProcessStartFailedException

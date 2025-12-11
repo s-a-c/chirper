@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Console\Commands\PlatformValidateProfiles;
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\DB;
 
 use function Pest\Laravel\artisan;
@@ -48,7 +47,7 @@ test('platform validate profiles command handles database connection failure', f
     // Mock DB facade to throw exception on getPdo() call
     // This tests lines 49-53 (the catch block for database connection failure)
     $mockConnection = Mockery::mock();
-    $mockConnection->shouldReceive('getPdo')->once()->andThrow(new Exception('Database connection failed'));
+    $mockConnection->shouldReceive('getPdo')->once()->andThrow(new \Exception('Database connection failed'));
 
     DB::shouldReceive('connection')->once()->andReturn($mockConnection);
 
