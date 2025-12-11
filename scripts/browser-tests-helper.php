@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableWebpage|Webpage $page): PendingAwaitablePage|AwaitableWebpage|Webpage
+// Note: Use statements are added by the CI workflow script when this file is appended to Pest.php
+// The types are referenced without imports here since they'll be available in Pest.php context
+function assertNoJavaScriptErrorsExceptCspParser(Pest\Browser\Api\PendingAwaitablePage|Pest\Browser\Api\AwaitableWebpage|Pest\Browser\Api\Webpage $page): Pest\Browser\Api\PendingAwaitablePage|Pest\Browser\Api\AwaitableWebpage|Pest\Browser\Api\Webpage
 {
     try {
         $page->assertNoJavaScriptErrors();
@@ -20,8 +22,8 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
         // - "CSP Parser Error: Expected PUNCTUATION ":" but got PUNCTUATION "(""
         // - "Uncaught Error: CSP Parser Error: ..."
         // - In the main message: "but found 1: Uncaught Error: CSP Parser Error: ..."
-        $isCspError = str_contains($message, 'CSP Parser Error') ||
-            (bool) preg_match('/CSP.*Parser.*Error/i', $message);
+        $isCspError =
+            str_contains($message, 'CSP Parser Error') || (bool) preg_match('/CSP.*Parser.*Error/i', $message);
 
         if ($isCspError) {
             // Extract all errors from the message
@@ -37,8 +39,9 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
             if (preg_match('/but found \d+:\s*(.+?)(?:\n|$)/s', $message, $mainMatch) === 1) {
                 /** @var array{0: non-falsy-string, 1: non-empty-string} $mainMatch */
                 $mainError = $mainMatch[1];
-                $mainErrorIsCsp = str_contains($mainError, 'CSP Parser Error') ||
-                    (bool) preg_match('/CSP.*Parser.*Error/i', $mainError);
+                $mainErrorIsCsp =
+                    str_contains($mainError, 'CSP Parser Error')
+                    || (bool) preg_match('/CSP.*Parser.*Error/i', $mainError);
             }
 
             // If no errors were extracted from the list format, check if the main message contains only CSP errors
@@ -51,18 +54,16 @@ function assertNoJavaScriptErrorsExceptCspParser(PendingAwaitablePage|AwaitableW
             $realErrors = array_filter($errors, function (string $error): bool {
                 // Filter out all CSP parser errors - they contain "CSP Parser Error" or match CSP error patterns
                 // Check both exact string match and regex pattern match
-                $isCspErrorInList = str_contains($error, 'CSP Parser Error') ||
-                    (bool) preg_match('/CSP.*Parser.*Error/i', $error);
+                $isCspErrorInList =
+                    str_contains($error, 'CSP Parser Error') || (bool) preg_match('/CSP.*Parser.*Error/i', $error);
 
                 return ! $isCspErrorInList;
             });
 
             // If there are real errors, throw them
             if ($realErrors !== []) {
-                throw new AssertionFailedError(
-                    "Expected no JavaScript errors on the page, but found:\n".
-                    implode("\n", array_map(fn (string $error): string => "- {$error}", $realErrors))
-                );
+                throw new PHPUnit\Framework\AssertionFailedError("Expected no JavaScript errors on the page, but found:\n"
+                .implode("\n", array_map(fn (string $error): string => "- {$error}", $realErrors)));
             }
 
             // If only CSP parser errors (either in list or main message), ignore them (they're false positives)

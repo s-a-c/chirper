@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+// Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
+
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
@@ -41,6 +43,7 @@ return RectorConfig::configure()
         __DIR__.'/tests',
     ])
     ->withSkip([
+        __DIR__.'/bootstrap/cache',
         AddOverrideAttributeToOverriddenMethodsRector::class,
         // Skip NullToStrictStringFuncCallArgRector for test files to avoid conflicts with PHPStan
         // PHPStan knows model casts make properties strings, but Rector adds redundant casts

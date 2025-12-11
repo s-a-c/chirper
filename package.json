@@ -16,7 +16,7 @@
         "glob": "^13.0.0",
         "jsdom": "^27.3.0",
         "laravel-vite-plugin": "^2.0.1",
-        "npm-check-updates": "^19.1.2",
+        "npm-check-updates": "^19.2.0",
         "playwright": "^1.57.0",
         "prettier": "^3.7.4",
         "prettier-plugin-organize-imports": "^4.3.0",
@@ -46,7 +46,7 @@
     "private": true,
     "scripts": {
         "build": "vite build 2>&1",
-        "dev": "bash -c \"HOST=${VITE_DEV_HOST:-lw4fm5.test} CERT=${VITE_DEV_CERT:-$HOME/.config/Herd/ssl/lw4fm5.test+4.pem} KEY=${VITE_DEV_KEY:-$HOME/.config/Herd/ssl/lw4fm5.test+4-key.pem} bun --bun vite --host $HOST --https --cert $CERT --key $KEY\"",
+        "dev": "bun --bun vite",
         "lint": "bun run lint:js",
         "lint:fix": "bun run lint:js:fix",
         "lint:js": "bunx prettier --check resources/ 2>&1",

@@ -1,3 +1,4 @@
+# Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
 name: nightly heavy-suite
 
 on:
@@ -61,4 +62,4 @@ jobs:
         run: composer workflow:heavy
 
       - name: Run Policy Checksum Monitor
-        run: php artisan policy:checksum-monitor
+        run: php artisan policy:checksum-monitor --strict

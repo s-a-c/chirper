@@ -1,5 +1,4 @@
-# Compliant with [AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v0921d4cfab198af1451ef177b6e47657b5d3ab0292f77bf232496291dee47183
-
+# Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
 name: pre-commit
 
 on:
@@ -62,7 +61,11 @@ jobs:
       - name: Prepare Environment
         run: |
           cp .env.example .env
+          # Ensure APP_KEY line exists in .env before generating
+          if ! grep -q "^APP_KEY=" .env; then
+            echo "APP_KEY=" >> .env
+          fi
           php artisan key:generate
 
       - name: Run Core Workflow Suite
-        run: composer workflow:core
+        run: composer workflow:pre-commit

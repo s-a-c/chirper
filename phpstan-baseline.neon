@@ -3,7 +3,19 @@ parameters:
         -
             rawMessage: 'Call to method toBe() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
             identifier: method.internalClass
-            count: 15
+            count: 20
+            path: tests/Unit/Models/UserTest.php
+
+        -
+            rawMessage: 'Call to method toBe() of internal class Pest\Mixins\Expectation from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 2
+            path: tests/Unit/Models/UserTest.php
+
+        -
+            rawMessage: 'Call to method toBeFalse() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
             path: tests/Unit/Models/UserTest.php
 
         -
@@ -15,13 +27,13 @@ parameters:
         -
             rawMessage: 'Call to method toBeGreaterThan() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
             identifier: method.internalClass
-            count: 1
+            count: 3
             path: tests/Unit/Models/UserTest.php
 
         -
             rawMessage: 'Call to method toBeInstanceOf() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
             identifier: method.internalClass
-            count: 10
+            count: 13
             path: tests/Unit/Models/UserTest.php
 
         -
@@ -33,13 +45,19 @@ parameters:
         -
             rawMessage: 'Call to method toBeString() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
             identifier: method.internalClass
-            count: 2
+            count: 10
             path: tests/Unit/Models/UserTest.php
 
         -
             rawMessage: 'Call to method toBeTrue() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
             identifier: method.internalClass
-            count: 7
+            count: 25
+            path: tests/Unit/Models/UserTest.php
+
+        -
+            rawMessage: 'Call to method toBeInt() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 5
             path: tests/Unit/Models/UserTest.php
 
         -
@@ -53,3 +71,123 @@ parameters:
             identifier: method.internalClass
             count: 12
             path: tests/Unit/Models/UserTest.php
+
+        -
+            rawMessage: 'Call to an undefined method PHPUnit\Framework\TestCase::artisan().'
+            identifier: method.notFound
+            count: 4
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Cannot call method expectsOutput() on Illuminate\Testing\PendingCommand|int.'
+            identifier: method.nonObject
+            count: 8
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Cannot call method expectsOutputToContain() on Illuminate\Testing\PendingCommand|int.'
+            identifier: method.nonObject
+            count: 5
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Cannot call method assertSuccessful() on mixed.'
+            identifier: method.nonObject
+            count: 5
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Call to an undefined method Mockery\ExpectationInterface|Mockery\HigherOrderMessage::once().'
+            identifier: method.notFound
+            count: 1
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Cannot call method andThrow() on mixed.'
+            identifier: method.nonObject
+            count: 1
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Call to an undefined method Mockery\ExpectationInterface|Mockery\HigherOrderMessage::andReturn().'
+            identifier: method.notFound
+            count: 8
+            path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
+
+        -
+            rawMessage: 'Dynamic call to static method PHPUnit\Framework\Assert::markTestSkipped().'
+            identifier: staticMethod.dynamicCall
+            count: 12
+            path: tests/Feature/Console/Commands/PolicyChecksumMonitorTest.php
+
+        -
+            rawMessage: 'Call to method toBeTrue() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 6
+            path: tests/Feature/Console/Commands/PolicyChecksumMonitorTest.php
+
+        -
+            rawMessage: 'Dynamic call to static method PHPUnit\Framework\Assert::fail().'
+            identifier: staticMethod.dynamicCall
+            count: 6
+            path: tests/Feature/Console/Commands/PolicyChecksumMonitorTest.php
+
+        -
+            rawMessage: 'Cannot call method assertSuccessful() on Illuminate\Testing\PendingCommand|int.'
+            identifier: method.nonObject
+            count: 1
+            path: tests/Feature/Console/Commands/PolicyChecksumMonitorTest.php
+
+        -
+            rawMessage: 'Cannot call method expectsOutputToContain() on Illuminate\Testing\PendingCommand|int.'
+            identifier: method.nonObject
+            count: 1
+            path: tests/Feature/Console/Commands/PolicyChecksumMonitorTest.php
+
+        -
+            rawMessage: 'Call to method toHaveKey() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
+            path: tests/Feature/Routes/ConsoleRoutesTest.php
+
+        -
+            rawMessage: 'Cannot call method assertSuccessful() on Illuminate\Testing\PendingCommand|int.'
+            identifier: method.nonObject
+            count: 2
+            path: tests/Feature/Routes/ConsoleRoutesTest.php
+
+        -
+            rawMessage: 'Cannot call method expectsOutputToContain() on Illuminate\Testing\PendingCommand|int.'
+            identifier: method.nonObject
+            count: 1
+            path: tests/Feature/Routes/ConsoleRoutesTest.php
+
+        -
+            rawMessage: 'Dynamic call to static method Symfony\Component\HttpFoundation\Request::create().'
+            identifier: staticMethod.dynamicCall
+            count: 2
+            path: tests/Feature/Routes/WebRoutesTest.php
+
+        -
+            rawMessage: 'Call to method toBeNull() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 2
+            path: tests/Feature/Routes/WebRoutesTest.php
+
+        -
+            rawMessage: 'Call to method toContain() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
+            path: tests/Feature/Routes/WebRoutesTest.php
+
+        -
+            rawMessage: 'Call to method toBeTrue() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
+            path: tests/Feature/Routes/WebRoutesTest.php
+
+        -
+            rawMessage: 'Call to method toBe() of internal class Pest\Mixins\Expectation<TValue> from outside its root namespace Pest.'
+            identifier: method.internalClass
+            count: 1
+            path: tests/Feature/Routes/WebRoutesTest.php

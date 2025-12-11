@@ -1,80 +1,25 @@
 {
-    "$schema": "https://getcomposer.org/schema.json",
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "cweagans/composer-patches": true,
-            "ergebnis/composer-normalize": true,
-            "infection/extension-installer": true,
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true,
-            "phpstan/extension-installer": true,
-            "symfony/runtime": true
-        },
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "process-timeout": 3600,
-        "sort-packages": true
-    },
+    "name": "laravel/laravel",
     "description": "The skeleton application for the Laravel framework.",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "12.x-dev"
-        },
-        "laravel": {
-            "dont-discover": []
-        }
-    },
+    "license": "MIT",
+    "type": "project",
     "keywords": [
         "laravel",
         "framework"
     ],
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "name": "laravel/laravel",
-    "prefer-stable": true,
-    "repositories": {
-        "fluxui-pro": {
-            "type": "composer",
-            "url": "https://composer.fluxui.dev"
-        },
-        "laravel-comments": {
-            "type": "composer",
-            "url": "https://satis.spatie.be"
-        },
-        "laravel-labs-starter-kit-browser-tests": {
-            "type": "vcs",
-            "url": "https://github.com/laravel-labs/starter-kit-browser-tests"
-        },
-        "psalm-plugin-laravel": {
-            "type": "vcs",
-            "url": "https://github.com/s-a-c/psalm-plugin-laravel"
-        }
-    },
     "require": {
+        "php": "^8.5",
         "filament/filament": "^5.0",
-        "laravel/framework": "^12.41.1",
+        "laravel/framework": "^12.42.0",
         "laravel/tinker": "^2.10.2",
         "livewire/flux": "^2.9.2",
         "livewire/flux-pro": "^2.9.2",
-        "livewire/livewire": "^4.0@beta",
-        "php": "^8.5"
+        "livewire/livewire": "^4.0@beta"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16.1",
-        "barryvdh/laravel-ide-helper": "^3.6",
-        "driftingly/rector-laravel": "^2.1.6",
+        "barryvdh/laravel-ide-helper": "^3.6.1",
+        "driftingly/rector-laravel": "^2.1.7",
         "ergebnis/composer-normalize": "^2.48.2",
         "fakerphp/faker": "^1.24.1",
         "infection/infection": "^0.31.9",
@@ -85,7 +30,7 @@
         "laravel/boost": "^1.8.5",
         "laravel/pail": "^1.2.4",
         "laravel/pint": "^1.26",
-        "laravel/sail": "^1.50",
+        "laravel/sail": "^1.51",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.8.3",
         "pestphp/pest": "^4.1.6",
@@ -116,7 +61,80 @@
         "spatie/pest-plugin-snapshots": "^2.2.1",
         "vimeo/psalm": "^7.0@dev"
     },
+    "repositories": {
+        "fluxui-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        },
+        "laravel-comments": {
+            "type": "composer",
+            "url": "https://satis.spatie.be"
+        },
+        "laravel-labs-starter-kit-browser-tests": {
+            "type": "vcs",
+            "url": "https://github.com/laravel-labs/starter-kit-browser-tests"
+        },
+        "psalm-plugin-laravel": {
+            "type": "vcs",
+            "url": "https://github.com/s-a-c/psalm-plugin-laravel"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "cweagans/composer-patches": true,
+            "ergebnis/composer-normalize": true,
+            "infection/extension-installer": true,
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "symfony/runtime": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "process-timeout": 3600,
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "12.x-dev"
+        },
+        "laravel": {
+            "dont-discover": []
+        }
+    },
     "scripts": {
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
         "blueprint:build": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Blueprint\\ Build 2>/dev/null') ?: shell_exec('figlet Blueprint\\ Build 2>/dev/null') ?: 'Blueprint Build' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "php artisan blueprint:build"
@@ -134,6 +152,11 @@
             "Composer\\Config::disableProcessTimeout",
             "bunx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"bun run dev\" --names=server,queue,logs,vite --kill-others"
         ],
+        "dev:solo": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Dev\\ Server\\ (Solo) 2>/dev/null') ?: shell_exec('figlet Dev\\ Server\\ (Solo) 2>/dev/null') ?: 'Dev Server (Solo)' . PHP_EOL; echo chr(27) . '[1;36;47m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "Composer\\Config::disableProcessTimeout",
+            "php artisan solo"
+        ],
         "ide-helper:generate": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard IDE\\ Helper 2>/dev/null') ?: shell_exec('figlet IDE\\ Helper 2>/dev/null') ?: 'IDE Helper' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "php artisan ide-helper:generate"
@@ -145,7 +168,6 @@
             "@lint:rector",
             "@lint:types",
             "@lint:types:mago",
-            "@lint:types:rector",
             "@lint:mago",
             "@lint:pint",
             "@lint:js"
@@ -186,13 +208,13 @@
         ],
         "lint:mago": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Lint\\ Mago 2>/dev/null') ?: shell_exec('figlet Lint\\ Mago 2>/dev/null') ?: 'Lint Mago' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago lint --baseline mago-lint-baseline.toml",
-            "mago format --check"
+            "command -v mago >/dev/null 2>&1 && mago lint --baseline mago-lint-baseline.toml || (echo 'Skipping mago lint (mago not installed)' && exit 0)",
+            "command -v mago >/dev/null 2>&1 && mago format --check || (echo 'Skipping mago format check (mago not installed)' && exit 0)"
         ],
         "lint:mago:fix": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Lint\\ Mago\\ Fix 2>/dev/null') ?: shell_exec('figlet Lint\\ Mago\\ Fix 2>/dev/null') ?: 'Lint Mago Fix' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago lint --fix --baseline mago-lint-baseline.toml",
-            "mago format"
+            "command -v mago >/dev/null 2>&1 && mago lint --fix --baseline mago-lint-baseline.toml || (echo 'Skipping mago lint --fix (mago not installed)' && exit 0)",
+            "command -v mago >/dev/null 2>&1 && mago format || (echo 'Skipping mago format (mago not installed)' && exit 0)"
         ],
         "lint:pint": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Pint 2>/dev/null') ?: shell_exec('figlet Pint 2>/dev/null') ?: 'Pint' . PHP_EOL; echo chr(27) . '[1;34m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
@@ -220,7 +242,7 @@
         ],
         "lint:types:fix:mago": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mago\\ Types\\ Fix 2>/dev/null') ?: shell_exec('figlet Mago\\ Types\\ Fix 2>/dev/null') ?: 'Mago Types Fix' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago analyze --fix --baseline mago-analysis-baseline.toml || true"
+            "command -v mago >/dev/null 2>&1 && mago analyze --fix --baseline mago-analysis-baseline.toml || (echo 'Skipping mago analyze --fix (mago not installed)' && exit 0)"
         ],
         "lint:types:fix:phpstan": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHPStan\\ Fix 2>/dev/null') ?: shell_exec('figlet PHPStan\\ Fix 2>/dev/null') ?: 'PHPStan Fix' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
@@ -232,7 +254,7 @@
         ],
         "lint:types:mago": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mago\\ Types 2>/dev/null') ?: shell_exec('figlet Mago\\ Types 2>/dev/null') ?: 'Mago Types' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago analyze --baseline mago-analysis-baseline.toml"
+            "command -v mago >/dev/null 2>&1 && mago analyze --baseline mago-analysis-baseline.toml || (echo 'Skipping mago analyze (mago not installed)' && exit 0)"
         ],
         "lint:types:phpstan": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHPStan 2>/dev/null') ?: shell_exec('figlet PHPStan 2>/dev/null') ?: 'PHPStan' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
@@ -246,39 +268,29 @@
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Psalm\\ Stats 2>/dev/null') ?: shell_exec('figlet Psalm\\ Stats 2>/dev/null') ?: 'Psalm Stats' . PHP_EOL; echo chr(27) . '[1;35m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/psalm --no-cache --show-info=true --stats"
         ],
+        "local:ghaction:clean": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Clean\\ Act\\ Cache 2>/dev/null') ?: shell_exec('figlet Clean\\ Act\\ Cache 2>/dev/null') ?: 'Clean Act Cache' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bash -c 'if [ -d \"\\$HOME/.cache/act\" ]; then printf \"\\033[0;36mClearing act cache...\\033[0m\\n\"; rm -rf \"\\$HOME/.cache/act\" && printf \"\\033[0;32m✓ Act cache cleared successfully\\033[0m\\n\" || printf \"\\033[0;31m✗ Failed to clear act cache\\033[0m\\n\"; else printf \"\\033[0;33mAct cache directory not found (may already be clean)\\033[0m\\n\"; fi'"
+        ],
+        "local:ghaction:quality:solo": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Quality\\ Checks\\ (Solo) 2>/dev/null') ?: shell_exec('figlet Quality\\ Checks\\ (Solo) 2>/dev/null') ?: 'Quality Checks (Solo)' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bash -c 'printf \"\\033[0;36mStarting Solo with quality check commands...\\033[0m\\n\"; printf \"\\033[0;33mNote: Lint and PHPMD are lazy commands. Press \\\"s\\\" on their tabs to start them.\\033[0m\\n\"; php artisan solo'"
+        ],
         "mago:guard": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mago\\ Guard 2>/dev/null') ?: shell_exec('figlet Mago\\ Guard 2>/dev/null') ?: 'Mago Guard' . PHP_EOL; echo chr(27) . '[1;31m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago guard"
+            "command -v mago >/dev/null 2>&1 && mago guard || (echo 'Skipping mago guard (mago not installed)' && exit 0)"
         ],
         "mago:guard:fix": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mago\\ Guard\\ Fix 2>/dev/null') ?: shell_exec('figlet Mago\\ Guard\\ Fix 2>/dev/null') ?: 'Mago Guard Fix' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago guard --fix"
+            "command -v mago >/dev/null 2>&1 && mago guard --fix || (echo 'Skipping mago guard --fix (mago not installed)' && exit 0)"
         ],
         "mago:list-files": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mago\\ List\\ Files 2>/dev/null') ?: shell_exec('figlet Mago\\ List\\ Files 2>/dev/null') ?: 'Mago List Files' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "mago list-files"
+            "command -v mago >/dev/null 2>&1 && mago list-files || (echo 'Skipping mago list-files (mago not installed)' && exit 0)"
         ],
         "policy:checksum-monitor": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Policy\\ Checksum\\ Monitor 2>/dev/null') ?: shell_exec('figlet Policy\\ Checksum\\ Monitor 2>/dev/null') ?: 'Policy Checksum Monitor' . PHP_EOL; echo chr(27) . '[1;33;40m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
             "php artisan policy:checksum-monitor"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
-        "pre-package-uninstall": [
-            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
         "security:audit": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Security\\ Audit 2>/dev/null') ?: shell_exec('figlet Security\\ Audit 2>/dev/null') ?: 'Security Audit' . PHP_EOL; echo chr(27) . '[7;1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
@@ -304,11 +316,13 @@
         ],
         "test:arch": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Architecture\\ Tests 2>/dev/null') ?: shell_exec('figlet Architecture\\ Tests 2>/dev/null') ?: 'Architecture Tests' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "command -v mago >/dev/null 2>&1 && mago guard || (echo 'Skipping mago guard (mago not installed)' && exit 0)",
             "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --testsuite=Arch"
         ],
         "test:browser": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Browser\\ Tests 2>/dev/null') ?: shell_exec('figlet Browser\\ Tests 2>/dev/null') ?: 'Browser Tests' . PHP_EOL; echo chr(27) . '[1;36;47m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G pest --testsuite=Browser --parallel --processes=4"
+            "bash scripts/setup-browser-tests.sh",
+            "bash -c 'php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --configuration=phpunit.xml.starter-kit-browser; EXIT_CODE=$?; bash scripts/cleanup-browser-tests.sh; exit $EXIT_CODE'"
         ],
         "test:coverage": [
             "@test:coverage:pcov",
@@ -328,7 +342,7 @@
         ],
         "test:mutation": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mutation\\ Testing 2>/dev/null') ?: shell_exec('figlet Mutation\\ Testing 2>/dev/null') ?: 'Mutation Testing' . PHP_EOL; echo chr(27) . '[1;33;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/infection --min-msi=90 --threads=4 --formatter=progress --show-mutations --force-progress"
+            "PEST_MUTATE=1 php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --mutate --parallel --min=90 --covered-only --default-time-limit=10"
         ],
         "test:profanity": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Profanity\\ Check 2>/dev/null') ?: shell_exec('figlet Profanity\\ Check 2>/dev/null') ?: 'Profanity Check' . PHP_EOL; echo chr(27) . '[1;31m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
@@ -371,79 +385,51 @@
         ],
         "workflow": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard All\\ Workflows 2>/dev/null') ?: shell_exec('figlet All\\ Workflows 2>/dev/null') ?: 'All Workflows' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'printf \"\\033[0;32m✓ Running all workflows in logical sequence with parallelism\\033[0m\\n\\n\"'",
-            "bash -c 'printf \"\\033[0;36m[Stage 1] Quality checks (parallel)...\\033[0m\\n\"; (composer workflow:lint &); LINT_PID=\\$!; (composer workflow:phpmd &); PHPMD_PID=\\$!; wait \\$LINT_PID; LINT_EXIT=\\$?; wait \\$PHPMD_PID; PHPMD_EXIT=\\$?; if [ \\$LINT_EXIT -ne 0 ] || [ \\$PHPMD_EXIT -ne 0 ]; then printf \"\\033[0;31m✗ Quality checks failed\\033[0m\\n\"; exit 1; fi; printf \"\\033[0;32m✓ Quality checks passed\\033[0m\\n\\n\"'",
-            "bash -c 'printf \"\\033[0;36m[Stage 2] Core tests...\\033[0m\\n\"; composer workflow:core && printf \"\\033[0;32m✓ Core tests passed\\033[0m\\n\\n\" || exit 1'",
-            "bash -c 'printf \"\\033[0;36m[Stage 3] Full test suite...\\033[0m\\n\"; composer workflow:full && printf \"\\033[0;32m✓ Full test suite passed\\033[0m\\n\\n\" || exit 1'",
-            "bash -c 'printf \"\\033[0;36m[Stage 4] Environment validation...\\033[0m\\n\"; composer workflow:environment && printf \"\\033[0;32m✓ Environment validation passed\\033[0m\\n\\n\" || exit 1'",
-            "bash -c 'printf \"\\033[0;36m[Stage 5] Heavy tests (parallel)...\\033[0m\\n\"; (composer workflow:browser &); BROWSER_PID=\\$!; (composer workflow:heavy &); HEAVY_PID=\\$!; wait \\$BROWSER_PID; BROWSER_EXIT=\\$?; wait \\$HEAVY_PID; HEAVY_EXIT=\\$?; if [ \\$BROWSER_EXIT -ne 0 ] || [ \\$HEAVY_EXIT -ne 0 ]; then printf \"\\033[0;31m✗ Heavy tests failed\\033[0m\\n\"; exit 1; fi; printf \"\\033[0;32m✓ Heavy tests passed\\033[0m\\n\\n\"'",
+            "@local:ghaction:clean",
+            "bash -c 'printf \"\\033[0;36m[Stage 1] Quality checks (parallel)...\\033[0m\\n\"; LINT_EXIT=1; PHPMD_EXIT=1; (composer workflow:lint &); LINT_PID=\\$!; (composer workflow:phpmd &); PHPMD_PID=\\$!; if [ -n \"\\$LINT_PID\" ]; then wait \\$LINT_PID 2>/dev/null; LINT_EXIT=\\$?; fi; if [ -n \"\\$PHPMD_PID\" ]; then wait \\$PHPMD_PID 2>/dev/null; PHPMD_EXIT=\\$?; fi; if [ \\$LINT_EXIT -ne 0 ] || [ \\$PHPMD_EXIT -ne 0 ]; then printf \"\\033[0;31m✗ Quality checks failed\\033[0m\\n\"; exit 1; fi; printf \"\\033[0;32m✓ Quality checks passed\\033[0m\\n\\n\"'",
+            "@workflow:pre-commit",
+            "bash -c 'printf \"\\033[0;36m[Stage 2] Tests and heavy workflows (parallel)...\\033[0m\\n\"; TESTS_EXIT=1; BROWSER_EXIT=1; HEAVY_EXIT=1; (composer workflow:tests &); TESTS_PID=\\$!; (composer workflow:browser &); BROWSER_PID=\\$!; (composer workflow:heavy &); HEAVY_PID=\\$!; if [ -n \"\\$TESTS_PID\" ]; then wait \\$TESTS_PID 2>/dev/null; TESTS_EXIT=\\$?; fi; if [ -n \"\\$BROWSER_PID\" ]; then wait \\$BROWSER_PID 2>/dev/null; BROWSER_EXIT=\\$?; fi; if [ -n \"\\$HEAVY_PID\" ]; then wait \\$HEAVY_PID 2>/dev/null; HEAVY_EXIT=\\$?; fi; if [ \\$TESTS_EXIT -ne 0 ] || [ \\$BROWSER_EXIT -ne 0 ] || [ \\$HEAVY_EXIT -ne 0 ]; then printf \"\\033[0;31m✗ Tests or heavy workflows failed\\033[0m\\n\"; exit 1; fi; printf \"\\033[0;32m✓ Tests and heavy workflows passed\\033[0m\\n\\n\"'",
             "bash -c 'printf \"\\033[0;32m✓ All workflows completed successfully!\\033[0m\\n\"'"
         ],
         "workflow:browser": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Browser\\ Workflow 2>/dev/null') ?: shell_exec('figlet Browser\\ Workflow 2>/dev/null') ?: 'Browser Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/browser-tests.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ],
-        "workflow:ci": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard CI\\ Workflow 2>/dev/null') ?: shell_exec('figlet CI\\ Workflow 2>/dev/null') ?: 'CI Workflow' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "@workflow:lint",
-            "@workflow:phpmd",
-            "@workflow:core",
-            "@workflow:full"
-        ],
-        "workflow:core": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Core\\ Workflow 2>/dev/null') ?: shell_exec('figlet Core\\ Workflow 2>/dev/null') ?: 'Core Workflow' . PHP_EOL; echo chr(27) . '[7;1;37m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act pull_request -W .github/workflows/pre-commit.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
-        ],
-        "workflow:environment": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Environment\\ Workflow 2>/dev/null') ?: shell_exec('figlet Environment\\ Workflow 2>/dev/null') ?: 'Environment Workflow' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/tests.yml --job environment-validation $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
-        ],
-        "workflow:full": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Full\\ Workflow 2>/dev/null') ?: shell_exec('figlet Full\\ Workflow 2>/dev/null') ?: 'Full Workflow' . PHP_EOL; echo chr(27) . '[1;37;44m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/tests.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
-        ],
         "workflow:heavy": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Heavy\\ Workflow 2>/dev/null') ?: shell_exec('figlet Heavy\\ Workflow 2>/dev/null') ?: 'Heavy Workflow' . PHP_EOL; echo chr(27) . '[1;35;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act workflow_dispatch -W .github/workflows/nightly-heavy.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ],
         "workflow:lint": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Lint\\ Workflow 2>/dev/null') ?: shell_exec('figlet Lint\\ Workflow 2>/dev/null') ?: 'Lint Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/lint.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
+            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/lint.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest --pull'"
         ],
         "workflow:phpmd": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard PHPMD\\ Workflow 2>/dev/null') ?: shell_exec('figlet PHPMD\\ Workflow 2>/dev/null') ?: 'PHPMD Workflow' . PHP_EOL; echo chr(27) . '[1;33m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
             "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'act push -W .github/workflows/phpmd.yml --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
+            "bash -c 'act push -W .github/workflows/phpmd.yml --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest --pull'"
         ],
         "workflow:pre-commit": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Pre-Commit\\ Workflow 2>/dev/null') ?: shell_exec('figlet Pre-Commit\\ Workflow 2>/dev/null') ?: 'Pre-Commit Workflow' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: brew install act\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act pull_request -W .github/workflows/pre-commit.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
+            "bash -c 'if [ -z \"$GITHUB_ACTIONS\" ] && [ -z \"$ACT\" ]; then if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi; fi'",
+            "bash -c 'if [ -z \"$GITHUB_ACTIONS\" ] && [ -z \"$ACT\" ]; then if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi; fi'",
+            "bash -c 'if [ -n \"$GITHUB_ACTIONS\" ] || [ -n \"$ACT\" ]; then printf \"\\033[0;33m⚠ Skipping act execution (running inside CI/act environment)\\033[0m\\n\"; exit 0; fi; SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act pull_request -W .github/workflows/pre-commit.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ],
-        "workflow:test": [
-            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Test\\ Workflows 2>/dev/null') ?: shell_exec('figlet Test\\ Workflows 2>/dev/null') ?: 'Test Workflows' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed\\033[0m\\n\"; printf \"\\033[0;33mInstall it with: brew install act\\033[0m\\n\"; echo \"Or download from: https://github.com/nektos/act/releases\"; exit 1; fi'",
-            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; printf \"\\033[0;36mOn macOS, you can start Docker Desktop from Applications or run: open -a Docker\\033[0m\\n\"; exit 1; fi'",
-            "bash -c 'printf \"\\033[0;32m✓ Docker is running\\033[0m\\n\"; printf \"\\033[0;32m✓ Listing available workflows...\\033[0m\\n\"; act --list --container-architecture linux/amd64 2>&1 | head -30 || true'"
+        "workflow:tests": [
+            "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Tests\\ Workflow 2>/dev/null') ?: shell_exec('figlet Tests\\ Workflow 2>/dev/null') ?: 'Tests Workflow' . PHP_EOL; echo chr(27) . '[1;32m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "bash -c 'if ! command -v act &> /dev/null; then printf \"\\033[0;31m✗ act is not installed. Install with: https://github.com/nektos/act#installation\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'if ! docker info &> /dev/null 2>&1; then printf \"\\033[0;31m✗ Docker is not running\\033[0m\\n\"; printf \"\\033[0;33mPlease start Docker Desktop and try again\\033[0m\\n\"; exit 1; fi'",
+            "bash -c 'SECRETS_ARG=\"\"; if [[ -f .secrets ]]; then SECRETS_ARG=\"--secret-file .secrets\"; elif [[ -n \"$FLUXUI_PRO_USERNAME\" && -n \"$FLUXUI_PRO_KEY\" ]]; then SECRETS_ARG=\"--secret FLUXUI_PRO_USERNAME=\\\"$FLUXUI_PRO_USERNAME\\\" --secret FLUXUI_PRO_KEY=\\\"$FLUXUI_PRO_KEY\\\"\"; fi; act push -W .github/workflows/tests.yml $SECRETS_ARG --container-architecture linux/amd64 -P ubuntu-latest=mauwii/ubuntu-act:latest'"
         ]
     },
-    "type": "project"
+    "$schema": "https://getcomposer.org/schema.json"
 }

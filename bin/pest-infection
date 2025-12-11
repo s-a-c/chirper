@@ -1,0 +1,120 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Wrapper script for Infection to run Pest tests.
+ * This script is called by Infection during mutation testing.
+ *
+ * Infection passes arguments similar to PHPUnit:
+ * - Test file path
+ * - --filter option
+ * - Other PHPUnit-compatible options
+ */
+$pestPath = __DIR__.'/../vendor/bin/pest';
+
+// Get all arguments except the script name
+$args = array_slice($argv, 1);
+
+if (empty($args)) {
+    fwrite(STDERR, "Error: No arguments provided\n");
+    exit(1);
+}
+
+// Convert PHPUnit-style --filter to Pest format
+$pestArgs = [];
+foreach ($args as $arg) {
+    // Convert --filter="testName" to Pest's filter format
+    if (str_starts_with($arg, '--filter=')) {
+        $filter = mb_substr($arg, 9); // Remove '--filter='
+        $filter = mb_trim($filter, '"\'');
+        $pestArgs[] = '--filter='.escapeshellarg($filter);
+    } elseif ($arg === '--filter' && isset($args[array_search($arg, $args) + 1])) {
+        // Handle --filter as separate argument
+        $nextIndex = array_search($arg, $args) + 1;
+        $filter = $args[$nextIndex] ?? '';
+        $filter = mb_trim($filter, '"\'');
+        $pestArgs[] = '--filter='.escapeshellarg($filter);
+        unset($args[$nextIndex]);
+    } elseif (str_starts_with($arg, '--')) {
+        // Pass through other PHPUnit-style options that Pest might understand
+        $pestArgs[] = $arg;
+    } else {
+        // Test file path or other arguments
+        $pestArgs[] = escapeshellarg($arg);
+    }
+}
+
+// Build the command
+$command = escapeshellarg($pestPath).' '.implode(' ', $pestArgs);
+
+// Execute Pest and capture both stdout and stderr
+$descriptorspec = [
+    0 => ['pipe', 'r'],
+    1 => ['pipe', 'w'],
+    2 => ['pipe', 'w'],
+];
+
+$process = proc_open($command, $descriptorspec, $pipes);
+
+if (! is_resource($process)) {
+    fwrite(STDERR, "Error: Failed to execute command\n");
+    exit(1);
+}
+
+// Close stdin
+fclose($pipes[0]);
+
+// Read stdout and stderr
+$stdout = stream_get_contents($pipes[1]);
+$stderr = stream_get_contents($pipes[2]);
+
+fclose($pipes[1]);
+fclose($pipes[2]);
+
+$exitCode = proc_close($process);
+
+// Filter out XML validation warnings that don't affect test results
+// Infection generates PHPUnit XML with <filter> element which PHPUnit 12 doesn't support
+// but tests still pass, so we ignore this specific warning
+$output = $stdout.$stderr;
+$lines = explode("\n", $output);
+$filteredLines = [];
+$hasXmlWarning = false;
+$allTestsPassed = false;
+
+foreach ($lines as $line) {
+    // Skip XML validation warnings about <filter> element
+    if (str_contains($line, 'Element \'filter\': This element is not expected')) {
+        $hasXmlWarning = true;
+
+        continue;
+    }
+    if (str_contains($line, 'WARN') && str_contains($line, 'XML configuration file did not pass validation')) {
+        $hasXmlWarning = true;
+
+        continue;
+    }
+    if (str_contains($line, 'Test results may not be as expected')) {
+        $hasXmlWarning = true;
+
+        continue;
+    }
+    // Check if all tests passed
+    if (preg_match('/Tests:\s+(\d+)\s+passed/i', $line, $matches)) {
+        $allTestsPassed = true;
+    }
+    $filteredLines[] = $line;
+}
+
+// Output filtered results
+echo implode("\n", $filteredLines);
+
+// If tests passed but only XML warning occurred, return success
+// PHPUnit/Pest may return exit code 1 or 2 for XML validation warnings
+if (($exitCode === 1 || $exitCode === 2) && $hasXmlWarning && $allTestsPassed) {
+    exit(0);
+}
+
+exit($exitCode);

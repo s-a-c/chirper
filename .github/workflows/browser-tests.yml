@@ -1,3 +1,4 @@
+# Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
 name: browser-tests
 
 on:
@@ -63,74 +64,14 @@ jobs:
         run: php artisan key:generate
 
       - name: Setup Test Environment
-        run: |
-          # Create separate directory for browser tests to avoid overwriting project files
-          cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests.starter-kit-browser/
-
-          # Create separate phpunit.xml configuration for browser tests
-          cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist phpunit.xml.starter-kit-browser
-
-          # Update phpunit.xml.starter-kit-browser to use the separate tests directory
-          sed -i.bak 's|<directory>tests/</directory>|<directory>tests.starter-kit-browser/</directory>|g' phpunit.xml.starter-kit-browser
-          rm -f phpunit.xml.starter-kit-browser.bak
-
-          # Add our CSP helper function to the copied Pest.php
-          # First, add required imports if not present (using a portable method)
-          PEST_FILE="tests.starter-kit-browser/Pest.php"
-          IMPORTS_NEEDED=false
-
-          if ! grep -q "use Pest\\Browser\\Api\\AwaitableWebpage" "$PEST_FILE"; then
-            IMPORTS_NEEDED=true
-          fi
-          if ! grep -q "use Pest\\Browser\\Api\\PendingAwaitablePage" "$PEST_FILE"; then
-            IMPORTS_NEEDED=true
-          fi
-          if ! grep -q "use Pest\\Browser\\Api\\Webpage" "$PEST_FILE"; then
-            IMPORTS_NEEDED=true
-          fi
-          if ! grep -q "use PHPUnit\\Framework\\AssertionFailedError" "$PEST_FILE"; then
-            IMPORTS_NEEDED=true
-          fi
-
-          if [ "$IMPORTS_NEEDED" = "true" ]; then
-            # Create temporary file with imports
-            IMPORTS_TMP=$(mktemp)
-            printf '%s\n' \
-              'use Pest\Browser\Api\AwaitableWebpage;' \
-              'use Pest\Browser\Api\PendingAwaitablePage;' \
-              'use Pest\Browser\Api\Webpage;' \
-              'use PHPUnit\Framework\AssertionFailedError;' > "$IMPORTS_TMP"
-
-            # Insert imports after the opening PHP tag using awk
-            awk -v imports_file="$IMPORTS_TMP" '
-              /^<\?php/ {
-                print
-                while ((getline line < imports_file) > 0) {
-                  print line
-                }
-                close(imports_file)
-                next
-              }
-              { print }
-            ' "$PEST_FILE" > "$PEST_FILE.tmp" && mv "$PEST_FILE.tmp" "$PEST_FILE"
-            rm -f "$IMPORTS_TMP"
-          fi
-
-          # Add the CSP helper function at the end of Pest.php
-          # Use a separate file to avoid YAML parsing issues with heredoc
-          if [ -f scripts/browser-tests-helper.php ]; then
-            # Extract just the function body (skip opening PHP tag if present)
-            sed '1d' scripts/browser-tests-helper.php >> tests.starter-kit-browser/Pest.php
-          else
-            echo "Warning: scripts/browser-tests-helper.php not found, skipping CSP helper function"
-          fi
-
-          # Replace assertNoJavaScriptErrors() with assertNoJavaScriptErrorsExceptCspParser() in all test files
-          find tests.starter-kit-browser/ -name "*.php" -type f -exec sed -i.bak 's/->assertNoJavaScriptErrors()/->assertNoJavaScriptErrorsExceptCspParser()/g' {} \;
-          find tests.starter-kit-browser/ -name "*.bak" -type f -delete
+        run: bash scripts/setup-browser-tests.sh
 
       - name: Build Assets
         run: bun run build
 
       - name: Tests
         run: php vendor/bin/pest --configuration=phpunit.xml.starter-kit-browser
+
+      - name: Restore Main Tests Directory
+        if: always()
+        run: bash scripts/cleanup-browser-tests.sh

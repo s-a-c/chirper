@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+// Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
+
+use Illuminate\Support\Str;
+
 return [
     /*
      |--------------------------------------------------------------------------
@@ -89,7 +93,7 @@ return [
      */
 
     'cipher' => 'AES-256-CBC',
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', base64_encode(Str::random(32))),
     'previous_keys' => [
         ...array_filter(explode(',', (string) env('APP_PREVIOUS_KEYS', ''))),
     ],

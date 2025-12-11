@@ -45,6 +45,11 @@ bun.lockb
 # AI Agent Rules (excluded from version control)
 # ============================================================================
 .ai
+!.ai/AGENT.md
+!.ai/AI_INSTRUCTIONS.md
+!.ai/AI-GUIDELINES
+!.ai/AI-GUIDELINES.md
+!.ai/scripts/**
 .clinerules/byterover-rules.md
 .kilocode/rules/byterover-rules.md
 .roo/rules/byterover-rules.md
