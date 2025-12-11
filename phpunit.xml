@@ -15,13 +15,7 @@
     <source>
         <include>
             <directory>app</directory>
-            <directory>bootstrap</directory>
-            <directory>config</directory>
-            <directory>database</directory>
-            <directory>public</directory>
-            <directory>resources</directory>
             <directory>routes</directory>
-            <directory>tests</directory>
         </include>
         <exclude>
             <directory>bootstrap/cache</directory>
