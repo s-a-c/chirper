@@ -6,13 +6,12 @@ declare(strict_types=1);
 /**
  * Wrapper script for Infection to run Pest tests.
  * This script is called by Infection during mutation testing.
- * 
+ *
  * Infection passes arguments similar to PHPUnit:
  * - Test file path
  * - --filter option
  * - Other PHPUnit-compatible options
  */
-
 $pestPath = __DIR__.'/../vendor/bin/pest';
 
 // Get all arguments except the script name
@@ -28,14 +27,14 @@ $pestArgs = [];
 foreach ($args as $arg) {
     // Convert --filter="testName" to Pest's filter format
     if (str_starts_with($arg, '--filter=')) {
-        $filter = substr($arg, 9); // Remove '--filter='
-        $filter = trim($filter, '"\'');
+        $filter = mb_substr($arg, 9); // Remove '--filter='
+        $filter = mb_trim($filter, '"\'');
         $pestArgs[] = '--filter='.escapeshellarg($filter);
     } elseif ($arg === '--filter' && isset($args[array_search($arg, $args) + 1])) {
         // Handle --filter as separate argument
         $nextIndex = array_search($arg, $args) + 1;
         $filter = $args[$nextIndex] ?? '';
-        $filter = trim($filter, '"\'');
+        $filter = mb_trim($filter, '"\'');
         $pestArgs[] = '--filter='.escapeshellarg($filter);
         unset($args[$nextIndex]);
     } elseif (str_starts_with($arg, '--')) {
