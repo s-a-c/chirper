@@ -320,7 +320,8 @@
         ],
         "test:browser": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Browser\\ Tests 2>/dev/null') ?: shell_exec('figlet Browser\\ Tests 2>/dev/null') ?: 'Browser Tests' . PHP_EOL; echo chr(27) . '[1;36;47m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G pest --testsuite=Browser --parallel --processes=4"
+            "bash scripts/setup-browser-tests.sh",
+            "bash -c 'php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --configuration=phpunit.xml.starter-kit-browser; EXIT_CODE=$?; bash scripts/cleanup-browser-tests.sh; exit $EXIT_CODE'"
         ],
         "test:coverage": [
             "@test:coverage:pcov",
