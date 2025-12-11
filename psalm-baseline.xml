@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="dev-master@e66308f7b3f539704639aca7c8e80aa699ff8afe">
   <file src="config/cache.php">
+    <DuplicateFunction>
+      <code><![CDATA[function env(string $key, mixed $defaultValue = null): mixed]]></code>
+    </DuplicateFunction>
     <MixedArgument>
       <code><![CDATA[env('APP_NAME', 'laravel')]]></code>
     </MixedArgument>
