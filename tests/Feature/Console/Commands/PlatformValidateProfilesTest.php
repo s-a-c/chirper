@@ -58,3 +58,41 @@ test('platform validate profiles command handles database connection failure', f
 
     Mockery::close();
 });
+
+test('platform validate profiles command handles migrations table exception', function (): void {
+    // Mock DB::table('migrations') to throw exception
+    // This tests lines 67-68 (the catch block for migrations table check)
+    DB::shouldReceive('connection')->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(\PDO::class));
+    DB::shouldReceive('table')
+        ->with('migrations')
+        ->once()
+        ->andThrow(new \Exception('Table not found'));
+
+    artisan(PlatformValidateProfiles::class)
+        ->expectsOutputToContain('Migrations: Could not check migrations table')
+        ->assertSuccessful();
+
+    Mockery::close();
+});
+
+test('platform validate profiles command handles users table exception', function (): void {
+    // Mock DB::table('users') to throw exception
+    // This tests lines 79-80 (the catch block for users table check)
+    DB::shouldReceive('connection')->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(\PDO::class));
+    DB::shouldReceive('table')
+        ->with('migrations')
+        ->andReturnSelf();
+    DB::shouldReceive('table')
+        ->with('users')
+        ->once()
+        ->andThrow(new \Exception('Table not found'));
+    DB::shouldReceive('count')->andReturn(0);
+
+    artisan(PlatformValidateProfiles::class)
+        ->expectsOutputToContain('Seeders: Could not check users table')
+        ->assertSuccessful();
+
+    Mockery::close();
+});
