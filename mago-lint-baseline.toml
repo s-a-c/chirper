@@ -1,0 +1,19 @@
+variant = "loose"
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'notifications'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'notify'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/Unit/Models/UserTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'notifyNow'` should be passed as a named argument for clarity."
+count = 1

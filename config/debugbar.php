@@ -1,7 +1,10 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+// Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
+
+return [
     /*
      |--------------------------------------------------------------------------
      | Debugbar Settings
@@ -14,14 +17,13 @@ return [
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', null),
+    'enabled' => env('DEBUGBAR_ENABLED'),
     'hide_empty_tabs' => env('DEBUGBAR_HIDE_EMPTY_TABS', true), // Hide tabs until they have content
     'except' => [
         'telescope*',
         'horizon*',
         '_boost/browser-logs',
     ],
-
     /*
      |--------------------------------------------------------------------------
      | Storage settings
@@ -39,58 +41,55 @@ return [
      | Leaving it to null will allow localhost only.
      */
     'storage' => [
-        'enabled'    => env('DEBUGBAR_STORAGE_ENABLED', true),
-        'open'       => env('DEBUGBAR_OPEN_STORAGE'), // bool/callback.
-        'driver'     => env('DEBUGBAR_STORAGE_DRIVER', 'file'), // redis, file, pdo, socket, custom
-        'path'       => env('DEBUGBAR_STORAGE_PATH', storage_path('debugbar')), // For file driver
-        'connection' => env('DEBUGBAR_STORAGE_CONNECTION', null), // Leave null for default connection (Redis/PDO)
-        'provider'   => env('DEBUGBAR_STORAGE_PROVIDER', ''), // Instance of StorageInterface for custom driver
-        'hostname'   => env('DEBUGBAR_STORAGE_HOSTNAME', '127.0.0.1'), // Hostname to use with the "socket" driver
-        'port'       => env('DEBUGBAR_STORAGE_PORT', 2304), // Port to use with the "socket" driver
+        'enabled' => env('DEBUGBAR_STORAGE_ENABLED', true),
+        'open' => env('DEBUGBAR_OPEN_STORAGE'), // bool/callback.
+        'driver' => env('DEBUGBAR_STORAGE_DRIVER', 'file'), // redis, file, pdo, socket, custom
+        'path' => env('DEBUGBAR_STORAGE_PATH', storage_path('debugbar')), // For file driver
+        'connection' => env('DEBUGBAR_STORAGE_CONNECTION'), // Leave null for default connection (Redis/PDO)
+        'provider' => env('DEBUGBAR_STORAGE_PROVIDER', ''), // Instance of StorageInterface for custom driver
+        'hostname' => env('DEBUGBAR_STORAGE_HOSTNAME', '127.0.0.1'), // Hostname to use with the "socket" driver
+        'port' => env('DEBUGBAR_STORAGE_PORT', 2304), // Port to use with the "socket" driver
     ],
-
     /*
-    |--------------------------------------------------------------------------
-    | Editor
-    |--------------------------------------------------------------------------
-    |
-    | Choose your preferred editor to use when clicking file name.
-    |
-    | Supported: "phpstorm", "vscode", "vscode-insiders", "vscode-remote",
-    |            "vscode-insiders-remote", "vscodium", "textmate", "emacs",
-    |            "sublime", "atom", "nova", "macvim", "idea", "netbeans",
-    |            "xdebug", "espresso"
-    |
-    */
+     |--------------------------------------------------------------------------
+     | Editor
+     |--------------------------------------------------------------------------
+     |
+     | Choose your preferred editor to use when clicking file name.
+     |
+     | Supported: "phpstorm", "vscode", "vscode-insiders", "vscode-remote",
+     |            "vscode-insiders-remote", "vscodium", "textmate", "emacs",
+     |            "sublime", "atom", "nova", "macvim", "idea", "netbeans",
+     |            "xdebug", "espresso"
+     |
+     */
 
     'editor' => env('DEBUGBAR_EDITOR') ?: env('IGNITION_EDITOR', 'phpstorm'),
-
     /*
-    |--------------------------------------------------------------------------
-    | Remote Path Mapping
-    |--------------------------------------------------------------------------
-    |
-    | If you are using a remote dev server, like Laravel Homestead, Docker, or
-    | even a remote VPS, it will be necessary to specify your path mapping.
-    |
-    | Leaving one, or both of these, empty or null will not trigger the remote
-    | URL changes and Debugbar will treat your editor links as local files.
-    |
-    | "remote_sites_path" is an absolute base path for your sites or projects
-    | in Homestead, Vagrant, Docker, or another remote development server.
-    |
-    | Example value: "/home/vagrant/Code"
-    |
-    | "local_sites_path" is an absolute base path for your sites or projects
-    | on your local computer where your IDE or code editor is running on.
-    |
-    | Example values: "/Users/<name>/Code", "C:\Users\<name>\Documents\Code"
-    |
-    */
+     |--------------------------------------------------------------------------
+     | Remote Path Mapping
+     |--------------------------------------------------------------------------
+     |
+     | If you are using a remote dev server, like Laravel Homestead, Docker, or
+     | even a remote VPS, it will be necessary to specify your path mapping.
+     |
+     | Leaving one, or both of these, empty or null will not trigger the remote
+     | URL changes and Debugbar will treat your editor links as local files.
+     |
+     | "remote_sites_path" is an absolute base path for your sites or projects
+     | in Homestead, Vagrant, Docker, or another remote development server.
+     |
+     | Example value: "/home/vagrant/Code"
+     |
+     | "local_sites_path" is an absolute base path for your sites or projects
+     | on your local computer where your IDE or code editor is running on.
+     |
+     | Example values: "/Users/<name>/Code", "C:\Users\<name>\Documents\Code"
+     |
+     */
 
     'remote_sites_path' => env('DEBUGBAR_REMOTE_SITES_PATH'),
     'local_sites_path' => env('DEBUGBAR_LOCAL_SITES_PATH', env('IGNITION_LOCAL_SITES_PATH')),
-
     /*
      |--------------------------------------------------------------------------
      | Vendors
@@ -106,7 +105,6 @@ return [
      */
 
     'include_vendors' => env('DEBUGBAR_INCLUDE_VENDORS', true),
-
     /*
      |--------------------------------------------------------------------------
      | Capture Ajax Requests
@@ -141,7 +139,6 @@ return [
      |
      */
     'error_handler' => env('DEBUGBAR_ERROR_HANDLER', false),
-
     /*
      |--------------------------------------------------------------------------
      | Clockwork integration
@@ -152,7 +149,6 @@ return [
      |
      */
     'clockwork' => env('DEBUGBAR_CLOCKWORK', false),
-
     /*
      |--------------------------------------------------------------------------
      | DataCollectors
@@ -163,33 +159,32 @@ return [
      */
 
     'collectors' => [
-        'phpinfo'         => env('DEBUGBAR_COLLECTORS_PHPINFO', false),         // Php version
-        'messages'        => env('DEBUGBAR_COLLECTORS_MESSAGES', true),         // Messages
-        'time'            => env('DEBUGBAR_COLLECTORS_TIME', true),             // Time Datalogger
-        'memory'          => env('DEBUGBAR_COLLECTORS_MEMORY', true),           // Memory usage
-        'exceptions'      => env('DEBUGBAR_COLLECTORS_EXCEPTIONS', true),       // Exception displayer
-        'log'             => env('DEBUGBAR_COLLECTORS_LOG', true),              // Logs from Monolog (merged in messages if enabled)
-        'db'              => env('DEBUGBAR_COLLECTORS_DB', true),               // Show database (PDO) queries and bindings
-        'views'           => env('DEBUGBAR_COLLECTORS_VIEWS', true),            // Views with their data
-        'route'           => env('DEBUGBAR_COLLECTORS_ROUTE', false),           // Current route information
-        'auth'            => env('DEBUGBAR_COLLECTORS_AUTH', false),            // Display Laravel authentication status
-        'gate'            => env('DEBUGBAR_COLLECTORS_GATE', true),             // Display Laravel Gate checks
-        'session'         => env('DEBUGBAR_COLLECTORS_SESSION', false),         // Display session data
-        'symfony_request' => env('DEBUGBAR_COLLECTORS_SYMFONY_REQUEST', true),  // Only one can be enabled..
-        'mail'            => env('DEBUGBAR_COLLECTORS_MAIL', true),             // Catch mail messages
-        'laravel'         => env('DEBUGBAR_COLLECTORS_LARAVEL', true),          // Laravel version and environment
-        'events'          => env('DEBUGBAR_COLLECTORS_EVENTS', false),          // All events fired
+        'phpinfo' => env('DEBUGBAR_COLLECTORS_PHPINFO', false), // Php version
+        'messages' => env('DEBUGBAR_COLLECTORS_MESSAGES', true), // Messages
+        'time' => env('DEBUGBAR_COLLECTORS_TIME', true), // Time Datalogger
+        'memory' => env('DEBUGBAR_COLLECTORS_MEMORY', true), // Memory usage
+        'exceptions' => env('DEBUGBAR_COLLECTORS_EXCEPTIONS', true), // Exception displayer
+        'log' => env('DEBUGBAR_COLLECTORS_LOG', true), // Logs from Monolog (merged in messages if enabled)
+        'db' => env('DEBUGBAR_COLLECTORS_DB', true), // Show database (PDO) queries and bindings
+        'views' => env('DEBUGBAR_COLLECTORS_VIEWS', true), // Views with their data
+        'route' => env('DEBUGBAR_COLLECTORS_ROUTE', false), // Current route information
+        'auth' => env('DEBUGBAR_COLLECTORS_AUTH', false), // Display Laravel authentication status
+        'gate' => env('DEBUGBAR_COLLECTORS_GATE', true), // Display Laravel Gate checks
+        'session' => env('DEBUGBAR_COLLECTORS_SESSION', false), // Display session data
+        'symfony_request' => env('DEBUGBAR_COLLECTORS_SYMFONY_REQUEST', true), // Only one can be enabled..
+        'mail' => env('DEBUGBAR_COLLECTORS_MAIL', true), // Catch mail messages
+        'laravel' => env('DEBUGBAR_COLLECTORS_LARAVEL', true), // Laravel version and environment
+        'events' => env('DEBUGBAR_COLLECTORS_EVENTS', false), // All events fired
         'default_request' => env('DEBUGBAR_COLLECTORS_DEFAULT_REQUEST', false), // Regular or special Symfony request logger
-        'logs'            => env('DEBUGBAR_COLLECTORS_LOGS', false),            // Add the latest log messages
-        'files'           => env('DEBUGBAR_COLLECTORS_FILES', false),           // Show the included files
-        'config'          => env('DEBUGBAR_COLLECTORS_CONFIG', false),          // Display config settings
-        'cache'           => env('DEBUGBAR_COLLECTORS_CACHE', false),           // Display cache events
-        'models'          => env('DEBUGBAR_COLLECTORS_MODELS', true),           // Display models
-        'livewire'        => env('DEBUGBAR_COLLECTORS_LIVEWIRE', true),         // Display Livewire (when available)
-        'jobs'            => env('DEBUGBAR_COLLECTORS_JOBS', false),            // Display dispatched jobs
-        'pennant'         => env('DEBUGBAR_COLLECTORS_PENNANT', false),         // Display Pennant feature flags
+        'logs' => env('DEBUGBAR_COLLECTORS_LOGS', false), // Add the latest log messages
+        'files' => env('DEBUGBAR_COLLECTORS_FILES', false), // Show the included files
+        'config' => env('DEBUGBAR_COLLECTORS_CONFIG', false), // Display config settings
+        'cache' => env('DEBUGBAR_COLLECTORS_CACHE', false), // Display cache events
+        'models' => env('DEBUGBAR_COLLECTORS_MODELS', true), // Display models
+        'livewire' => env('DEBUGBAR_COLLECTORS_LIVEWIRE', true), // Display Livewire (when available)
+        'jobs' => env('DEBUGBAR_COLLECTORS_JOBS', false), // Display dispatched jobs
+        'pennant' => env('DEBUGBAR_COLLECTORS_PENNANT', false), // Display Pennant feature flags
     ],
-
     /*
      |--------------------------------------------------------------------------
      | Extra options
@@ -204,62 +199,62 @@ return [
             'memory_usage' => env('DEBUGBAR_OPTIONS_TIME_MEMORY_USAGE', false), // Calculated by subtracting memory start and end, it may be inaccurate
         ],
         'messages' => [
-            'trace' => env('DEBUGBAR_OPTIONS_MESSAGES_TRACE', true),                  // Trace the origin of the debug message
+            'trace' => env('DEBUGBAR_OPTIONS_MESSAGES_TRACE', true), // Trace the origin of the debug message
             'capture_dumps' => env('DEBUGBAR_OPTIONS_MESSAGES_CAPTURE_DUMPS', false), // Capture laravel `dump();` as message
         ],
         'memory' => [
-            'reset_peak' => env('DEBUGBAR_OPTIONS_MEMORY_RESET_PEAK', false),       // run memory_reset_peak_usage before collecting
+            'reset_peak' => env('DEBUGBAR_OPTIONS_MEMORY_RESET_PEAK', false), // run memory_reset_peak_usage before collecting
             'with_baseline' => env('DEBUGBAR_OPTIONS_MEMORY_WITH_BASELINE', false), // Set boot memory usage as memory peak baseline
-            'precision' => (int) env('DEBUGBAR_OPTIONS_MEMORY_PRECISION', 0),       // Memory rounding precision
+            'precision' => (int) env('DEBUGBAR_OPTIONS_MEMORY_PRECISION', 0), // Memory rounding precision
         ],
         'auth' => [
-            'show_name' => env('DEBUGBAR_OPTIONS_AUTH_SHOW_NAME', true),     // Also show the users name/email in the debugbar
+            'show_name' => env('DEBUGBAR_OPTIONS_AUTH_SHOW_NAME', true), // Also show the users name/email in the debugbar
             'show_guards' => env('DEBUGBAR_OPTIONS_AUTH_SHOW_GUARDS', true), // Show the guards that are used
         ],
         'gate' => [
-            'trace' => false,      // Trace the origin of the Gate checks
+            'trace' => false, // Trace the origin of the Gate checks
         ],
         'db' => [
-            'with_params'       => env('DEBUGBAR_OPTIONS_WITH_PARAMS', true),   // Render SQL with the parameters substituted
-            'exclude_paths'     => [       // Paths to exclude entirely from the collector
-                //'vendor/laravel/framework/src/Illuminate/Session', // Exclude sessions queries
+            'with_params' => env('DEBUGBAR_OPTIONS_WITH_PARAMS', true), // Render SQL with the parameters substituted
+            'exclude_paths' => [ // Paths to exclude entirely from the collector
+                // 'vendor/laravel/framework/src/Illuminate/Session', // Exclude sessions queries
             ],
-            'backtrace'         => env('DEBUGBAR_OPTIONS_DB_BACKTRACE', true),   // Use a backtrace to find the origin of the query in your files.
-            'backtrace_exclude_paths' => [],   // Paths to exclude from backtrace. (in addition to defaults)
-            'timeline'          => env('DEBUGBAR_OPTIONS_DB_TIMELINE', false),  // Add the queries to the timeline
-            'duration_background'  => env('DEBUGBAR_OPTIONS_DB_DURATION_BACKGROUND', true),   // Show shaded background on each query relative to how long it took to execute.
-            'explain' => [                 // Show EXPLAIN output on queries
+            'backtrace' => env('DEBUGBAR_OPTIONS_DB_BACKTRACE', true), // Use a backtrace to find the origin of the query in your files.
+            'backtrace_exclude_paths' => [], // Paths to exclude from backtrace. (in addition to defaults)
+            'timeline' => env('DEBUGBAR_OPTIONS_DB_TIMELINE', false), // Add the queries to the timeline
+            'duration_background' => env('DEBUGBAR_OPTIONS_DB_DURATION_BACKGROUND', true), // Show shaded background on each query relative to how long it took to execute.
+            'explain' => [ // Show EXPLAIN output on queries
                 'enabled' => env('DEBUGBAR_OPTIONS_DB_EXPLAIN_ENABLED', false),
             ],
-            'hints'             => env('DEBUGBAR_OPTIONS_DB_HINTS', false),          // Show hints for common mistakes
-            'show_copy'         => env('DEBUGBAR_OPTIONS_DB_SHOW_COPY', true),       // Show copy button next to the query,
+            'hints' => env('DEBUGBAR_OPTIONS_DB_HINTS', false), // Show hints for common mistakes
+            'show_copy' => env('DEBUGBAR_OPTIONS_DB_SHOW_COPY', true), // Show copy button next to the query,
             'only_slow_queries' => env('DEBUGBAR_OPTIONS_DB_ONLY_SLOW_QUERIES', true), // Only track queries that last longer than `slow_threshold`
-            'slow_threshold'    => env('DEBUGBAR_OPTIONS_DB_SLOW_THRESHOLD', false), // Max query execution time (ms). Exceeding queries will be highlighted
-            'memory_usage'      => env('DEBUGBAR_OPTIONS_DB_MEMORY_USAGE', false),   // Show queries memory usage
-            'soft_limit'       => (int) env('DEBUGBAR_OPTIONS_DB_SOFT_LIMIT', 100),  // After the soft limit, no parameters/backtrace are captured
-            'hard_limit'       => (int) env('DEBUGBAR_OPTIONS_DB_HARD_LIMIT', 500),  // After the hard limit, queries are ignored
+            'slow_threshold' => env('DEBUGBAR_OPTIONS_DB_SLOW_THRESHOLD', false), // Max query execution time (ms). Exceeding queries will be highlighted
+            'memory_usage' => env('DEBUGBAR_OPTIONS_DB_MEMORY_USAGE', false), // Show queries memory usage
+            'soft_limit' => (int) env('DEBUGBAR_OPTIONS_DB_SOFT_LIMIT', 100), // After the soft limit, no parameters/backtrace are captured
+            'hard_limit' => (int) env('DEBUGBAR_OPTIONS_DB_HARD_LIMIT', 500), // After the hard limit, queries are ignored
         ],
         'mail' => [
-            'timeline' => env('DEBUGBAR_OPTIONS_MAIL_TIMELINE', true),  // Add mails to the timeline
+            'timeline' => env('DEBUGBAR_OPTIONS_MAIL_TIMELINE', true), // Add mails to the timeline
             'show_body' => env('DEBUGBAR_OPTIONS_MAIL_SHOW_BODY', true),
         ],
         'views' => [
-            'timeline' => env('DEBUGBAR_OPTIONS_VIEWS_TIMELINE', true),                  // Add the views to the timeline
-            'data' => env('DEBUGBAR_OPTIONS_VIEWS_DATA', false),                         // True for all data, 'keys' for only names, false for no parameters.
-            'group' => (int) env('DEBUGBAR_OPTIONS_VIEWS_GROUP', 50),                    // Group duplicate views. Pass value to auto-group, or true/false to force
-            'inertia_pages' => env('DEBUGBAR_OPTIONS_VIEWS_INERTIA_PAGES', 'js/Pages'),  // Path for Inertia views
-            'exclude_paths' => [    // Add the paths which you don't want to appear in the views
-                'vendor/filament'   // Exclude Filament components by default
+            'timeline' => env('DEBUGBAR_OPTIONS_VIEWS_TIMELINE', true), // Add the views to the timeline
+            'data' => env('DEBUGBAR_OPTIONS_VIEWS_DATA', false), // True for all data, 'keys' for only names, false for no parameters.
+            'group' => (int) env('DEBUGBAR_OPTIONS_VIEWS_GROUP', 50), // Group duplicate views. Pass value to auto-group, or true/false to force
+            'inertia_pages' => env('DEBUGBAR_OPTIONS_VIEWS_INERTIA_PAGES', 'js/Pages'), // Path for Inertia views
+            'exclude_paths' => [ // Add the paths which you don't want to appear in the views
+                'vendor/filament', // Exclude Filament components by default
             ],
         ],
         'route' => [
-            'label' => env('DEBUGBAR_OPTIONS_ROUTE_LABEL', true),  // Show complete route on bar
+            'label' => env('DEBUGBAR_OPTIONS_ROUTE_LABEL', true), // Show complete route on bar
         ],
         'session' => [
             'hiddens' => [], // Hides sensitive values using array paths
         ],
         'symfony_request' => [
-            'label' => env('DEBUGBAR_OPTIONS_SYMFONY_REQUEST_LABEL', true),  // Show route on bar
+            'label' => env('DEBUGBAR_OPTIONS_SYMFONY_REQUEST_LABEL', true), // Show route on bar
             'hiddens' => [], // Hides sensitive values using array paths, example: request_request.password
         ],
         'events' => [
@@ -267,13 +262,12 @@ return [
             'excluded' => [], // Example: ['eloquent.*', 'composing', Illuminate\Cache\Events\CacheHit::class]
         ],
         'logs' => [
-            'file' => env('DEBUGBAR_OPTIONS_LOGS_FILE', null),
+            'file' => env('DEBUGBAR_OPTIONS_LOGS_FILE'),
         ],
         'cache' => [
             'values' => env('DEBUGBAR_OPTIONS_CACHE_VALUES', true), // Collect cache values
         ],
     ],
-
     /*
      |--------------------------------------------------------------------------
      | Inject Debugbar in Response
@@ -286,7 +280,6 @@ return [
      */
 
     'inject' => env('DEBUGBAR_INJECT', true),
-
     /*
      |--------------------------------------------------------------------------
      | Debugbar route prefix
@@ -298,7 +291,6 @@ return [
      |
      */
     'route_prefix' => env('DEBUGBAR_ROUTE_PREFIX', '_debugbar'),
-
     /*
      |--------------------------------------------------------------------------
      | Debugbar route middleware
@@ -307,7 +299,6 @@ return [
      | Additional middleware to run on the Debugbar routes
      */
     'route_middleware' => [],
-
     /*
      |--------------------------------------------------------------------------
      | Debugbar route domain
@@ -316,8 +307,7 @@ return [
      | By default Debugbar route served from the same domain that request served.
      | To override default domain, specify it as a non-empty value.
      */
-    'route_domain' => env('DEBUGBAR_ROUTE_DOMAIN', null),
-
+    'route_domain' => env('DEBUGBAR_ROUTE_DOMAIN'),
     /*
      |--------------------------------------------------------------------------
      | Debugbar theme
@@ -327,7 +317,6 @@ return [
      | Possible values: auto, light, dark
      */
     'theme' => env('DEBUGBAR_THEME', 'auto'),
-
     /*
      |--------------------------------------------------------------------------
      | Backtrace stack limit

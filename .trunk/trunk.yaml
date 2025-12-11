@@ -15,3 +15,8 @@ actions:
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - trunk-upgrade-available
+lint:
+  enabled:
+    - git-diff-check
+  ignore:
+    - .trunk/**

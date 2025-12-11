@@ -1,21 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
+// Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Override;
 
-class User extends Authenticatable
+final class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
+     *
+     * @phpstan-var list<string>
+     *
+     * @psalm-var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -26,7 +36,11 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<array-key, string>
+     *
+     * @phpstan-var list<string>
+     *
+     * @psalm-var array<array-key, string>
      */
     protected $hidden = [
         'password',
@@ -37,12 +51,31 @@ class User extends Authenticatable
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
+     *
+     * @psalm-return array{
+     *     id: 'integer',
+     *     name: 'string',
+     *     email: 'string',
+     *     email_verified_at: 'datetime',
+     *     password: 'hashed',
+     *     remember_token: 'string',
+     *     created_at: 'datetime',
+     *     updated_at: 'datetime'
+     * }
      */
+    // @mago-ignore analysis:invalid-override-attribute
+    #[Override]
     protected function casts(): array
     {
         return [
+            'id' => 'integer',
+            'name' => 'string',
+            'email' => 'string',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'remember_token' => 'string',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }

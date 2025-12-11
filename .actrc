@@ -1,0 +1,4 @@
+-P ubuntu-latest=mauwii/ubuntu-act:latest
+-P ubuntu-22.04=mauwii/ubuntu-act:22.04
+-P ubuntu-20.04=mauwii/ubuntu-act:20.04
+--container-architecture linux/amd64

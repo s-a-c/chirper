@@ -1,0 +1,65 @@
+# Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
+name: nightly heavy-suite
+
+on:
+  schedule:
+    - cron: 0 3 * * *
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  heavy-quality:
+    runs-on: ubuntu-latest
+    environment: Testing
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.5
+          tools: composer:v2
+          coverage: pcov
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.1.17
+
+      - name: Configure Composer Auth
+        env:
+          FLUXUI_PRO_USERNAME: ${{ secrets.FLUXUI_PRO_USERNAME }}
+          FLUXUI_PRO_KEY: ${{ secrets.FLUXUI_PRO_KEY }}
+        run: |
+          if [[ -n "$FLUXUI_PRO_USERNAME" && -n "$FLUXUI_PRO_KEY" ]]; then
+            composer config http-basic.composer.fluxui.dev "$FLUXUI_PRO_USERNAME" "$FLUXUI_PRO_KEY"
+          else
+            echo "::warning::FLUXUI_PRO_USERNAME and FLUXUI_PRO_KEY secrets not set. Skipping Flux UI Pro authentication."
+            echo "::warning::If composer install fails due to Flux UI Pro, add these secrets to the repository."
+          fi
+
+      - name: Install Dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          bun install --frozen-lockfile
+
+      - name: Build Assets
+        run: bun run build
+
+      - name: Prepare Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan db:seed --class=BasePlatformSeeder
+
+      - name: Run Heavy Tier Workflow
+        run: composer workflow:heavy
+
+      - name: Run Policy Checksum Monitor
+        run: php artisan policy:checksum-monitor --strict

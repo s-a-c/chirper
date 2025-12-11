@@ -1,22 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+// Compliant with [.ai/AI-GUIDELINES.md](../../.ai/AI-GUIDELINES.md) v374a22e55a53ea38928957463e1f0ef28f820080a27e0466f35d46c20626fa72
+
+use Spatie\MissingPageRedirector\Redirector\ConfigurationRedirector;
+use Symfony\Component\HttpFoundation\Response;
+
 return [
     /*
      * This is the class responsible for providing the URLs which must be redirected.
      * The only requirement for the redirector is that it needs to implement the
      * `Spatie\MissingPageRedirector\Redirector\Redirector`-interface
      */
-    'redirector' => \Spatie\MissingPageRedirector\Redirector\ConfigurationRedirector::class,
-
+    'redirector' => ConfigurationRedirector::class,
     /*
      * By default the package will only redirect 404s. If you want to redirect on other
      * response codes, just add them to the array. Leave the array empty to redirect
      * always no matter what the response code.
      */
     'redirect_status_codes' => [
-        \Symfony\Component\HttpFoundation\Response::HTTP_NOT_FOUND,
+        Response::HTTP_NOT_FOUND,
     ],
-
     /*
      * When using the `ConfigurationRedirector` you can specify the redirects in this array.
      * You can use Laravel's route parameters here.
@@ -25,5 +30,4 @@ return [
         //        '/non-existing-page' => '/existing-page',
         //        '/old-blog/{url}' => '/new-blog/{url}',
     ],
-
 ];

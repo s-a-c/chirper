@@ -1,3 +1,5 @@
+/** @format */
+
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -7,13 +9,13 @@
 @source "../**/*.vue";
 
 @theme {
-    --font-sans: 'Instrument Sans', figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --animate-fade-out: fade-out 4s ease-in-out forwards;
 
     @keyframes fade-out {
-        0%, 70% {
+        0%,
+        70% {
             opacity: 1;
         }
         100% {
