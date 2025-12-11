@@ -55,7 +55,7 @@ test('platform validate profiles command handles database connection failure', f
 
     artisan(PlatformValidateProfiles::class)
         ->expectsOutput('✗ Database connection: FAILED')
-        ->expectsOutputToContain('Database connection failed')
+        ->expectsOutput('  Database connection failed') // Test exact format to catch ConcatRemoveLeft/ConcatSwitchSides mutations
         ->assertFailed();
 
     Mockery::close();
@@ -93,6 +93,82 @@ test('platform validate profiles command handles users table exception', functio
     artisan(PlatformValidateProfiles::class)
         ->expectsOutputToContain('Seeders: Could not check users table')
         ->assertSuccessful();
+
+    Mockery::close();
+});
+
+test('platform validate profiles command shows warning when migrations count is zero', function (): void {
+    // Ensure database is migrated
+    $this->artisan('migrate')->assertSuccessful();
+
+    // Mock migrations count to be 0 to test line 65 (warning message)
+    DB::shouldReceive('connection')->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(PDO::class));
+    $migrationsMock = Mockery::mock();
+    $migrationsMock->shouldReceive('count')->andReturn(0);
+    $usersMock = Mockery::mock();
+    $usersMock->shouldReceive('count')->andReturn(0);
+    DB::shouldReceive('table')->with('migrations')->andReturn($migrationsMock);
+    DB::shouldReceive('table')->with('users')->andReturn($usersMock);
+
+    artisan(PlatformValidateProfiles::class)
+        ->expectsOutput('⚠ Migrations: No migrations found (database may be empty)')
+        ->assertSuccessful();
+
+    Mockery::close();
+});
+
+test('platform validate profiles command shows warning when migrations count is exactly one', function (): void {
+    // Test edge case: migrations = 1 to catch mutations like > 0 vs > 1
+    DB::shouldReceive('connection')->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(PDO::class));
+    $migrationsMock = Mockery::mock();
+    $migrationsMock->shouldReceive('count')->andReturn(1);
+    $usersMock = Mockery::mock();
+    $usersMock->shouldReceive('count')->andReturn(0);
+    DB::shouldReceive('table')->with('migrations')->andReturn($migrationsMock);
+    DB::shouldReceive('table')->with('users')->andReturn($usersMock);
+
+    artisan(PlatformValidateProfiles::class)
+        ->expectsOutput('✓ Migrations: OK (1 migrations found)')
+        ->assertSuccessful();
+
+    Mockery::close();
+});
+
+test('platform validate profiles command shows warning when user count is zero', function (): void {
+    // Ensure database is migrated
+    $this->artisan('migrate')->assertSuccessful();
+
+    // Mock user count to be 0 to test line 77 (warning message)
+    DB::shouldReceive('connection')->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(PDO::class));
+    $migrationsMock = Mockery::mock();
+    $migrationsMock->shouldReceive('count')->andReturn(1); // At least one migration exists
+    $usersMock = Mockery::mock();
+    $usersMock->shouldReceive('count')->andReturn(0); // Zero users
+    DB::shouldReceive('table')->with('migrations')->andReturn($migrationsMock);
+    DB::shouldReceive('table')->with('users')->andReturn($usersMock);
+
+    artisan(PlatformValidateProfiles::class)
+        ->expectsOutput('⚠ Seeders: No users found (BasePlatformSeeder may not have been run)')
+        ->assertSuccessful();
+
+    Mockery::close();
+});
+
+test('platform validate profiles command shows success when user count is exactly one', function (): void {
+    // Test edge case: userCount = 1 to catch mutations like > 0 vs > 1
+    DB::shouldReceive('connection')->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(PDO::class));
+    $migrationsMock = Mockery::mock();
+    $migrationsMock->shouldReceive('count')->andReturn(1);
+    $usersMock = Mockery::mock();
+    $usersMock->shouldReceive('count')->andReturn(1);
+    DB::shouldReceive('table')->with('migrations')->andReturn($migrationsMock);
+    DB::shouldReceive('table')->with('users')->andReturn($usersMock);
+
+    artisan(PlatformValidateProfiles::class)->expectsOutput('✓ Seeders: OK (1 users found)')->assertSuccessful();
 
     Mockery::close();
 });

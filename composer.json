@@ -342,7 +342,7 @@
         ],
         "test:mutation": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Mutation\\ Testing 2>/dev/null') ?: shell_exec('figlet Mutation\\ Testing 2>/dev/null') ?: 'Mutation Testing' . PHP_EOL; echo chr(27) . '[1;33;46m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
-            "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --mutate --parallel --min=90 --covered-only"
+            "PEST_MUTATE=1 php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --mutate --parallel --min=90 --covered-only --default-time-limit=10"
         ],
         "test:profanity": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Profanity\\ Check 2>/dev/null') ?: shell_exec('figlet Profanity\\ Check 2>/dev/null') ?: 'Profanity Check' . PHP_EOL; echo chr(27) . '[1;31m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",

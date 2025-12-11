@@ -88,14 +88,17 @@ foreach ($lines as $line) {
     // Skip XML validation warnings about <filter> element
     if (str_contains($line, 'Element \'filter\': This element is not expected')) {
         $hasXmlWarning = true;
+
         continue;
     }
     if (str_contains($line, 'WARN') && str_contains($line, 'XML configuration file did not pass validation')) {
         $hasXmlWarning = true;
+
         continue;
     }
     if (str_contains($line, 'Test results may not be as expected')) {
         $hasXmlWarning = true;
+
         continue;
     }
     // Check if all tests passed

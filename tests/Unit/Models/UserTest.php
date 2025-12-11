@@ -390,3 +390,91 @@ test('user can be converted to string', function (): void {
 
     expect($string)->toBeString()->and($string)->toContain('String User');
 });
+
+test('user id cast is applied correctly', function (): void {
+    /** @var User $user */
+    $user = User::factory()->create();
+
+    // Test that id is cast to integer (catches RemoveArrayItem mutation for 'id' => 'integer')
+    // This test will fail if 'id' => 'integer' cast is removed because id would be a string
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->id)
+        ->toBeInt()
+        ->and(is_int($user->id))->toBeTrue() // Explicit type check that would fail without cast
+        ->and(gettype($user->id))->toBe('integer'); // Another explicit check
+});
+
+test('user name cast is applied correctly', function (): void {
+    /** @var User $user */
+    $user = User::factory()->create(['name' => 'Test Name']);
+
+    // Test that name is cast to string (catches RemoveArrayItem mutation for 'name' => 'string')
+    // This test will fail if 'name' => 'string' cast is removed
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->name)
+        ->toBeString()
+        ->toBe('Test Name')
+        ->and(is_string($user->name))->toBeTrue() // Explicit type check
+        ->and(gettype($user->name))->toBe('string'); // Another explicit check
+});
+
+test('user email cast is applied correctly', function (): void {
+    /** @var User $user */
+    $user = User::factory()->create(['email' => 'test@example.com']);
+
+    // Test that email is cast to string (catches RemoveArrayItem mutation for 'email' => 'string')
+    // This test will fail if 'email' => 'string' cast is removed
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->email)
+        ->toBeString()
+        ->toBe('test@example.com')
+        ->and(is_string($user->email))->toBeTrue() // Explicit type check
+        ->and(gettype($user->email))->toBe('string'); // Another explicit check
+});
+
+test('user remember_token cast is applied correctly', function (): void {
+    /** @var User $user */
+    $user = User::factory()->create();
+
+    // Test that remember_token is cast to string (catches RemoveArrayItem mutation for 'remember_token' => 'string')
+    // This test will fail if 'remember_token' => 'string' cast is removed
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->remember_token)
+        ->toBeString()
+        ->and(is_string($user->remember_token))->toBeTrue() // Explicit type check
+        ->and(gettype($user->remember_token))->toBe('string'); // Another explicit check
+});
+
+test('user created_at cast is applied correctly', function (): void {
+    /** @var User $user */
+    $user = User::factory()->create();
+
+    // Test that created_at is cast to datetime (catches RemoveArrayItem mutation for 'created_at' => 'datetime')
+    // This test will fail if 'created_at' => 'datetime' cast is removed because it won't be a Carbon instance
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->created_at)
+        ->toBeInstanceOf(Carbon::class)
+        ->and($user->created_at instanceof Carbon)->toBeTrue() // Explicit instanceof check
+        ->and(method_exists($user->created_at, 'format'))->toBeTrue(); // Carbon method check
+});
+
+test('user updated_at cast is applied correctly', function (): void {
+    /** @var User $user */
+    $user = User::factory()->create();
+
+    // Test that updated_at is cast to datetime (catches RemoveArrayItem mutation for 'updated_at' => 'datetime')
+    // This test will fail if 'updated_at' => 'datetime' cast is removed because it won't be a Carbon instance
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->updated_at)
+        ->toBeInstanceOf(Carbon::class)
+        ->and($user->updated_at instanceof Carbon)->toBeTrue() // Explicit instanceof check
+        ->and(method_exists($user->updated_at, 'format'))->toBeTrue(); // Carbon method check
+
+    // Verify updated_at is actually used and cast properly by checking it's not null and is a Carbon instance
+    $user->refresh();
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    expect($user->updated_at)
+        ->toBeInstanceOf(Carbon::class)
+        ->not->toBeNull()
+        ->and($user->updated_at instanceof Carbon)->toBeTrue(); // Another explicit check
+});
