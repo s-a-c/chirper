@@ -13,6 +13,8 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
+covers(User::class);
+
 test('user has fillable attributes', function (): void {
     /** @var User $user */
     $user = User::factory()->make();

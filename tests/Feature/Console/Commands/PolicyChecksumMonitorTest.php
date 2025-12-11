@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\File;
 
 use function Pest\Laravel\artisan;
 
+covers(PolicyChecksumMonitor::class);
+
 test('policy checksum monitor command executes', function (): void {
     // Ensure the policy check script exists
     $scriptPath = base_path('scripts/policy-check.php');

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use function Pest\Laravel\artisan;
 
+covers(PlatformValidateProfiles::class);
+
 test('platform validate profiles command runs successfully', function (): void {
     artisan(PlatformValidateProfiles::class)
         ->expectsOutput('Validating platform environment profiles...')
