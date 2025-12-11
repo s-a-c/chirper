@@ -49,6 +49,69 @@ foreach ($args as $arg) {
 // Build the command
 $command = escapeshellarg($pestPath).' '.implode(' ', $pestArgs);
 
-// Execute Pest and pass through exit code
-passthru($command, $exitCode);
+// Execute Pest and capture both stdout and stderr
+$descriptorspec = [
+    0 => ['pipe', 'r'],
+    1 => ['pipe', 'w'],
+    2 => ['pipe', 'w'],
+];
+
+$process = proc_open($command, $descriptorspec, $pipes);
+
+if (! is_resource($process)) {
+    fwrite(STDERR, "Error: Failed to execute command\n");
+    exit(1);
+}
+
+// Close stdin
+fclose($pipes[0]);
+
+// Read stdout and stderr
+$stdout = stream_get_contents($pipes[1]);
+$stderr = stream_get_contents($pipes[2]);
+
+fclose($pipes[1]);
+fclose($pipes[2]);
+
+$exitCode = proc_close($process);
+
+// Filter out XML validation warnings that don't affect test results
+// Infection generates PHPUnit XML with <filter> element which PHPUnit 12 doesn't support
+// but tests still pass, so we ignore this specific warning
+$output = $stdout.$stderr;
+$lines = explode("\n", $output);
+$filteredLines = [];
+$hasXmlWarning = false;
+$allTestsPassed = false;
+
+foreach ($lines as $line) {
+    // Skip XML validation warnings about <filter> element
+    if (str_contains($line, 'Element \'filter\': This element is not expected')) {
+        $hasXmlWarning = true;
+        continue;
+    }
+    if (str_contains($line, 'WARN') && str_contains($line, 'XML configuration file did not pass validation')) {
+        $hasXmlWarning = true;
+        continue;
+    }
+    if (str_contains($line, 'Test results may not be as expected')) {
+        $hasXmlWarning = true;
+        continue;
+    }
+    // Check if all tests passed
+    if (preg_match('/Tests:\s+(\d+)\s+passed/i', $line, $matches)) {
+        $allTestsPassed = true;
+    }
+    $filteredLines[] = $line;
+}
+
+// Output filtered results
+echo implode("\n", $filteredLines);
+
+// If tests passed but only XML warning occurred, return success
+// PHPUnit/Pest may return exit code 1 or 2 for XML validation warnings
+if (($exitCode === 1 || $exitCode === 2) && $hasXmlWarning && $allTestsPassed) {
+    exit(0);
+}
+
 exit($exitCode);

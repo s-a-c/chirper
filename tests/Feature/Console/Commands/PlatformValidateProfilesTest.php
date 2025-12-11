@@ -47,7 +47,7 @@ test('platform validate profiles command handles database connection failure', f
     // Mock DB facade to throw exception on getPdo() call
     // This tests lines 49-53 (the catch block for database connection failure)
     $mockConnection = Mockery::mock();
-    $mockConnection->shouldReceive('getPdo')->once()->andThrow(new \Exception('Database connection failed'));
+    $mockConnection->shouldReceive('getPdo')->once()->andThrow(new Exception('Database connection failed'));
 
     DB::shouldReceive('connection')->once()->andReturn($mockConnection);
 
@@ -63,11 +63,11 @@ test('platform validate profiles command handles migrations table exception', fu
     // Mock DB::table('migrations') to throw exception
     // This tests lines 67-68 (the catch block for migrations table check)
     DB::shouldReceive('connection')->andReturnSelf();
-    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(\PDO::class));
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(PDO::class));
     DB::shouldReceive('table')
         ->with('migrations')
         ->once()
-        ->andThrow(new \Exception('Table not found'));
+        ->andThrow(new Exception('Table not found'));
 
     artisan(PlatformValidateProfiles::class)
         ->expectsOutputToContain('Migrations: Could not check migrations table')
@@ -80,14 +80,12 @@ test('platform validate profiles command handles users table exception', functio
     // Mock DB::table('users') to throw exception
     // This tests lines 79-80 (the catch block for users table check)
     DB::shouldReceive('connection')->andReturnSelf();
-    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(\PDO::class));
-    DB::shouldReceive('table')
-        ->with('migrations')
-        ->andReturnSelf();
+    DB::shouldReceive('getPdo')->andReturn(Mockery::mock(PDO::class));
+    DB::shouldReceive('table')->with('migrations')->andReturnSelf();
     DB::shouldReceive('table')
         ->with('users')
         ->once()
-        ->andThrow(new \Exception('Table not found'));
+        ->andThrow(new Exception('Table not found'));
     DB::shouldReceive('count')->andReturn(0);
 
     artisan(PlatformValidateProfiles::class)
