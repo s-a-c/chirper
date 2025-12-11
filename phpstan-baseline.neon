@@ -75,7 +75,7 @@ parameters:
         -
             rawMessage: 'Call to an undefined method PHPUnit\Framework\TestCase::artisan().'
             identifier: method.notFound
-            count: 3
+            count: 4
             path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
 
         -
@@ -87,7 +87,7 @@ parameters:
         -
             rawMessage: 'Cannot call method expectsOutputToContain() on Illuminate\Testing\PendingCommand|int.'
             identifier: method.nonObject
-            count: 4
+            count: 5
             path: tests/Feature/Console/Commands/PlatformValidateProfilesTest.php
 
         -
