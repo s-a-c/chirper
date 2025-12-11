@@ -316,6 +316,7 @@
         ],
         "test:arch": [
             "php -r \"\\$banner = shell_exec('figlet -w 120 -k -f standard Architecture\\ Tests 2>/dev/null') ?: shell_exec('figlet Architecture\\ Tests 2>/dev/null') ?: 'Architecture Tests' . PHP_EOL; echo chr(27) . '[1;36m' . \\$banner . chr(27) . '[0m' . PHP_EOL;\"",
+            "command -v mago >/dev/null 2>&1 && mago guard || (echo 'Skipping mago guard (mago not installed)' && exit 0)",
             "php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" -d memory_limit=1G vendor/bin/pest --testsuite=Arch"
         ],
         "test:browser": [
