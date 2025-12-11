@@ -18,27 +18,21 @@ test('platform validate profiles command shows migration count when migrations e
     // Run migrations first to ensure migrations table exists
     $this->artisan('migrate')->assertSuccessful();
 
-    artisan(PlatformValidateProfiles::class)
-        ->expectsOutputToContain('Migrations:')
-        ->assertSuccessful();
+    artisan(PlatformValidateProfiles::class)->expectsOutputToContain('Migrations:')->assertSuccessful();
 });
 
 test('platform validate profiles command shows user count when users exist', function (): void {
-    artisan(PlatformValidateProfiles::class)
-        ->expectsOutputToContain('Seeders:')
-        ->assertSuccessful();
+    artisan(PlatformValidateProfiles::class)->expectsOutputToContain('Seeders:')->assertSuccessful();
 });
 
 test('platform validate profiles command shows user count message when users exist', function (): void {
     // Ensure database is migrated
     $this->artisan('migrate')->assertSuccessful();
-    
-    // Create a user to ensure the "users found" path is hit (line 72)
-    \App\Models\User::factory()->create();
 
-    artisan(PlatformValidateProfiles::class)
-        ->expectsOutputToContain('Seeders:')
-        ->assertSuccessful();
+    // Create a user to ensure the "users found" path is hit (line 72)
+    App\Models\User::factory()->create();
+
+    artisan(PlatformValidateProfiles::class)->expectsOutputToContain('Seeders:')->assertSuccessful();
 });
 
 test('platform validate profiles command handles --all option', function (): void {
@@ -48,3 +42,22 @@ test('platform validate profiles command handles --all option', function (): voi
         ->assertSuccessful();
 });
 
+test('platform validate profiles command handles database connection failure', function (): void {
+    // Mock DB facade to throw exception on getPdo() call
+    // This tests lines 49-53 (the catch block for database connection failure)
+    $mockConnection = Mockery::mock();
+    $mockConnection->shouldReceive('getPdo')
+        ->once()
+        ->andThrow(new \Exception('Database connection failed'));
+
+    DB::shouldReceive('connection')
+        ->once()
+        ->andReturn($mockConnection);
+
+    artisan(PlatformValidateProfiles::class)
+        ->expectsOutput('✗ Database connection: FAILED')
+        ->expectsOutputToContain('Database connection failed')
+        ->assertFailed();
+
+    Mockery::close();
+});
