@@ -76,15 +76,16 @@ test('user email verified at is cast to datetime', function (): void {
     // This test will fail if 'email_verified_at' => 'datetime' cast is removed because it won't be a Carbon instance
     // Test Carbon-specific methods that would fail without the cast
     /** @psalm-suppress UndefinedMagicPropertyFetch */
-    expect($user->email_verified_at)
+    /** @var Carbon $emailVerifiedAt */
+    $emailVerifiedAt = $user->email_verified_at;
+    expect($emailVerifiedAt)
         ->toBeInstanceOf(Carbon::class)
-        ->and($user->email_verified_at instanceof Carbon)
+        /** @phpstan-ignore-next-line argument.type */
+        ->and(method_exists($emailVerifiedAt, 'format'))
         ->toBeTrue()
-        ->and(method_exists($user->email_verified_at, 'format'))
-        ->toBeTrue()
-        ->and($user->email_verified_at->format('Y-m-d H:i:s'))
+        ->and($emailVerifiedAt->format('Y-m-d H:i:s'))
         ->toBeString() // Carbon method requires Carbon instance
-        ->and($user->email_verified_at->isPast())
+        ->and($emailVerifiedAt->isPast())
         ->toBeTrue(); // Carbon method requires Carbon instance
 });
 
@@ -414,15 +415,18 @@ test('user id cast is applied correctly', function (): void {
     /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->id)
         ->toBeInt()
-        ->and(is_int($user->id))
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
+        ->and(is_int($user->id)) // Intentional redundant check for mutation testing
         ->toBeTrue()
         ->and(gettype($user->id))
         ->toBe('integer')
         ->and(($user->id + 1) > $user->id)
         ->toBeTrue() // Arithmetic operation requires integer
-        ->and(is_int($user->id * 2))
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
+        ->and(is_int($user->id * 2)) // Intentional redundant check for mutation testing
         ->toBeTrue() // Multiplication requires integer
-        ->and($user->id === (int) $user->id)
+        /** @phpstan-ignore-next-line cast.useless */
+        ->and($user->id === (int) $user->id) // Intentional cast for mutation testing
         ->toBeTrue(); // Strict comparison requires integer
 });
 
@@ -437,7 +441,8 @@ test('user name cast is applied correctly', function (): void {
     expect($user->name)
         ->toBeString()
         ->toBe('Test Name')
-        ->and(is_string($user->name))
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
+        ->and(is_string($user->name)) // Intentional redundant check for mutation testing
         ->toBeTrue()
         ->and(gettype($user->name))
         ->toBe('string')
@@ -458,12 +463,13 @@ test('user email cast is applied correctly', function (): void {
     expect($user->email)
         ->toBeString()
         ->toBe('test@example.com')
-        ->and(is_string($user->email))
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
+        ->and(is_string($user->email)) // Intentional redundant check for mutation testing
         ->toBeTrue()
         ->and(gettype($user->email))
         ->toBe('string')
         ->and(filter_var($user->email, FILTER_VALIDATE_EMAIL))
-        ->not->toBeFalse()->and(str_contains($user->email, '@'))->toBeTrue(); // String function requires string type // String function requires string type
+        ->not->toBeFalse()->and(str_contains($user->email, '@'))->toBeTrue(); // String function requires string type
 });
 
 test('user remember_token cast is applied correctly', function (): void {
@@ -476,7 +482,8 @@ test('user remember_token cast is applied correctly', function (): void {
     /** @psalm-suppress UndefinedMagicPropertyFetch */
     expect($user->remember_token)
         ->toBeString()
-        ->and(is_string($user->remember_token))
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
+        ->and(is_string($user->remember_token)) // Intentional redundant check for mutation testing
         ->toBeTrue()
         ->and(gettype($user->remember_token))
         ->toBe('string')
@@ -494,19 +501,20 @@ test('user created_at cast is applied correctly', function (): void {
     // This test will fail if 'created_at' => 'datetime' cast is removed because it won't be a Carbon instance
     // Test Carbon-specific methods and properties that would fail without the cast
     /** @psalm-suppress UndefinedMagicPropertyFetch */
-    expect($user->created_at)
+    /** @var Carbon $createdAt */
+    $createdAt = $user->created_at;
+    expect($createdAt)
         ->toBeInstanceOf(Carbon::class)
-        ->and($user->created_at instanceof Carbon)
+        /** @phpstan-ignore-next-line argument.type */
+        ->and(method_exists($createdAt, 'format'))
         ->toBeTrue()
-        ->and(method_exists($user->created_at, 'format'))
-        ->toBeTrue()
-        ->and($user->created_at->format('Y-m-d'))
+        ->and($createdAt->format('Y-m-d'))
         ->toBeString() // Carbon method requires Carbon instance
-        ->and($user->created_at->isPast())
+        ->and($createdAt->isPast())
         ->toBeTrue() // Carbon method requires Carbon instance
-        ->and($user->created_at->timestamp)
+        ->and($createdAt->timestamp)
         ->toBeInt() // Carbon property requires Carbon instance
-        ->and($user->created_at->year)
+        ->and($createdAt->year)
         ->toBeInt(); // Carbon property requires Carbon instance
 });
 
@@ -518,25 +526,24 @@ test('user updated_at cast is applied correctly', function (): void {
     // This test will fail if 'updated_at' => 'datetime' cast is removed because it won't be a Carbon instance
     // Test Carbon-specific methods that would fail without the cast
     /** @psalm-suppress UndefinedMagicPropertyFetch */
-    expect($user->updated_at)
+    /** @var Carbon $updatedAt */
+    $updatedAt = $user->updated_at;
+    expect($updatedAt)
         ->toBeInstanceOf(Carbon::class)
-        ->and($user->updated_at instanceof Carbon)
+        /** @phpstan-ignore-next-line argument.type */
+        ->and(method_exists($updatedAt, 'format'))
         ->toBeTrue()
-        ->and(method_exists($user->updated_at, 'format'))
-        ->toBeTrue()
-        ->and($user->updated_at->format('Y-m-d'))
+        ->and($updatedAt->format('Y-m-d'))
         ->toBeString() // Carbon method requires Carbon instance
-        ->and($user->updated_at->isPast())
+        ->and($updatedAt->isPast())
         ->toBeTrue() // Carbon method requires Carbon instance
-        ->and($user->updated_at->timestamp)
+        ->and($updatedAt->timestamp)
         ->toBeInt(); // Carbon property requires Carbon instance
 
     // Verify updated_at is actually used and cast properly by checking it's not null and is a Carbon instance
     $user->refresh();
     /** @psalm-suppress UndefinedMagicPropertyFetch */
-    expect($user->updated_at)
-        ->toBeInstanceOf(Carbon::class)
-        ->not->toBeNull()->and(
-            $user->updated_at instanceof Carbon,
-        )->toBeTrue()->and($user->updated_at->diffForHumans())->toBeString(); // Carbon method requires Carbon instance
+    /** @var Carbon $refreshedUpdatedAt */
+    $refreshedUpdatedAt = $user->updated_at;
+    expect($refreshedUpdatedAt)->toBeInstanceOf(Carbon::class)->and($refreshedUpdatedAt->diffForHumans())->toBeString(); // Carbon method requires Carbon instance
 });
