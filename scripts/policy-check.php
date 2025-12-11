@@ -424,7 +424,8 @@ final class PolicyCheck
 
         $dirs = ['.', 'app', 'config', 'docs', 'tests', 'scripts', '.github'];
         $allowExt = ['php', 'md', 'yml', 'yaml', 'json', 'ts', 'tsx'];
-        $deny = '#^(vendor|node_modules|storage|public|dist|build|coverage|reports/rector/cache)/#';
+        // Pattern handles both relative paths (vendor/...) and ./vendor/... format (seen in CI)
+        $deny = '#^\.?/?(vendor|node_modules|storage|public|dist|build|coverage|reports/rector/cache)/#';
 
         $files = [];
         foreach ($dirs as $d) {

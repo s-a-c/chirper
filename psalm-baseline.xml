@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="dev-master@11a4015b41c05bdf667f1d093e15f51c4ea3e8f9">
+<files psalm-version="dev-master@e66308f7b3f539704639aca7c8e80aa699ff8afe">
   <file src="config/cache.php">
-    <DuplicateFunction>
-      <code><![CDATA[function env(string $key, mixed $defaultValue = null): mixed]]></code>
-    </DuplicateFunction>
     <MixedArgument>
       <code><![CDATA[env('APP_NAME', 'laravel')]]></code>
     </MixedArgument>
@@ -63,6 +60,57 @@
       <code><![CDATA[name]]></code>
     </UncaughtThrowInGlobalScope>
   </file>
+  <file src="tests/Feature/Console/Commands/PlatformValidateProfilesTest.php">
+    <InvalidScope>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+    </InvalidScope>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[expectsOutput]]></code>
+      <code><![CDATA[expectsOutput]]></code>
+      <code><![CDATA[expectsOutput]]></code>
+      <code><![CDATA[expectsOutput]]></code>
+      <code><![CDATA[expectsOutput]]></code>
+      <code><![CDATA[expectsOutputToContain]]></code>
+      <code><![CDATA[expectsOutputToContain]]></code>
+      <code><![CDATA[expectsOutputToContain]]></code>
+    </PossiblyInvalidMethodCall>
+  </file>
+  <file src="tests/Feature/Console/Commands/PolicyChecksumMonitorTest.php">
+    <InvalidScope>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+    </InvalidScope>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[expectsOutputToContain]]></code>
+    </PossiblyInvalidMethodCall>
+  </file>
+  <file src="tests/Feature/Routes/ConsoleRoutesTest.php">
+    <InternalMethod>
+      <code><![CDATA[toHaveKey]]></code>
+    </InternalMethod>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[assertSuccessful]]></code>
+      <code><![CDATA[expectsOutputToContain]]></code>
+    </PossiblyInvalidMethodCall>
+  </file>
+  <file src="tests/Feature/Routes/WebRoutesTest.php">
+    <InternalMethod>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toContain]]></code>
+    </InternalMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[toBeNull]]></code>
+      <code><![CDATA[toBeNull]]></code>
+    </UndefinedMagicMethod>
+  </file>
   <file src="tests/Pest.php">
     <InternalMethod>
       <code><![CDATA[extend]]></code>
@@ -86,17 +134,54 @@
       <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBeArray]]></code>
       <code><![CDATA[toBeArray]]></code>
       <code><![CDATA[toBeFalse]]></code>
+      <code><![CDATA[toBeGreaterThan]]></code>
+      <code><![CDATA[toBeGreaterThan]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
       <code><![CDATA[toBeInstanceOf]]></code>
+      <code><![CDATA[toBeInstanceOf]]></code>
+      <code><![CDATA[toBeInstanceOf]]></code>
+      <code><![CDATA[toBeInstanceOf]]></code>
+      <code><![CDATA[toBeInt]]></code>
+      <code><![CDATA[toBeInt]]></code>
+      <code><![CDATA[toBeInt]]></code>
+      <code><![CDATA[toBeInt]]></code>
       <code><![CDATA[toBeNull]]></code>
       <code><![CDATA[toBeNull]]></code>
       <code><![CDATA[toBeNull]]></code>
       <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeString]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
@@ -120,9 +205,14 @@
     </InvalidArgument>
     <MixedArgument>
       <code><![CDATA[$fresh->password]]></code>
+      <code><![CDATA[$user->email]]></code>
+      <code><![CDATA[$user->name]]></code>
+      <code><![CDATA[$user->name]]></code>
       <code><![CDATA[$user->password]]></code>
       <code><![CDATA[$user->password]]></code>
       <code><![CDATA[$user->password]]></code>
+      <code><![CDATA[$user->remember_token]]></code>
+      <code><![CDATA[$user->remember_token]]></code>
       <code><![CDATA[$user->remember_token]]></code>
     </MixedArgument>
     <MixedAssignment>
@@ -130,6 +220,7 @@
       <code><![CDATA[$userId]]></code>
     </MixedAssignment>
     <MixedMethodCall>
+      <code><![CDATA[and]]></code>
       <code><![CDATA[and]]></code>
       <code><![CDATA[and]]></code>
       <code><![CDATA[and]]></code>
@@ -159,15 +250,21 @@
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toBeTrue]]></code>
+      <code><![CDATA[toBeTrue]]></code>
       <code><![CDATA[toHaveKey]]></code>
       <code><![CDATA[toHaveKey]]></code>
       <code><![CDATA[toHaveKey]]></code>
     </MixedMethodCall>
+    <MixedOperand>
+      <code><![CDATA[$user->id]]></code>
+      <code><![CDATA[$user->id]]></code>
+    </MixedOperand>
     <UndefinedMagicMethod>
       <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBe]]></code>
       <code><![CDATA[toBe]]></code>
+      <code><![CDATA[toBeFalse]]></code>
       <code><![CDATA[toBeNull]]></code>
       <code><![CDATA[toBeNull]]></code>
       <code><![CDATA[toBeNull]]></code>
@@ -187,10 +284,12 @@
       <code><![CDATA[$found->id]]></code>
       <code><![CDATA[$found->id]]></code>
       <code><![CDATA[$user->email_verified_at]]></code>
-      <code><![CDATA[$user->email_verified_at]]></code>
       <code><![CDATA[$user->id]]></code>
       <code><![CDATA[$user->id]]></code>
       <code><![CDATA[$user->password]]></code>
     </UndefinedMagicPropertyFetch>
+    <UnusedPsalmSuppress>
+      <code><![CDATA[UndefinedMagicPropertyFetch]]></code>
+    </UnusedPsalmSuppress>
   </file>
 </files>
