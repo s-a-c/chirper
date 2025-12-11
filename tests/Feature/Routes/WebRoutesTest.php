@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 
 test('welcome route returns 200', function (): void {
-    get('/')
-        ->assertStatus(200)
-        ->assertViewIs('welcome');
+    get('/')->assertStatus(200)->assertViewIs('welcome');
 });
 
 test('welcome route is accessible', function (): void {
@@ -24,8 +22,7 @@ test('chirps index route exists and is accessible', function (): void {
     expect(route('chirps.index'))->toContain('/chirper');
     expect(Route::has('chirps.index'))->toBeTrue();
 
-    get('/chirper')
-        ->assertStatus(500); // Method not implemented yet
+    get('/chirper')->assertStatus(500); // Method not implemented yet
 });
 
 test('chirps index route is registered at /chirper path', function (): void {

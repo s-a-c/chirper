@@ -12,12 +12,9 @@ test('inspire command is registered', function (): void {
 });
 
 test('inspire command runs successfully', function (): void {
-    pestArtisan('inspire')
-        ->assertSuccessful();
+    pestArtisan('inspire')->assertSuccessful();
 });
 
 test('inspire command outputs inspiring quote', function (): void {
-    pestArtisan('inspire')
-        ->expectsOutputToContain('')
-        ->assertSuccessful();
+    pestArtisan('inspire')->expectsOutputToContain('')->assertSuccessful();
 });

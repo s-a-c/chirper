@@ -19,7 +19,7 @@ test('policy checksum monitor command executes', function (): void {
     try {
         artisan(PolicyChecksumMonitor::class);
         expect(true)->toBeTrue(); // Command executed
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $this->fail('Command threw exception: '.$e->getMessage());
     }
 });
@@ -35,7 +35,7 @@ test('policy checksum monitor command handles --strict option', function (): voi
     try {
         artisan(PolicyChecksumMonitor::class, ['--strict' => true]);
         expect(true)->toBeTrue(); // Command executed
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $this->fail('Command threw exception: '.$e->getMessage());
     }
 });
@@ -46,8 +46,7 @@ test('policy checksum monitor command handles --paths option', function (): void
         $this->markTestSkipped('Policy check script not found');
     }
 
-    artisan(PolicyChecksumMonitor::class, ['--paths' => 'app/Console/Commands'])
-        ->assertSuccessful();
+    artisan(PolicyChecksumMonitor::class, ['--paths' => 'app/Console/Commands'])->assertSuccessful();
 });
 
 test('policy checksum monitor command fails when script not found', function (): void {
@@ -60,9 +59,7 @@ test('policy checksum monitor command fails when script not found', function ():
     }
 
     try {
-        artisan(PolicyChecksumMonitor::class)
-            ->expectsOutputToContain('Policy check script not found')
-            ->assertFailed();
+        artisan(PolicyChecksumMonitor::class)->expectsOutputToContain('Policy check script not found')->assertFailed();
     } finally {
         // Restore the script
         if (File::exists($backupPath)) {

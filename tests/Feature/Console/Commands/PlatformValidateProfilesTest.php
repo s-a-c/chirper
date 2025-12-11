@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Console\Commands\PlatformValidateProfiles;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 use function Pest\Laravel\artisan;
@@ -30,7 +32,7 @@ test('platform validate profiles command shows user count message when users exi
     $this->artisan('migrate')->assertSuccessful();
 
     // Create a user to ensure the "users found" path is hit (line 72)
-    App\Models\User::factory()->create();
+    User::factory()->create();
 
     artisan(PlatformValidateProfiles::class)->expectsOutputToContain('Seeders:')->assertSuccessful();
 });
@@ -46,13 +48,9 @@ test('platform validate profiles command handles database connection failure', f
     // Mock DB facade to throw exception on getPdo() call
     // This tests lines 49-53 (the catch block for database connection failure)
     $mockConnection = Mockery::mock();
-    $mockConnection->shouldReceive('getPdo')
-        ->once()
-        ->andThrow(new \Exception('Database connection failed'));
+    $mockConnection->shouldReceive('getPdo')->once()->andThrow(new Exception('Database connection failed'));
 
-    DB::shouldReceive('connection')
-        ->once()
-        ->andReturn($mockConnection);
+    DB::shouldReceive('connection')->once()->andReturn($mockConnection);
 
     artisan(PlatformValidateProfiles::class)
         ->expectsOutput('✗ Database connection: FAILED')
