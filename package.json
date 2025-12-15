@@ -8,7 +8,7 @@
     },
     "devDependencies": {
         "@catppuccin/tailwindcss": "^1.0.0",
-        "@tailwindcss/vite": "^4.1.17",
+        "@tailwindcss/vite": "^4.1.18",
         "@vitest/browser-playwright": "^4.0.15",
         "@vitest/coverage-v8": "^4.0.15",
         "@vitest/ui": "^4.0.15",
